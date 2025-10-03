@@ -964,6 +964,8 @@ version = "0.1.0"
 dependencies = [
  "anchor-lang",
  "anchor-spl",
+ "borsh 0.10.4",
+ "streamflow-sdk",
 ]
 
 [[package]]
@@ -2257,6 +2259,15 @@ dependencies = [
  "spl-discriminator",
  "spl-pod",
  "spl-program-error",
+]
+
+[[package]]
+name = "streamflow-sdk"
+version = "0.10.0"
+source = "git+https://github.com/streamflow-finance/rust-sdk#145bd770c7ccbc011c8d24ea565dffbcdd4c2626"
+dependencies = [
+ "anchor-lang",
+ "anchor-spl",
 ]
 
 [[package]]

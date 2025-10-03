@@ -1,8 +1,10 @@
 use anchor_lang::prelude::*;
+use anchor_spl::token::{self, Token, TokenAccount};
 use crate::{
     constants::*,
     errors::FeeRoutingError,
     events::{QuoteFeesClaimed, InvestorPayoutPage, CreatorPayoutDayClosed},
+    meteora,
     state::{Policy, Progress},
 };
 
@@ -34,22 +36,82 @@ pub struct DistributeFees<'info> {
     /// CHECK: Vault reference
     pub vault: AccountInfo<'info>,
 
-    /// CHECK: Honorary position
+    // ===== Meteora CP-AMM Fee Claiming Accounts =====
+
+    /// Pool authority (constant address)
+    /// CHECK: Must match pool_authority()
+    pub pool_authority: AccountInfo<'info>,
+
+    /// The CP-AMM pool
+    /// CHECK: Validated by Meteora program
+    pub pool: AccountInfo<'info>,
+
+    /// Position data account
+    /// CHECK: Validated by Meteora program
+    #[account(mut)]
     pub position: AccountInfo<'info>,
 
-    /// CHECK: Program quote treasury ATA
-    #[account(mut)]
-    pub treasury: AccountInfo<'info>,
+    /// Position NFT token account
+    /// CHECK: Validated by Meteora program
+    pub position_nft_account: AccountInfo<'info>,
 
-    /// CHECK: Creator quote ATA
+    /// Program's treasury token A account (destination for claimed fees)
+    /// CHECK: Token account owned by program
+    #[account(mut)]
+    pub treasury_token_a: AccountInfo<'info>,
+
+    /// Program's treasury token B account (destination for claimed fees)
+    /// CHECK: Token account owned by program
+    #[account(mut)]
+    pub treasury_token_b: AccountInfo<'info>,
+
+    /// Pool's token A vault (source)
+    /// CHECK: Validated by Meteora program
+    #[account(mut)]
+    pub pool_token_a_vault: AccountInfo<'info>,
+
+    /// Pool's token B vault (source)
+    /// CHECK: Validated by Meteora program
+    #[account(mut)]
+    pub pool_token_b_vault: AccountInfo<'info>,
+
+    /// Token A mint
+    /// CHECK: Token mint
+    pub token_a_mint: AccountInfo<'info>,
+
+    /// Token B mint (quote mint)
+    /// CHECK: Should match policy.quote_mint
+    pub token_b_mint: AccountInfo<'info>,
+
+    /// Token A program
+    /// CHECK: Token program
+    pub token_a_program: AccountInfo<'info>,
+
+    /// Token B program
+    /// CHECK: Token program
+    pub token_b_program: AccountInfo<'info>,
+
+    /// Event authority for Meteora program
+    /// CHECK: Event authority PDA
+    pub event_authority: AccountInfo<'info>,
+
+    /// Meteora CP-AMM program
+    /// CHECK: Must match cp_amm_program_id()
+    pub cp_amm_program: AccountInfo<'info>,
+
+    // ===== Other Accounts =====
+
+    /// Creator quote ATA (for remainder distribution)
+    /// CHECK: Creator's token account
     #[account(mut)]
     pub creator_ata: AccountInfo<'info>,
 
-    /// CHECK: Meteora CP-AMM program
-    pub cp_amm_program: AccountInfo<'info>,
-
-    /// CHECK: Streamflow program
+    /// Streamflow program
+    /// CHECK: Streamflow program ID
     pub streamflow_program: AccountInfo<'info>,
+
+    /// Token program for transfers
+    pub token_program: Program<'info, Token>,
 
     // Remaining accounts:
     // - Investor accounts (alternating: stream_pubkey, investor_ata)
@@ -84,49 +146,106 @@ pub fn distribute_fees_handler(ctx: Context<DistributeFees>, page_index: u16) ->
 
     // === 2. CLAIM FEES FROM HONORARY POSITION ===
     // Only claim on first page to get fresh fee total
-    let claimed_fees = if page_index == 0 {
-        // TODO: CPI call to Meteora CP-AMM claim_position_fee
-        // let cpi_accounts = MeteoraClaimFee {
-        //     position: ctx.accounts.position.to_account_info(),
-        //     position_owner: ctx.accounts.position_owner_pda.to_account_info(),
-        //     treasury: ctx.accounts.treasury.to_account_info(),
-        //     quote_mint: policy.quote_mint.to_account_info(),
-        //     ...
-        // };
-        // let seeds = &[
-        //     VAULT_SEED,
-        //     ctx.accounts.vault.key().as_ref(),
-        //     INVESTOR_FEE_POS_OWNER_SEED,
-        //     &[bump]
-        // ];
-        // let signer_seeds = &[&seeds[..]];
-        // let cpi_ctx = CpiContext::new_with_signer(
-        //     ctx.accounts.cp_amm_program.to_account_info(),
-        //     cpi_accounts,
-        //     signer_seeds
-        // );
-        // let claimed = meteora_cp_amm::cpi::claim_fee(cpi_ctx)?;
+    let (claimed_token_a, claimed_token_b) = if page_index == 0 {
+        // Get balances before claiming
+        let balance_a_before = {
+            let data = ctx.accounts.treasury_token_a.try_borrow_data()?;
+            let account = TokenAccount::try_deserialize(&mut &data[..])?;
+            account.amount
+        };
+        let balance_b_before = {
+            let data = ctx.accounts.treasury_token_b.try_borrow_data()?;
+            let account = TokenAccount::try_deserialize(&mut &data[..])?;
+            account.amount
+        };
 
-        // For now, simulate by reading treasury balance
-        // In production, this would return the actual claimed amount
-        let claimed_amount = 0u64; // TODO: Get from CPI response
+        // Validate pool authority
+        require!(
+            ctx.accounts.pool_authority.key() == meteora::pool_authority(),
+            FeeRoutingError::InvalidQuoteMint // TODO: Add specific error
+        );
+
+        // Validate CP-AMM program
+        require!(
+            ctx.accounts.cp_amm_program.key() == meteora::cp_amm_program_id(),
+            FeeRoutingError::InvalidQuoteMint // TODO: Add specific error
+        );
+
+        // Build CPI accounts for claim_position_fee
+        let cpi_accounts = meteora::ClaimPositionFeeCPI {
+            pool_authority: ctx.accounts.pool_authority.to_account_info(),
+            pool: ctx.accounts.pool.to_account_info(),
+            position: ctx.accounts.position.to_account_info(),
+            token_a_account: ctx.accounts.treasury_token_a.to_account_info(),
+            token_b_account: ctx.accounts.treasury_token_b.to_account_info(),
+            token_a_vault: ctx.accounts.pool_token_a_vault.to_account_info(),
+            token_b_vault: ctx.accounts.pool_token_b_vault.to_account_info(),
+            token_a_mint: ctx.accounts.token_a_mint.to_account_info(),
+            token_b_mint: ctx.accounts.token_b_mint.to_account_info(),
+            position_nft_account: ctx.accounts.position_nft_account.to_account_info(),
+            owner: ctx.accounts.position_owner_pda.to_account_info(),
+            token_a_program: ctx.accounts.token_a_program.to_account_info(),
+            token_b_program: ctx.accounts.token_b_program.to_account_info(),
+            event_authority: ctx.accounts.event_authority.to_account_info(),
+            program: ctx.accounts.cp_amm_program.to_account_info(),
+        };
+
+        // Get PDA bump for signing
+        let bump = ctx.bumps.position_owner_pda;
+        let vault_key = ctx.accounts.vault.key();
+        let signer_seeds: &[&[&[u8]]] = &[&[
+            VAULT_SEED,
+            vault_key.as_ref(),
+            INVESTOR_FEE_POS_OWNER_SEED,
+            &[bump],
+        ]];
+
+        // Claim fees via CPI
+        meteora::claim_position_fee_cpi(&cpi_accounts, signer_seeds)?;
+
+        // Get balances after claiming (CPI updates the accounts)
+        let balance_a_after = {
+            let data = ctx.accounts.treasury_token_a.try_borrow_data()?;
+            let account = TokenAccount::try_deserialize(&mut &data[..])?;
+            account.amount
+        };
+        let balance_b_after = {
+            let data = ctx.accounts.treasury_token_b.try_borrow_data()?;
+            let account = TokenAccount::try_deserialize(&mut &data[..])?;
+            account.amount
+        };
+
+        // Calculate claimed amounts
+        let claimed_a = balance_a_after.checked_sub(balance_a_before)
+            .ok_or(FeeRoutingError::ArithmeticOverflow)?;
+        let claimed_b = balance_b_after.checked_sub(balance_b_before)
+            .ok_or(FeeRoutingError::ArithmeticOverflow)?;
 
         emit!(QuoteFeesClaimed {
-            amount: claimed_amount,
+            amount: claimed_b, // Token B is quote token
             timestamp: now,
             distribution_day: progress.current_day,
         });
 
-        claimed_amount
+        msg!("Fees claimed - Token A: {}, Token B (quote): {}", claimed_a, claimed_b);
+
+        (claimed_a, claimed_b)
     } else {
         // Subsequent pages don't claim, just distribute remaining
-        0
+        (0, 0)
     };
 
     // Add carry-over from previous cycles
-    let total_available = claimed_fees
+    // We only distribute quote token (token B), token A is held or swapped separately
+    let total_available = claimed_token_b
         .checked_add(progress.carry_over_lamports)
         .ok_or(FeeRoutingError::ArithmeticOverflow)?;
+
+    // TODO: Handle token A (base token) - options:
+    // 1. Swap to token B via DEX
+    // 2. Hold indefinitely
+    // 3. Send to treasury/creator
+    // For now, token A fees accumulate in treasury_token_a
 
     // === 3. PARSE INVESTOR ACCOUNTS FROM REMAINING ===
     let remaining_accounts = &ctx.remaining_accounts;
@@ -141,15 +260,32 @@ pub fn distribute_fees_handler(ctx: Context<DistributeFees>, page_index: u16) ->
 
     // Read locked amounts from Streamflow accounts
     for i in 0..investor_count {
-        let _stream_account = &remaining_accounts[i * 2];
+        let stream_account = &remaining_accounts[i * 2];
 
-        // TODO: Deserialize Streamflow stream account and extract locked amount
-        // This requires Streamflow program interface/IDL
-        // let stream = Stream::try_deserialize(&mut &stream_account.data.borrow()[..])?;
-        // let locked = stream.get_locked_amount(now)?;
+        // Validate stream account owner is Streamflow program
+        require!(
+            stream_account.owner == &streamflow_sdk::id(),
+            FeeRoutingError::InvalidStreamflowAccount
+        );
 
-        // For now, placeholder - in production would read from Streamflow
-        let locked = 0u64; // TODO: Read from Streamflow account
+        // Deserialize Streamflow Contract account (no discriminator!)
+        // Using borsh deserialization directly
+        let contract_data = stream_account.try_borrow_data()?;
+        let contract = streamflow_sdk::state::Contract::try_from_slice(&contract_data)?;
+
+        // Calculate locked amount:
+        // locked = net_amount_deposited - (vested_available + cliff_available)
+        let now_u64 = now as u64; // Streamflow methods expect u64 timestamp
+        let vested = contract.vested_available(now_u64);
+        let cliff = contract.cliff_available(now_u64);
+
+        let unlocked = vested
+            .checked_add(cliff)
+            .ok_or(FeeRoutingError::ArithmeticOverflow)?;
+
+        let locked = contract.ix.net_amount_deposited
+            .checked_sub(unlocked)
+            .unwrap_or(0); // If fully vested, locked = 0
 
         locked_amounts.push(locked);
         total_locked = total_locked

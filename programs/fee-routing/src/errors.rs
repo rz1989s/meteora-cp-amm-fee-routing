@@ -31,4 +31,7 @@ pub enum FeeRoutingError {
 
     #[msg("Creator payout already sent for this day")]
     CreatorPayoutAlreadySent,
+
+    #[msg("Invalid Streamflow account provided")]
+    InvalidStreamflowAccount,
 }

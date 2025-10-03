@@ -7,6 +7,7 @@ pub mod errors;
 pub mod events;
 pub mod instructions;
 pub mod math;
+pub mod meteora;
 pub mod state;
 
 use instructions::*;
