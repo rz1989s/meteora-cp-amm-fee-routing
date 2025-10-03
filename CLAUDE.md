@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Permissionless fee routing Anchor program for Meteora DLMM v2 pools. Creates an "honorary" quote-only LP position that accrues fees, then distributes them to investors (pro-rata based on Streamflow locked amounts) via a 24-hour permissionless crank, with remainder going to creators.
+Permissionless fee routing Anchor program for Meteora DAMM v2 (Constant Product AMM) pools. Creates an "honorary" NFT-based LP position that accrues fees, then distributes them to investors (pro-rata based on Streamflow locked amounts) via a 24-hour permissionless crank, with remainder going to creators.
 
 **Program ID**: `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS`
 
@@ -25,7 +25,7 @@ anchor test --provider.cluster devnet
 
 ### Two-Instruction Design
 
-1. **`initialize_position`**: Creates quote-only honorary DLMM position owned by program PDA
+1. **`initialize_position`**: Creates NFT-based honorary DAMM v2 position owned by program PDA
 2. **`distribute_fees`**: Permissionless 24h crank that claims fees and distributes (supports pagination)
 
 ### State Accounts

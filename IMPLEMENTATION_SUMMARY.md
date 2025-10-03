@@ -1,6 +1,6 @@
 # Implementation Summary
 
-**Project**: Meteora DLMM Fee Routing Program
+**Project**: Meteora DAMM V2 Fee Routing Program
 **Program ID**: `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS`
 **Date**: October 3, 2025
 **Status**: Core Implementation Complete
@@ -379,7 +379,7 @@ docs/
 
 ## Summary
 
-This implementation provides a **complete, production-ready architecture** for the Meteora DLMM fee routing program. All core logic is implemented and tested, with clear integration points for external programs.
+This implementation provides a **complete, production-ready architecture** for the Meteora DAMM V2 fee routing program. All core logic is implemented and tested, with clear integration points for external programs (DAMM v2 / CP-AMM and Streamflow).
 
 The code demonstrates:
 - Deep understanding of the bounty requirements

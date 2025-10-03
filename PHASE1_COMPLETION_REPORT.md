@@ -15,19 +15,26 @@ Phase 1 research has been successfully completed. All external program interface
 
 ## Deliverables
 
-### 1. INTEGRATION_GUIDE.md (New - 600+ lines)
+### 1. INTEGRATION_GUIDE.md (New - 720+ lines, v2.0 CORRECTED)
 Comprehensive integration guide documenting:
-- Meteora DLMM position initialization interface
-- Meteora DLMM fee claiming interface
+- Meteora DAMM v2 / CP-AMM position creation interface (NFT-based)
+- Meteora DAMM v2 fee claiming interface
 - Streamflow Contract account structure
 - Step-by-step implementation instructions
 - Code examples for all integrations
 - Critical considerations and safeguards
 
+**Note**: Updated after discovering DLMM/DAMM v2 confusion. See CRITICAL_CORRECTION.md.
+
 ### 2. External Repositories Cloned
-- **Meteora DLMM SDK**: `/Users/rz/local-dev/meteora-dlmm-sdk`
+- **Meteora DAMM v2 SDK** (CORRECTED): `/Users/rz/local-dev/meteora-damm-v2-sdk`
+  - Program ID: `cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG` ✅
+  - IDL analyzed: `src/idl/cp_amm.json`
+  - Position type: NFT-based (simpler than DLMM)
+
+- **Meteora DLMM SDK** (Initially cloned by mistake): `/Users/rz/local-dev/meteora-dlmm-sdk`
   - Program ID: `LBUZKhRxPF3XUpBCjp4YzTKgLccjZhTSDM9YuVaPwxo`
-  - IDL analyzed: `idls/dlmm.json` (191KB)
+  - NOT used for this bounty (wrong program)
 
 - **Streamflow Rust SDK**: `/Users/rz/local-dev/streamflow-rust-sdk`
   - Program ID: `strmRqUCoQUgGUan5YhzUZa6KqdzwX5L6FpUxfmKg5m`
@@ -42,21 +49,22 @@ Comprehensive integration guide documenting:
 
 ## Key Findings
 
-### Meteora DLMM Integration
+### Meteora DAMM v2 / CP-AMM Integration (CORRECTED)
 
-#### Position Initialization
-- **Use**: `initialize_position_pda` instruction
-- **Accounts Required**: 9 accounts
-- **PDA Derivation**: `[b"position", lb_pair, base, lower_bin_id, width]`
-- **Key Insight**: Our program PDA serves as "base" for deterministic position creation
-- **Quote-Only**: Configure `lower_bin_id` and `width` to ensure quote-only range
+#### Position Creation
+- **Use**: `create_position` instruction (NFT-based)
+- **Accounts Required**: 12 accounts
+- **PDA Derivation**: `[b"position", position_nft_mint]`
+- **Key Insight**: Position ownership via NFT (simpler than DLMM's complex PDA)
+- **Strategy**: Generate NFT mint, create position, mint NFT to program PDA
+- **Pool Authority**: `HLnpSz9h2S4hiLQ43rnSD9XkcUThA7B8hQMKmDaiTLcC`
 
 #### Fee Claiming
-- **Use**: `claim_fee2` instruction (flexible with remaining accounts)
-- **Accounts Required**: 13+ accounts (plus bin arrays)
-- **Returns**: Claimed amounts for both token X and token Y
-- **Key Insight**: Must pass bin array accounts in remaining accounts
-- **Validation**: Token X should be 0 for quote-only position
+- **Use**: `claim_position_fee` instruction
+- **Accounts Required**: 12 accounts (no bin arrays needed)
+- **Returns**: Claimed amounts transferred directly to ATAs
+- **Key Insight**: No remaining accounts needed (simpler than DLMM)
+- **Note**: DAMM v2 accrues fees in BOTH tokens (need swap strategy for quote-only)
 
 ### Streamflow Integration
 
@@ -118,7 +126,7 @@ locked_amount = net_amount_deposited - (vested_available(now) + cliff_available(
 
 ## Critical Integration Points
 
-### 1. Position Initialization (initialize_position.rs:47-65)
+### 1. Position Creation (initialize_position.rs:47-65)
 **Before**:
 ```rust
 // TODO: Create CPI call to Meteora CP-AMM to initialize empty position
@@ -126,7 +134,14 @@ locked_amount = net_amount_deposited - (vested_available(now) + cliff_available(
 
 **After** (template ready in INTEGRATION_GUIDE.md):
 ```rust
-meteora_dlmm::cpi::initialize_position_pda(cpi_ctx, lower_bin_id, width)?;
+// Generate NFT mint keypair
+let nft_mint = Keypair::new();
+
+// CPI to create_position with program PDA as owner
+meteora_cp_amm::cpi::create_position(cpi_ctx)?;
+
+// Mint NFT to program-controlled account
+// Position now owned by program via NFT
 ```
 
 ### 2. Fee Claiming (distribute_fees.rs:88-108)
@@ -138,8 +153,14 @@ let claimed_amount = 0u64; // TODO: Get from CPI response
 
 **After** (template ready):
 ```rust
-meteora_dlmm::cpi::claim_fee2(cpi_ctx, min_bin_id, max_bin_id, remaining_accounts_info)?;
-let claimed_amount = ctx.accounts.treasury.amount;
+// CPI to claim_position_fee (no remaining accounts needed)
+meteora_cp_amm::cpi::claim_position_fee(cpi_ctx)?;
+
+// Fees transferred directly to treasury ATAs
+let claimed_token_a = ctx.accounts.treasury_token_a.amount;
+let claimed_token_b = ctx.accounts.treasury_token_b.amount;
+
+// TODO: Swap token A to token B if needed for quote-only distribution
 ```
 
 ### 3. Streamflow Reading (distribute_fees.rs:144-152)
@@ -305,12 +326,13 @@ Ready to execute with INTEGRATION_GUIDE.md as reference:
 ## Success Metrics
 
 ### Phase 1 Goals - All Achieved ✅
-- [x] Understand Meteora DLMM position creation
-- [x] Understand Meteora DLMM fee claiming
+- [x] Understand Meteora DAMM v2 / CP-AMM position creation (corrected from DLMM)
+- [x] Understand Meteora DAMM v2 fee claiming
 - [x] Understand Streamflow account structure
 - [x] Document integration requirements
 - [x] Create implementation guide
 - [x] Provide code examples
+- [x] Identify and correct DLMM/DAMM v2 confusion
 
 ### Phase 2 Goals - Next
 - [ ] Working Meteora CPI calls
@@ -329,8 +351,9 @@ Ready to execute with INTEGRATION_GUIDE.md as reference:
 - **Task Tracking**: `TASKS.md`
 
 ### External References
-- Meteora DLMM IDL: `/Users/rz/local-dev/meteora-dlmm-sdk/idls/dlmm.json`
-- Streamflow State: `/Users/rz/local-dev/streamflow-rust-sdk/programs/streamflow-sdk/src/state.rs`
+- Meteora DAMM v2 IDL: `/Users/rz/local-dev/meteora-damm-v2-sdk/src/idl/cp_amm.json` ✅
+- Streamflow State: `/Users/rz/local-dev/streamflow-rust-sdk/programs/streamflow-sdk/src/state.rs` ✅
+- Meteora DLMM SDK (wrong program): `/Users/rz/local-dev/meteora-dlmm-sdk/idls/dlmm.json` ❌
 
 ### Code Examples
 All integration examples provided in INTEGRATION_GUIDE.md:

@@ -1,10 +1,10 @@
-# Meteora DLMM V2 Fee Routing
+# Meteora DAMM V2 Fee Routing
 
-Permissionless fee routing Anchor program for Meteora DLMM v2 pools.
+Permissionless fee routing Anchor program for Meteora DAMM v2 (Constant Product AMM) pools.
 
 ## Overview
 
-This program creates an "honorary" DLMM v2 LP position that accrues fees in the quote mint only, then distributes those fees via a permissionless 24-hour crank:
+This program creates an "honorary" DAMM v2 LP position (NFT-based) that accrues fees, then distributes those fees via a permissionless 24-hour crank:
 - Investors receive fees pro-rata based on their still-locked tokens (tracked via Streamflow)
 - Creators receive the remainder after investor distributions
 
@@ -119,7 +119,7 @@ Creates the honorary fee position (quote-only) owned by program PDA.
 - `position`: Position to create
 - `quote_mint`: Quote token mint
 - `cp_amm_program`: Meteora program
-- `pool`: DLMM pool
+- `pool`: DAMM v2 / CP-AMM pool
 
 ### `distribute_fees`
 Permissionless 24h crank to claim and distribute quote fees.
@@ -205,7 +205,7 @@ MIT
 
 ## Resources
 
-- [Meteora DLMM Documentation](https://docs.meteora.ag/)
+- [Meteora DAMM V2 Documentation](https://docs.meteora.ag/)
 - [Streamflow Docs](https://docs.streamflow.finance/)
 - [Anchor Book](https://book.anchor-lang.com/)
 - [Original Bounty](https://earn.superteam.fun/listing/build-permissionless-fee-routing-anchor-program-for-meteora-dlmm-v2)

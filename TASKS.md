@@ -1,4 +1,4 @@
-# Implementation Tasks - Meteora DLMM Fee Routing
+# Implementation Tasks - Meteora DAMM V2 Fee Routing
 
 **Status**: In Progress
 **Deadline**: October 17, 2025 (~7 days remaining)
@@ -11,14 +11,15 @@
 **Research Findings Documented**: `INTEGRATION_GUIDE.md`
 
 ### Key Discoveries:
-- **Meteora DLMM**: Use `initialize_position_pda` for PDA-owned positions
-- **Meteora DLMM**: Use `claim_fee2` for flexible fee claiming
+- **Meteora DAMM v2 / CP-AMM**: Use `create_position` for NFT-based positions (corrected from DLMM)
+- **Meteora DAMM v2**: Use `claim_position_fee` for fee claiming
 - **Streamflow**: Contract struct has no discriminator, use borsh deserialization
 - **Streamflow**: Locked amount = `net_amount_deposited - (vested + cliff)`
 
 **External Programs Cloned**:
-- `/Users/rz/local-dev/meteora-dlmm-sdk` (Meteora DLMM)
-- `/Users/rz/local-dev/streamflow-rust-sdk` (Streamflow)
+- `/Users/rz/local-dev/meteora-damm-v2-sdk` (Meteora DAMM v2 / CP-AMM) ✅
+- `/Users/rz/local-dev/meteora-dlmm-sdk` (Meteora DLMM - initially cloned by mistake) ❌
+- `/Users/rz/local-dev/streamflow-rust-sdk` (Streamflow) ✅
 
 ---
 
@@ -63,9 +64,9 @@
 - [x] Add Meteora CP-AMM program accounts
 
 ### 2.2 Quote-Only Validation ✅ COMPLETE
-- [x] Research Meteora DLMM v2 pool configuration
-- [x] Implement tick range validation
-- [x] Add base token rejection logic
+- [x] Research Meteora DAMM v2 pool configuration
+- [x] Implement fee distribution strategy (both tokens)
+- [x] Add swap logic for quote-only distribution
 - [x] Write preflight validation tests
 
 ### 2.3 Position Creation via CPI ✅ COMPLETE
@@ -172,9 +173,9 @@
 
 ### 7.3 Test Data Setup ✅ COMPLETE
 - [x] Mock Streamflow stream accounts
-- [x] Mock DLMM pool with quote-only config
+- [x] Mock DAMM v2 / CP-AMM pool
 - [x] Test investor wallets and ATAs
-- [x] Mock quote token mint
+- [x] Mock quote token mints
 
 ---
 
