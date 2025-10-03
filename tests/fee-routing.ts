@@ -1,3 +1,31 @@
+/**
+ * Integration Tests - Meteora DAMM V2 Fee Routing
+ *
+ * Prerequisites:
+ * - Anchor CLI installed (`npm install -g @coral-xyz/anchor-cli`)
+ * - Local validator with cloned programs (see Anchor.toml):
+ *   - Meteora CP-AMM: cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG
+ *   - Streamflow: strmRqUCoQUgGUan5YhzUZa6KqdzwX5L6FpUxfmKg5m
+ *
+ * Running Tests:
+ * ```bash
+ * anchor test
+ * # OR with specific cluster:
+ * anchor test --provider.cluster devnet
+ * ```
+ *
+ * Test Coverage:
+ * - Position initialization with NFT-based ownership
+ * - Fee claiming via CPI to Meteora DAMM V2
+ * - Pro-rata distribution calculation
+ * - Streamflow locked amount reading
+ * - Pagination and idempotency
+ * - 24-hour time gate enforcement
+ * - Edge cases and security
+ *
+ * See TEST_PLAN.md for detailed test scenarios and expected outcomes.
+ */
+
 import * as anchor from "@coral-xyz/anchor";
 import { Program } from "@coral-xyz/anchor";
 import { FeeRouting } from "../target/types/fee_routing";

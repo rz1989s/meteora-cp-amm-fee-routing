@@ -146,7 +146,7 @@ pub fn distribute_fees_handler(ctx: Context<DistributeFees>, page_index: u16) ->
 
     // === 2. CLAIM FEES FROM HONORARY POSITION ===
     // Only claim on first page to get fresh fee total
-    let (claimed_token_a, claimed_token_b) = if page_index == 0 {
+    let (_claimed_token_a, claimed_token_b) = if page_index == 0 {
         // Get balances before claiming
         let balance_a_before = {
             let data = ctx.accounts.treasury_token_a.try_borrow_data()?;
