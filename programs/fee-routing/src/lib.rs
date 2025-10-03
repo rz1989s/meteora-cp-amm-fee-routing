@@ -6,6 +6,7 @@ pub mod constants;
 pub mod errors;
 pub mod events;
 pub mod instructions;
+pub mod math;
 pub mod state;
 
 use instructions::*;
@@ -16,7 +17,7 @@ pub mod fee_routing {
 
     /// Initialize the honorary fee position (quote-only)
     pub fn initialize_position(ctx: Context<InitializePosition>) -> Result<()> {
-        instructions::initialize_position::handler(ctx)
+        initialize_position_handler(ctx)
     }
 
     /// Permissionless 24h distribution crank (supports pagination)
@@ -24,6 +25,6 @@ pub mod fee_routing {
         ctx: Context<DistributeFees>,
         page_index: u16,
     ) -> Result<()> {
-        instructions::distribute_fees::handler(ctx, page_index)
+        distribute_fees_handler(ctx, page_index)
     }
 }
