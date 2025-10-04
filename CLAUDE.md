@@ -39,10 +39,11 @@ Permissionless fee routing Anchor program for Meteora DAMM v2 (Constant Product 
 
 **Active Documentation** (use these):
 - `README.md` - Main documentation (33KB, comprehensive)
-- `FINAL_STATUS.md` - Complete verification report
-- `FINAL_VERIFICATION_REPORT.md` - Autonomous testing verification
-- `WEBSITE_TEST_REPORT.md` - Pitch website testing results
-- `bounty-original.md` - Original bounty requirements
+- `docs/PRD_IMPROVEMENTS.md` - Product requirements for bounty improvements
+- `docs/reports/FINAL_STATUS.md` - Complete verification report
+- `docs/reports/FINAL_VERIFICATION_REPORT.md` - Autonomous testing verification
+- `docs/website/WEBSITE_TEST_REPORT.md` - Pitch website testing results
+- `docs/bounty/bounty-original.md` - Original bounty requirements
 - `CLAUDE.md` - This file (project guidance)
 
 **Archived Documentation** (historical reference only):
@@ -271,7 +272,7 @@ A professional Next.js pitch website has been created at `website/`:
 - **Technology**: Next.js 14.2.33, React, TypeScript, Tailwind CSS
 - **Pages**: 5 pages (Home, Technical, Testing, Documentation, Submission)
 - **Features**: Interactive fee calculator, code syntax highlighting, responsive design
-- **Status**: ✅ Tested and verified (see `WEBSITE_TEST_REPORT.md`)
+- **Status**: ✅ Tested and verified (see `docs/website/WEBSITE_TEST_REPORT.md`)
 - **Run locally**: `cd website && npm install && npm run dev`
 
 ## Repository Structure
@@ -281,9 +282,13 @@ meteora-cp-amm-fee-routing/
 ├── programs/fee-routing/    # Anchor program source code
 ├── tests/                   # Integration tests (TypeScript)
 ├── website/                 # Next.js pitch website
+├── docs/                    # Documentation (organized by type)
+│   ├── bounty/             # Bounty requirements & analysis
+│   ├── deployment/         # Deployment & upgrade guides
+│   ├── reports/            # Status & verification reports
+│   ├── website/            # Website documentation
+│   └── PRD_IMPROVEMENTS.md # Product requirements for improvements
 ├── archive/                 # Historical documentation
 ├── README.md               # Main documentation (33KB)
-├── FINAL_STATUS.md         # Current completion status
-├── CLAUDE.md              # This file
-└── bounty-original.md     # Original bounty requirements
+└── CLAUDE.md              # This file (project guidance)
 ```
