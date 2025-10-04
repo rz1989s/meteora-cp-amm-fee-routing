@@ -1360,12 +1360,12 @@ anchor test
               </code>
             </div>
             <a
-              href="https://explorer.solana.com/address/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
+              href="https://solscan.io/account/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 text-primary hover:text-secondary transition-colors"
             >
-              <span>View on Solana Explorer</span>
+              <span>View on Solscan</span>
               <span>→</span>
             </a>
             <p className="text-xs text-slate-400 mt-3">
@@ -1384,12 +1384,12 @@ anchor test
               </code>
             </div>
             <a
-              href="https://explorer.solana.com/address/RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b?cluster=devnet"
+              href="https://solscan.io/account/RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b?cluster=devnet"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 text-primary hover:text-secondary transition-colors"
             >
-              <span>View on Solana Explorer</span>
+              <span>View on Solscan</span>
               <span>→</span>
             </a>
             <p className="text-xs text-slate-400 mt-3">
@@ -1423,7 +1423,7 @@ anchor test
             </div>
           </div>
           <a
-            href="https://explorer.solana.com/tx/55tj463QSGJz9uZoC9zGynQ8qzpMRr4daDTw2sA2MkLRQx5f5poU3vFptNFEMVx1ExESA8QbRHtc2E731LAjYCtW?cluster=devnet"
+            href="https://solscan.io/tx/55tj463QSGJz9uZoC9zGynQ8qzpMRr4daDTw2sA2MkLRQx5f5poU3vFptNFEMVx1ExESA8QbRHtc2E731LAjYCtW?cluster=devnet"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-2 text-primary hover:text-secondary transition-colors mt-4"
@@ -1456,20 +1456,20 @@ solana balance RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b --url devnet`}
         <div className="mt-6 bg-gradient-to-br from-success/20 to-success/5 border border-success/30 rounded-lg p-6 text-center">
           <h4 className="font-semibold text-xl mb-3 text-success">✅ 100% Verifiable</h4>
           <p className="text-slate-300 mb-4">
-            All deployment details are publicly verifiable on Solana Explorer.
+            All deployment details are publicly verifiable on Solscan.
             This proves the program is not just documentation - it&apos;s live, deployed, and functional.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <a
-              href="https://explorer.solana.com/address/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
+              href="https://solscan.io/account/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 bg-primary rounded-lg font-semibold hover:bg-primary/80 transition-all"
             >
-              View Program on Explorer
+              View Program on Solscan
             </a>
             <a
-              href="https://explorer.solana.com/tx/55tj463QSGJz9uZoC9zGynQ8qzpMRr4daDTw2sA2MkLRQx5f5poU3vFptNFEMVx1ExESA8QbRHtc2E731LAjYCtW?cluster=devnet"
+              href="https://solscan.io/tx/55tj463QSGJz9uZoC9zGynQ8qzpMRr4daDTw2sA2MkLRQx5f5poU3vFptNFEMVx1ExESA8QbRHtc2E731LAjYCtW?cluster=devnet"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 bg-secondary rounded-lg font-semibold hover:bg-secondary/80 transition-all"
@@ -1607,7 +1607,8 @@ anchor build`}
               language="rust"
               code={`pub struct HonoraryPositionInitialized {
     pub position: Pubkey,
-    pub pool: Pubkey,
+    pub owner_pda: Pubkey,
+    pub quote_mint: Pubkey,
     pub timestamp: i64,
 }`}
               showLineNumbers={false}
@@ -1623,9 +1624,9 @@ anchor build`}
             <CodeBlock
               language="rust"
               code={`pub struct QuoteFeesClaimed {
-    pub position: Pubkey,
-    pub amount_claimed: u64,
+    pub amount: u64,
     pub timestamp: i64,
+    pub distribution_day: u64,
 }`}
               showLineNumbers={false}
               githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/programs/fee-routing/src/events.rs"
@@ -1640,11 +1641,9 @@ anchor build`}
             <CodeBlock
               language="rust"
               code={`pub struct InvestorPayoutPage {
-    pub page_index: u32,
-    pub num_investors: u32,
-    pub total_paid_this_page: u64,
-    pub recipients: Vec<Pubkey>,
-    pub amounts: Vec<u64>,
+    pub page_index: u16,
+    pub investors_paid: u16,
+    pub total_distributed: u64,
     pub timestamp: i64,
 }`}
               showLineNumbers={false}
@@ -1661,9 +1660,8 @@ anchor build`}
               language="rust"
               code={`pub struct CreatorPayoutDayClosed {
     pub day: u64,
-    pub creator_payout: u64,
+    pub creator_amount: u64,
     pub total_distributed_to_investors: u64,
-    pub total_claimed: u64,
     pub timestamp: i64,
 }`}
               showLineNumbers={false}

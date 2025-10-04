@@ -78,7 +78,7 @@ pub fn initialize_position_handler(ctx: Context<InitializePosition>) -> Result<(
     // 1. Validate pool authority matches expected constant
     require!(
         ctx.accounts.pool_authority.key() == meteora::pool_authority(),
-        FeeRoutingError::InvalidQuoteMint // TODO: Add InvalidPoolAuthority error
+        FeeRoutingError::InvalidPoolAuthority
     );
 
     // 2. Validate quote mint is provided
@@ -90,7 +90,7 @@ pub fn initialize_position_handler(ctx: Context<InitializePosition>) -> Result<(
     // 3. Validate CP-AMM program ID
     require!(
         ctx.accounts.cp_amm_program.key() == meteora::cp_amm_program_id(),
-        FeeRoutingError::InvalidQuoteMint // TODO: Add InvalidProgram error
+        FeeRoutingError::InvalidProgram
     );
 
     // 4. Create position via CPI to Meteora CP-AMM

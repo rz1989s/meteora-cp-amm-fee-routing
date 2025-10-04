@@ -34,4 +34,16 @@ pub enum FeeRoutingError {
 
     #[msg("Invalid Streamflow account provided")]
     InvalidStreamflowAccount,
+
+    #[msg("Invalid pool authority provided")]
+    InvalidPoolAuthority,
+
+    #[msg("Invalid program ID provided")]
+    InvalidProgram,
+
+    #[msg("Invalid treasury authority")]
+    InvalidTreasuryAuthority,
+
+    #[msg("Base token fees detected - position must be quote-only")]
+    BaseFeesDetected,
 }

@@ -16,7 +16,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 // Configuration
-const DEVNET_RPC = "https://api.devnet.solana.com";
+const DEVNET_RPC = "https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30";
 const PROGRAM_ID = new PublicKey("RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce");
 const WALLET_PATH = path.join(process.env.HOME!, ".config/solana/REC-devnet.json");
 
@@ -62,7 +62,7 @@ async function main() {
     console.log("⚠️  Policy account already exists!");
     console.log(`   Address: ${policyPda.toBase58()}`);
     console.log(`   Size: ${policyInfo.data.length} bytes`);
-    console.log(`   Explorer: https://explorer.solana.com/address/${policyPda.toBase58()}?cluster=devnet\n`);
+    console.log(`   Explorer: https://solscan.io/account/${policyPda.toBase58()}?cluster=devnet\n`);
   } else {
     console.log("❌ Policy account not found");
     console.log("   Note: Manual initialization required via Anchor client\n");
@@ -74,7 +74,7 @@ async function main() {
     console.log("✅ Progress account already exists!");
     console.log(`   Address: ${progressPda.toBase58()}`);
     console.log(`   Size: ${progressInfo.data.length} bytes`);
-    console.log(`   Explorer: https://explorer.solana.com/address/${progressPda.toBase58()}?cluster=devnet\n`);
+    console.log(`   Explorer: https://solscan.io/account/${progressPda.toBase58()}?cluster=devnet\n`);
   } else {
     console.log("❌ Progress account not found");
     console.log("   Note: Manual initialization required via Anchor client\n");

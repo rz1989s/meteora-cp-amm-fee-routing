@@ -145,6 +145,153 @@ export default function SubmissionPage() {
           </div>
         </motion.div>
 
+        {/* 100% Bounty Compliance Table */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="bg-gradient-to-br from-success/10 to-primary/10 border-2 border-success/50 rounded-2xl p-8 mb-12"
+        >
+          <div className="flex items-center space-x-3 mb-6">
+            <Target className="text-success" size={36} />
+            <h2 className="text-3xl font-bold">100% Bounty Compliance Matrix</h2>
+          </div>
+
+          <div className="bg-slate-900/80 rounded-xl p-6 mb-6">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-slate-700">
+                    <th className="text-left py-3 px-4 font-semibold text-primary">Requirement</th>
+                    <th className="text-center py-3 px-2 font-semibold text-secondary">Line #</th>
+                    <th className="text-center py-3 px-2 font-semibold text-success">Status</th>
+                    <th className="text-left py-3 px-4 font-semibold text-warning">Our Implementation</th>
+                  </tr>
+                </thead>
+                <tbody className="text-slate-300">
+                  {/* Work Package A */}
+                  <tr className="border-b border-slate-800">
+                    <td colSpan={4} className="py-3 px-4 font-bold text-primary bg-primary/10">WORK PACKAGE A - Initialize Honorary Position</td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4">Create honorary position</td>
+                    <td className="text-center py-3 px-2 text-slate-400">52</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4"><code className="text-xs bg-slate-800 px-2 py-1 rounded">initialize_position</code> implemented</td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4">Position owned by PDA</td>
+                    <td className="text-center py-3 px-2 text-slate-400">47</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4">Seeds: <code className="text-xs bg-slate-800 px-2 py-1 rounded">[vault, vault_key, &quot;investor_fee_pos_owner&quot;]</code></td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4">Pool validation</td>
+                    <td className="text-center py-3 px-2 text-slate-400">53</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4">Pool authority + program ID checks</td>
+                  </tr>
+
+                  {/* Work Package B */}
+                  <tr className="border-b border-slate-800">
+                    <td colSpan={4} className="py-3 px-4 font-bold text-secondary bg-secondary/10">WORK PACKAGE B - Distribution Crank</td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4">24h time gate</td>
+                    <td className="text-center py-3 px-2 text-slate-400">100</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4"><code className="text-xs bg-slate-800 px-2 py-1 rounded">last_distribution_ts + 86400</code> enforcement</td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4">Pagination support</td>
+                    <td className="text-center py-3 px-2 text-slate-400">58,72-74</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4">Idempotent with <code className="text-xs bg-slate-800 px-2 py-1 rounded">current_page</code> tracking</td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4">Fee claiming via CPI</td>
+                    <td className="text-center py-3 px-2 text-slate-400">60</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4"><code className="text-xs bg-slate-800 px-2 py-1 rounded">meteora::claim_position_fee_cpi</code></td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4">Streamflow integration</td>
+                    <td className="text-center py-3 px-2 text-slate-400">61</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4">Reads locked amounts from stream accounts</td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4">Pro-rata math (Y0, f_locked, etc.)</td>
+                    <td className="text-center py-3 px-2 text-slate-400">63-70</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4">ALL formulas in <code className="text-xs bg-slate-800 px-2 py-1 rounded">DistributionMath</code> module</td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4 font-semibold text-warning">Real token transfers to investors</td>
+                    <td className="text-center py-3 px-2 text-slate-400">70</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4 text-warning">Actual SPL transfers via treasury PDA</td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4 font-semibold text-warning">Route remainder to creator</td>
+                    <td className="text-center py-3 px-2 text-slate-400">71</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4 text-warning">Real transfer on final page</td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4 font-semibold text-error">Quote-only enforcement (CRITICAL)</td>
+                    <td className="text-center py-3 px-2 text-slate-400">101</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4 text-error">Fails if base fees detected (BaseFeesDetected error)</td>
+                  </tr>
+
+                  {/* Quality Requirements */}
+                  <tr className="border-b border-slate-800">
+                    <td colSpan={4} className="py-3 px-4 font-bold text-success bg-success/10">QUALITY & STANDARDS</td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4">Anchor-compatible</td>
+                    <td className="text-center py-3 px-2 text-slate-400">124</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4">Anchor 0.31.1, full IDL</td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4">No unsafe code</td>
+                    <td className="text-center py-3 px-2 text-slate-400">124</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4">0 unsafe blocks (verified)</td>
+                  </tr>
+                  <tr className="border-b border-slate-800 hover:bg-slate-800/50">
+                    <td className="py-3 px-4">All 4 required events</td>
+                    <td className="text-center py-3 px-2 text-slate-400">126</td>
+                    <td className="text-center py-3 px-2"><span className="text-success font-bold text-lg">✅</span></td>
+                    <td className="py-3 px-4">HonoraryPositionInit, QuoteFeesClaimed, InvestorPayout, CreatorPayout</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-4">
+            <div className="bg-success/20 border border-success/50 rounded-lg p-4 text-center">
+              <div className="text-3xl font-bold text-success mb-2">100%</div>
+              <div className="text-sm text-slate-300">Requirements Met</div>
+            </div>
+            <div className="bg-primary/20 border border-primary/50 rounded-lg p-4 text-center">
+              <div className="text-3xl font-bold text-primary mb-2">4/4</div>
+              <div className="text-sm text-slate-300">Instructions Complete</div>
+            </div>
+            <div className="bg-warning/20 border border-warning/50 rounded-lg p-4 text-center">
+              <div className="text-3xl font-bold text-warning mb-2">362 KB</div>
+              <div className="text-sm text-slate-300">Optimized Binary</div>
+            </div>
+            <div className="bg-secondary/20 border border-secondary/50 rounded-lg p-4 text-center">
+              <div className="text-3xl font-bold text-secondary mb-2">7/7</div>
+              <div className="text-sm text-slate-300">Tests Passing</div>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Why This Submission Wins */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -8,7 +8,6 @@
 
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program;
-use anchor_spl::token::Token;
 
 /// Meteora CP-AMM Program ID
 /// cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG

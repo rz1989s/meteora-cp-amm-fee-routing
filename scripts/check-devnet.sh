@@ -21,6 +21,6 @@ solana balance $WALLET --url devnet
 echo ""
 
 echo "✅ Deployment verified on Solana Devnet!"
-echo "📊 View on Explorer:"
-echo "   https://explorer.solana.com/address/$PROGRAM_ID?cluster=devnet"
+echo "📊 View on Solscan:"
+echo "   https://solscan.io/account/$PROGRAM_ID?cluster=devnet"
 echo ""

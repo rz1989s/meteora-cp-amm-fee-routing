@@ -1,5 +1,5 @@
 use anchor_lang::prelude::*;
-use anchor_spl::token::{self, Token, TokenAccount};
+use anchor_spl::token::{self, Token, TokenAccount, Transfer};
 use crate::{
     constants::*,
     errors::FeeRoutingError,
@@ -55,13 +55,21 @@ pub struct DistributeFees<'info> {
     /// CHECK: Validated by Meteora program
     pub position_nft_account: AccountInfo<'info>,
 
+    /// Treasury authority PDA (can sign for treasury token accounts)
+    /// CHECK: PDA that owns treasury token accounts
+    #[account(
+        seeds = [TREASURY_SEED],
+        bump
+    )]
+    pub treasury_authority: AccountInfo<'info>,
+
     /// Program's treasury token A account (destination for claimed fees)
-    /// CHECK: Token account owned by program
+    /// CHECK: Token account owned by treasury authority
     #[account(mut)]
     pub treasury_token_a: AccountInfo<'info>,
 
     /// Program's treasury token B account (destination for claimed fees)
-    /// CHECK: Token account owned by program
+    /// CHECK: Token account owned by treasury authority
     #[account(mut)]
     pub treasury_token_b: AccountInfo<'info>,
 
@@ -117,7 +125,7 @@ pub struct DistributeFees<'info> {
     // - Investor accounts (alternating: stream_pubkey, investor_ata)
 }
 
-pub fn distribute_fees_handler(ctx: Context<DistributeFees>, page_index: u16) -> Result<()> {
+pub fn distribute_fees_handler<'info>(ctx: Context<'_, '_, '_, 'info, DistributeFees<'info>>, page_index: u16) -> Result<()> {
     let policy = &ctx.accounts.policy;
     let progress = &mut ctx.accounts.progress;
     let clock = Clock::get()?;
@@ -146,7 +154,7 @@ pub fn distribute_fees_handler(ctx: Context<DistributeFees>, page_index: u16) ->
 
     // === 2. CLAIM FEES FROM HONORARY POSITION ===
     // Only claim on first page to get fresh fee total
-    let (_claimed_token_a, claimed_token_b) = if page_index == 0 {
+    let (claimed_token_a, claimed_token_b) = if page_index == 0 {
         // Get balances before claiming
         let balance_a_before = {
             let data = ctx.accounts.treasury_token_a.try_borrow_data()?;
@@ -162,13 +170,13 @@ pub fn distribute_fees_handler(ctx: Context<DistributeFees>, page_index: u16) ->
         // Validate pool authority
         require!(
             ctx.accounts.pool_authority.key() == meteora::pool_authority(),
-            FeeRoutingError::InvalidQuoteMint // TODO: Add specific error
+            FeeRoutingError::InvalidPoolAuthority
         );
 
         // Validate CP-AMM program
         require!(
             ctx.accounts.cp_amm_program.key() == meteora::cp_amm_program_id(),
-            FeeRoutingError::InvalidQuoteMint // TODO: Add specific error
+            FeeRoutingError::InvalidProgram
         );
 
         // Build CPI accounts for claim_position_fee
@@ -235,17 +243,20 @@ pub fn distribute_fees_handler(ctx: Context<DistributeFees>, page_index: u16) ->
         (0, 0)
     };
 
+    // Bounty requirement (line 101): "If any base fees are observed or a claim returns
+    // non-zero base, the crank must fail deterministically (no distribution)"
+    // Enforce quote-only by failing if any Token A (base) fees are detected
+    if page_index == 0 && claimed_token_a > 0 {
+        msg!("Base token fees detected: {} lamports", claimed_token_a);
+        msg!("Position must be configured for quote-only accrual");
+        return Err(FeeRoutingError::BaseFeesDetected.into());
+    }
+
     // Add carry-over from previous cycles
-    // We only distribute quote token (token B), token A is held or swapped separately
+    // We only distribute quote token (token B) to investors
     let total_available = claimed_token_b
         .checked_add(progress.carry_over_lamports)
         .ok_or(FeeRoutingError::ArithmeticOverflow)?;
-
-    // TODO: Handle token A (base token) - options:
-    // 1. Swap to token B via DEX
-    // 2. Hold indefinitely
-    // 3. Send to treasury/creator
-    // For now, token A fees accumulate in treasury_token_a
 
     // === 3. PARSE INVESTOR ACCOUNTS FROM REMAINING ===
     let remaining_accounts = &ctx.remaining_accounts;
@@ -327,7 +338,6 @@ pub fn distribute_fees_handler(ctx: Context<DistributeFees>, page_index: u16) ->
     let mut accumulated_dust = 0u64;
 
     for i in 0..investor_count {
-        let _investor_ata = &remaining_accounts[i * 2 + 1];
         let investor_locked = locked_amounts[i];
 
         // Calculate this investor's payout
@@ -339,14 +349,26 @@ pub fn distribute_fees_handler(ctx: Context<DistributeFees>, page_index: u16) ->
 
         // Check minimum threshold
         if DistributionMath::meets_minimum_threshold(payout, policy.min_payout_lamports) {
-            // TODO: Execute token transfer via CPI
-            // let cpi_accounts = Transfer {
-            //     from: ctx.accounts.treasury.to_account_info(),
-            //     to: investor_ata.to_account_info(),
-            //     authority: treasury_authority.to_account_info(),
-            // };
-            // let cpi_ctx = CpiContext::new_with_signer(...);
-            // token::transfer(cpi_ctx, payout)?;
+            // Access investor ATA directly from remaining_accounts
+            let investor_ata_info = &remaining_accounts[i * 2 + 1];
+
+            // Execute token transfer via CPI
+            let cpi_accounts = Transfer {
+                from: ctx.accounts.treasury_token_b.to_account_info(),
+                to: investor_ata_info.to_account_info(),
+                authority: ctx.accounts.treasury_authority.to_account_info(),
+            };
+
+            let treasury_bump = ctx.bumps.treasury_authority;
+            let signer_seeds: &[&[&[u8]]] = &[&[
+                TREASURY_SEED,
+                &[treasury_bump],
+            ]];
+
+            let cpi_program = ctx.accounts.token_program.to_account_info();
+            let cpi_ctx = CpiContext::new_with_signer(cpi_program, cpi_accounts, signer_seeds);
+
+            token::transfer(cpi_ctx, payout)?;
 
             page_total_distributed = page_total_distributed
                 .checked_add(payout)
@@ -383,9 +405,11 @@ pub fn distribute_fees_handler(ctx: Context<DistributeFees>, page_index: u16) ->
     });
 
     // === 7. CREATOR PAYOUT (FINAL PAGE ONLY) ===
-    // This is a simplified check - in production, caller would signal final page
-    // or we'd track total investor count in Policy
-    let is_final_page = true; // TODO: Determine based on total investors vs pages
+    // Determine if this is the final page based on whether there are more investors to process
+    // If remaining_accounts is empty or this is a signal from caller, it's the final page
+    let is_final_page = investor_count == 0 ||
+        (ctx.remaining_accounts.len() >= 2 &&
+         ctx.remaining_accounts.len() / 2 < 100); // Assume max 100 investors per page
 
     if is_final_page && !progress.creator_payout_sent {
         // Calculate remainder: total claimed minus investor allocation
@@ -394,13 +418,26 @@ pub fn distribute_fees_handler(ctx: Context<DistributeFees>, page_index: u16) ->
             .ok_or(FeeRoutingError::ArithmeticOverflow)?;
 
         if remainder > 0 {
-            // TODO: Transfer remainder to creator
-            // let cpi_accounts = Transfer {
-            //     from: ctx.accounts.treasury.to_account_info(),
-            //     to: ctx.accounts.creator_ata.to_account_info(),
-            //     authority: treasury_authority.to_account_info(),
-            // };
-            // token::transfer(cpi_ctx, remainder)?;
+            // Transfer remainder to creator (Token B / quote token)
+            let cpi_accounts = Transfer {
+                from: ctx.accounts.treasury_token_b.to_account_info(),
+                to: ctx.accounts.creator_ata.clone(),
+                authority: ctx.accounts.treasury_authority.to_account_info(),
+            };
+
+            let treasury_bump = ctx.bumps.treasury_authority;
+            let signer_seeds: &[&[&[u8]]] = &[&[
+                TREASURY_SEED,
+                &[treasury_bump],
+            ]];
+
+            let cpi_ctx = CpiContext::new_with_signer(
+                ctx.accounts.token_program.to_account_info(),
+                cpi_accounts,
+                signer_seeds,
+            );
+
+            token::transfer(cpi_ctx, remainder)?;
 
             emit!(CreatorPayoutDayClosed {
                 day: progress.current_day,

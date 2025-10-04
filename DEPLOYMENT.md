@@ -13,16 +13,16 @@ This document provides a complete guide for deploying the fee routing program to
 | **Program ID** | `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce` ✨ |
 | **Deployer Wallet** | `RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b` ✨ |
 | **Upgrade Authority** | `RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b` |
-| **Program Size** | 316,024 bytes (316 KB) |
+| **Program Size** | 370,688 bytes (362 KB) |
 | **Deployment Cost** | 2.20 SOL |
 | **Network** | Solana Devnet |
 | **Deployment Date** | October 4, 2025 |
 
 ### **Verification Links**
 
-- **Program Explorer**: https://explorer.solana.com/address/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet
-- **Deployer Wallet**: https://explorer.solana.com/address/RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b?cluster=devnet
-- **Deployment Transaction**: https://explorer.solana.com/tx/55tj463QSGJz9uZoC9zGynQ8qzpMRr4daDTw2sA2MkLRQx5f5poU3vFptNFEMVx1ExESA8QbRHtc2E731LAjYCtW?cluster=devnet
+- **Program Explorer**: https://solscan.io/account/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet
+- **Deployer Wallet**: https://solscan.io/account/RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b?cluster=devnet
+- **Deployment Transaction**: https://solscan.io/tx/55tj463QSGJz9uZoC9zGynQ8qzpMRr4daDTw2sA2MkLRQx5f5poU3vFptNFEMVx1ExESA8QbRHtc2E731LAjYCtW?cluster=devnet
 
 ### **Vanity Addresses**
 
@@ -121,7 +121,7 @@ Finished `release` profile [optimized] target(s) in X.XXs
 ```
 
 **Build Artifacts:**
-- Binary: `target/deploy/fee_routing.so` (316 KB)
+- Binary: `target/deploy/fee_routing.so` (362 KB)
 - Keypair: `target/deploy/fee_routing-keypair.json`
 
 ### **4. Update Program ID (if using custom keypair)**
@@ -182,7 +182,7 @@ solana program show YOUR_PROGRAM_ID --url devnet
 # Program Id: YOUR_PROGRAM_ID
 # Owner: BPFLoaderUpgradeab1e11111111111111111111111
 # Authority: YOUR_WALLET
-# Data Length: 316024 bytes
+# Data Length: 370688 bytes
 # Balance: 2.20 SOL
 ```
 
@@ -386,15 +386,15 @@ Subscribe to program events for monitoring:
 ```typescript
 // Subscribe to events
 const feeListener = program.addEventListener("QuoteFeesClaimed", (event) => {
-  console.log(`Fees claimed: ${event.amountClaimed} on day ${event.day}`);
+  console.log(`Fees claimed: ${event.amount} on day ${event.distributionDay}`);
 });
 
 const investorListener = program.addEventListener("InvestorPayoutPage", (event) => {
-  console.log(`Page ${event.pageIndex}: ${event.investorsPaid} investors paid`);
+  console.log(`Page ${event.pageIndex}: ${event.investorsPaid} investors paid, ${event.totalDistributed} total`);
 });
 
 const creatorListener = program.addEventListener("CreatorPayoutDayClosed", (event) => {
-  console.log(`Day ${event.day} closed. Creator: ${event.creatorAmount}`);
+  console.log(`Day ${event.day} closed. Creator: ${event.creatorAmount}, Investors: ${event.totalDistributedToInvestors}`);
 });
 ```
 

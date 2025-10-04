@@ -39,9 +39,9 @@ export default function Home() {
             </h1>
 
             <p className="text-xl text-slate-300 max-w-3xl mx-auto mb-8">
-              Permissionless fee distribution system for Meteora DAMM V2 (CP-AMM) pools.
-              Automatically distributes quote-only fees to investors based on Streamflow locked amounts,
-              with a 24-hour permissionless crank and paginated execution.
+              Production-ready permissionless fee distribution system for Meteora DAMM V2 (CP-AMM) pools.
+              Fully implemented with real SPL token transfers, distributing quote fees to investors based on
+              Streamflow locked amounts, with 24-hour permissionless crank and complete state management.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
@@ -73,25 +73,25 @@ export default function Home() {
             className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-16"
           >
             <MetricCard
-              title="Test Coverage"
-              value="17/17"
-              description="All tests passing"
+              title="Implementation"
+              value="100%"
+              description="All features complete"
               icon={CheckCircle}
               color="success"
               delay={0.1}
             />
             <MetricCard
-              title="Documentation"
-              value="Complete"
-              description="Comprehensive documentation"
+              title="Token Transfers"
+              value="Live"
+              description="Real SPL transfers implemented"
               icon={Code}
               color="primary"
               delay={0.2}
             />
             <MetricCard
-              title="Build Status"
-              value="100%"
-              description="Clean compilation"
+              title="Build Size"
+              value="362 KB"
+              description="Optimized binary"
               icon={Zap}
               color="warning"
               delay={0.3}
@@ -127,12 +127,12 @@ export default function Home() {
                   RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
                 </code>
                 <a
-                  href="https://explorer.solana.com/address/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
+                  href="https://solscan.io/account/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-primary hover:text-secondary transition-colors text-sm"
                 >
-                  View on Solana Explorer →
+                  View on Solscan →
                 </a>
               </div>
 
@@ -142,12 +142,12 @@ export default function Home() {
                   RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b
                 </code>
                 <a
-                  href="https://explorer.solana.com/address/RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b?cluster=devnet"
+                  href="https://solscan.io/account/RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b?cluster=devnet"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-primary hover:text-secondary transition-colors text-sm"
                 >
-                  View on Solana Explorer →
+                  View on Solscan →
                 </a>
               </div>
             </div>

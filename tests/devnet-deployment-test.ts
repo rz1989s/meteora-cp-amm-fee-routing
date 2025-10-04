@@ -14,7 +14,7 @@ import { expect } from "chai";
 
 describe("Devnet Deployment Test", () => {
   // Connect to devnet
-  const connection = new Connection("https://api.devnet.solana.com", "confirmed");
+  const connection = new Connection("https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30", "confirmed");
 
   const programId = new PublicKey("RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce");
   const deployerWallet = anchor.AnchorProvider.env().wallet;
@@ -92,7 +92,7 @@ describe("Devnet Deployment Test", () => {
       console.log("✅ Policy initialized!");
       console.log("   Transaction:", tx);
       console.log("   Policy PDA:", policyPda.toBase58());
-      console.log("   Explorer:", `https://explorer.solana.com/address/${policyPda.toBase58()}?cluster=devnet`);
+      console.log("   Explorer:", `https://solscan.io/account/${policyPda.toBase58()}?cluster=devnet`);
 
     } catch (error: any) {
       if (error.message?.includes("already in use")) {
@@ -128,7 +128,7 @@ describe("Devnet Deployment Test", () => {
       console.log("✅ Progress initialized!");
       console.log("   Transaction:", tx);
       console.log("   Progress PDA:", progressPda.toBase58());
-      console.log("   Explorer:", `https://explorer.solana.com/address/${progressPda.toBase58()}?cluster=devnet`);
+      console.log("   Explorer:", `https://solscan.io/account/${progressPda.toBase58()}?cluster=devnet`);
 
     } catch (error: any) {
       if (error.message?.includes("already in use")) {
