@@ -16,7 +16,13 @@
     "clean": "rm -rf .next out",
     "preview": "npm run build && npm run start",
     "export": "next build && next export",
-    "validate": "npm run type-check && npm run lint"
+    "validate": "npm run type-check && npm run lint",
+    "cleanup:servers": "pkill -f 'next dev' || pkill -f 'next-server' || true",
+    "cleanup:ports": "lsof -ti:3000,3001,3002,3003,3004,3005 | xargs kill -9 2>/dev/null || true",
+    "cleanup:build": "rm -rf .next out node_modules/.cache",
+    "cleanup:cache": "rm -rf .next/cache node_modules/.cache .turbo",
+    "cleanup:all": "npm run cleanup:servers && npm run cleanup:build && npm run cleanup:cache",
+    "predev": "npm run cleanup:ports"
   },
   "dependencies": {
     "@types/react-syntax-highlighter": "^15.5.13",
