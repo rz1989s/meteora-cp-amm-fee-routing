@@ -9,6 +9,37 @@ import ProgressBar from '@/components/ProgressBar';
 export default function TechnicalPage() {
   const architectureTab = (
     <div className="space-y-8">
+      <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+        <h3 className="text-xl font-bold mb-4">System Flow Diagram</h3>
+        <div className="bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto">
+          <pre className="text-slate-300">{`┌─────────────────────────────────────────────────────────┐
+│                  Meteora DAMM V2 Pool                   │
+│             (Generates Quote-Only Fees)                 │
+└────────────────────┬────────────────────────────────────┘
+                     │ Fee Accrual
+                     ▼
+┌─────────────────────────────────────────────────────────┐
+│            Honorary LP Position (PDA-Owned)             │
+│              [Accumulates Quote Fees]                   │
+└────────────────────┬────────────────────────────────────┘
+                     │ 24h Crank (Permissionless)
+                     ▼
+┌─────────────────────────────────────────────────────────┐
+│           Fee Distribution Smart Contract               │
+│  ┌──────────────────┐    ┌─────────────────────────┐   │
+│  │  Streamflow Data │───▶│  Pro-Rata Calculation   │   │
+│  │  (Locked Amounts)│    │  (Based on Lock %)      │   │
+│  └──────────────────┘    └─────────────────────────┘   │
+└────────────┬──────────────────────────┬─────────────────┘
+             │                          │
+             ▼                          ▼
+    ┌────────────────┐        ┌──────────────────┐
+    │   Investors    │        │  Creator Wallet  │
+    │  (Pro-Rata)    │        │   (Remainder)    │
+    └────────────────┘        └──────────────────┘`}</pre>
+        </div>
+      </div>
+
       <div className="grid md:grid-cols-2 gap-8">
         <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
           <div className="flex items-center space-x-3 mb-4">
@@ -353,6 +384,128 @@ for investor in investors {
         </div>
       </div>
 
+      <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+        <h3 className="text-2xl font-bold mb-4 text-success">Security Considerations</h3>
+        <p className="text-slate-300 mb-6">
+          Comprehensive security measures implemented throughout the program.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            {
+              num: 1,
+              title: "Quote-Only Enforcement",
+              description: "Deterministic validation ensures only quote token fees accrue.",
+              details: "Pool configuration is validated at position initialization to reject any setup that would generate base token fees."
+            },
+            {
+              num: 2,
+              title: "Checked Arithmetic",
+              description: "All math operations use checked variants to prevent overflow.",
+              details: "Every multiplication, division, and addition uses .checked_*() methods with proper error handling."
+            },
+            {
+              num: 3,
+              title: "Idempotent Pagination",
+              description: "Sequential page enforcement prevents double-payment.",
+              details: "Progress.current_page tracks expected next page. Wrong page index fails with InvalidPageIndex error."
+            },
+            {
+              num: 4,
+              title: "PDA Ownership",
+              description: "All critical accounts use PDAs with deterministic derivation.",
+              details: "Position owner, Policy, and Progress are PDAs derived from known seeds, preventing unauthorized access."
+            },
+            {
+              num: 5,
+              title: "Streamflow Validation",
+              description: "Stream account ownership verified before reading data.",
+              details: "require!(stream_account.owner == &streamflow_sdk::id()) ensures authentic stream data."
+            },
+            {
+              num: 6,
+              title: "Time Gate",
+              description: "24h enforcement prevents rapid draining or manipulation.",
+              details: "First page of each distribution requires full 24 hours elapsed since last distribution."
+            },
+            {
+              num: 7,
+              title: "Daily Caps",
+              description: "Optional rate limiting to smooth distributions.",
+              details: "Configurable daily_cap_lamports with automatic carry-over prevents excessive single-day distributions."
+            }
+          ].map((security) => (
+            <div key={security.num} className="bg-slate-800 rounded-lg p-4">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="bg-success/20 text-success rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
+                  {security.num}
+                </div>
+                <h4 className="font-semibold text-lg">{security.title}</h4>
+              </div>
+              <p className="text-sm text-slate-300 mb-2">{security.description}</p>
+              <p className="text-xs text-slate-400">{security.details}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+        <h3 className="text-2xl font-bold mb-4 text-primary">Complete Constants Reference</h3>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="bg-slate-800 rounded-lg p-4">
+            <h4 className="font-semibold mb-3 text-warning">Time Constants</h4>
+            <div className="space-y-2 font-mono text-sm">
+              <div className="flex justify-between">
+                <span className="text-slate-400">DISTRIBUTION_WINDOW_SECONDS:</span>
+                <span className="text-primary">86,400</span>
+              </div>
+              <p className="text-xs text-slate-400">24 hours in seconds</p>
+            </div>
+          </div>
+
+          <div className="bg-slate-800 rounded-lg p-4">
+            <h4 className="font-semibold mb-3 text-warning">Math Constants</h4>
+            <div className="space-y-2 font-mono text-sm">
+              <div className="flex justify-between">
+                <span className="text-slate-400">BPS_DENOMINATOR:</span>
+                <span className="text-primary">10,000</span>
+              </div>
+              <p className="text-xs text-slate-400">100% in basis points</p>
+            </div>
+          </div>
+
+          <div className="bg-slate-800 rounded-lg p-4">
+            <h4 className="font-semibold mb-3 text-secondary">PDA Seeds</h4>
+            <div className="space-y-2 font-mono text-xs">
+              <div><span className="text-slate-400">VAULT_SEED:</span> <span className="text-success">b"vault"</span></div>
+              <div><span className="text-slate-400">INVESTOR_FEE_POS_OWNER_SEED:</span> <span className="text-success">b"investor_fee_pos_owner"</span></div>
+              <div><span className="text-slate-400">POLICY_SEED:</span> <span className="text-success">b"policy"</span></div>
+              <div><span className="text-slate-400">PROGRESS_SEED:</span> <span className="text-success">b"progress"</span></div>
+              <div><span className="text-slate-400">TREASURY_SEED:</span> <span className="text-success">b"treasury"</span></div>
+            </div>
+          </div>
+
+          <div className="bg-slate-800 rounded-lg p-4">
+            <h4 className="font-semibold mb-3 text-secondary">External Program IDs</h4>
+            <div className="space-y-3 text-xs">
+              <div>
+                <div className="text-slate-400 mb-1">Meteora CP-AMM:</div>
+                <div className="font-mono text-primary break-all">cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG</div>
+              </div>
+              <div>
+                <div className="text-slate-400 mb-1">Pool Authority:</div>
+                <div className="font-mono text-primary break-all">HLnpSz9h2S4hiLQ43rnSD9XkcUThA7B8hQMKmDaiTLcC</div>
+              </div>
+              <div>
+                <div className="text-slate-400 mb-1">Streamflow:</div>
+                <div className="font-mono text-primary break-all">strmRqUCoQUgGUan5YhzUZa6KqdzwX5L6FpUxfmKg5m</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="grid md:grid-cols-3 gap-6">
         <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
           <h4 className="font-semibold mb-4">Constants</h4>
@@ -388,6 +541,126 @@ for investor in investors {
             <div>
               <div className="text-slate-400 text-xs">Streamflow</div>
               <div className="font-mono text-xs text-primary">strm...Kg5m</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+        <h3 className="text-2xl font-bold mb-4 text-primary">Day & Pagination Semantics</h3>
+        <p className="text-slate-300 mb-6">
+          Understanding the 24-hour distribution window and pagination flow is critical for correct integration.
+        </p>
+
+        <div className="space-y-6">
+          <div className="bg-slate-800 rounded-lg p-6">
+            <h4 className="font-semibold text-lg mb-3 text-success">24-Hour Distribution Window</h4>
+            <div className="space-y-3 text-sm text-slate-300">
+              <div className="flex items-start space-x-3">
+                <div className="bg-success/20 rounded-full w-6 h-6 flex items-center justify-center text-success font-bold flex-shrink-0 mt-0.5">✓</div>
+                <div>
+                  <span className="font-semibold">First page (page_index = 0):</span> Requires 24 hours elapsed since last_distribution_ts
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="bg-success/20 rounded-full w-6 h-6 flex items-center justify-center text-success font-bold flex-shrink-0 mt-0.5">✓</div>
+                <div>
+                  <span className="font-semibold">Subsequent pages (1, 2, 3...):</span> Must occur within same 24h window
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="bg-success/20 rounded-full w-6 h-6 flex items-center justify-center text-success font-bold flex-shrink-0 mt-0.5">✓</div>
+                <div>
+                  <span className="font-semibold">New day reset:</span> current_page = 0, daily_distributed_to_investors = 0, creator_payout_sent = false
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-slate-800 rounded-lg p-6">
+              <h4 className="font-semibold text-lg mb-4 text-primary">Single-Page Distribution</h4>
+              <div className="font-mono text-xs space-y-2 text-slate-300">
+                <div className="text-warning font-semibold">Day 1, T=0:</div>
+                <div className="ml-4 space-y-1 text-slate-400">
+                  <div>distribute_fees(page_index=0)</div>
+                  <div className="ml-4 text-success">→ Claims fees</div>
+                  <div className="ml-4 text-success">→ Distributes to all investors</div>
+                  <div className="ml-4 text-success">→ Sends remainder to creator</div>
+                  <div className="ml-4 text-success">→ Marks creator_payout_sent = true</div>
+                </div>
+                <div className="text-warning font-semibold mt-4">Day 2, T=24h:</div>
+                <div className="ml-4 space-y-1 text-slate-400">
+                  <div>distribute_fees(page_index=0)</div>
+                  <div className="ml-4 text-success">→ Starts new day...</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-slate-800 rounded-lg p-6">
+              <h4 className="font-semibold text-lg mb-4 text-secondary">Multi-Page Distribution</h4>
+              <div className="font-mono text-xs space-y-2 text-slate-300">
+                <div className="text-warning font-semibold">Day 1, T=0:</div>
+                <div className="ml-4 space-y-1 text-slate-400">
+                  <div>distribute_fees(page_index=0)</div>
+                  <div className="ml-4 text-primary">→ Claims fees (10,000 tokens)</div>
+                  <div className="ml-4 text-primary">→ Investors 0-99 (2,500 tokens)</div>
+                  <div className="ml-4 text-primary">→ Updates current_page = 1</div>
+                </div>
+                <div className="text-warning font-semibold mt-3">Day 1, T=0+5min:</div>
+                <div className="ml-4 space-y-1 text-slate-400">
+                  <div>distribute_fees(page_index=1)</div>
+                  <div className="ml-4 text-primary">→ Investors 100-199 (2,500 tokens)</div>
+                  <div className="ml-4 text-primary">→ Updates current_page = 2</div>
+                </div>
+                <div className="text-warning font-semibold mt-3">Day 1, T=0+10min:</div>
+                <div className="ml-4 space-y-1 text-slate-400">
+                  <div>distribute_fees(page_index=2)</div>
+                  <div className="ml-4 text-primary">→ Investors 200-299 (2,500 tokens)</div>
+                  <div className="ml-4 text-success">→ Sends remainder to creator (2,500)</div>
+                  <div className="ml-4 text-success">→ Marks creator_payout_sent = true</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-warning/20 to-warning/5 border border-warning/30 rounded-lg p-6">
+            <h4 className="font-semibold text-lg mb-3 text-warning">Idempotency & Safety</h4>
+            <div className="space-y-4">
+              <div className="bg-slate-900 rounded-lg p-4">
+                <h5 className="font-semibold mb-2 text-sm">Sequential Page Enforcement</h5>
+                <div className="font-mono text-xs space-y-1 text-slate-300">
+                  <div className="text-success">✅ distribute_fees(0) → Success (current_page = 1)</div>
+                  <div className="text-error">❌ distribute_fees(2) → FAILS (expected page 1)</div>
+                  <div className="text-success">✅ distribute_fees(1) → Success (current_page = 2)</div>
+                </div>
+                <p className="text-xs text-slate-400 mt-2">
+                  Prevents: Skipping pages, replaying pages, out-of-order execution
+                </p>
+              </div>
+
+              <div className="bg-slate-900 rounded-lg p-4">
+                <h5 className="font-semibold mb-2 text-sm">Resume After Failure</h5>
+                <div className="font-mono text-xs space-y-1 text-slate-300">
+                  <div className="text-warning">Day 1, T=0:</div>
+                  <div className="ml-4 text-success">distribute_fees(0) → Success (current_page = 1)</div>
+                  <div className="ml-4 text-error">distribute_fees(1) → Failure (network error)</div>
+                  <div className="text-warning mt-2">Day 1, T=0+5min (retry):</div>
+                  <div className="ml-4 text-success">distribute_fees(1) → Success (resumes from page 1)</div>
+                </div>
+                <p className="text-xs text-slate-400 mt-2">
+                  State persistence allows resumption at exact point of failure
+                </p>
+              </div>
+
+              <div className="bg-slate-900 rounded-lg p-4">
+                <h5 className="font-semibold mb-2 text-sm">No Double-Payment</h5>
+                <ul className="text-xs text-slate-300 space-y-1">
+                  <li>• Each investor appears in exactly one page</li>
+                  <li>• creator_payout_sent flag prevents duplicate creator payouts</li>
+                  <li>• Cumulative tracking in daily_distributed_to_investors</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

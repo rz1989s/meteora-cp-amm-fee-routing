@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { User, Mail, Twitter, Github, Award, Target, Star, Heart } from 'lucide-react';
+import { User, Mail, Twitter, Github, Award, Target, Star, Heart, MessageCircle } from 'lucide-react';
 import MetricCard from '@/components/MetricCard';
 import Link from 'next/link';
 
@@ -81,6 +81,19 @@ export default function SubmissionPage() {
                   className="text-lg text-primary hover:text-secondary transition-colors flex items-center space-x-2"
                 >
                   <Twitter size={20} />
+                  <span>@RZ1989sol</span>
+                </a>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-slate-400 mb-2">Telegram</h3>
+                <a
+                  href="https://t.me/RZ1989sol"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-lg text-primary hover:text-secondary transition-colors flex items-center space-x-2"
+                >
+                  <MessageCircle size={20} />
                   <span>@RZ1989sol</span>
                 </a>
               </div>

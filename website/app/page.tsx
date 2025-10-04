@@ -198,6 +198,125 @@ export default function Home() {
           </motion.div>
 
           <FeeCalculator />
+
+          {/* Pro-Rata Formula Breakdown */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-12 bg-slate-900 border border-slate-700 rounded-xl p-8"
+          >
+            <h3 className="text-2xl font-bold mb-6">Mathematical Model</h3>
+
+            <div className="space-y-6">
+              <div className="bg-slate-800 rounded-lg p-6">
+                <h4 className="font-semibold mb-4 text-primary">Distribution Formula</h4>
+                <div className="font-mono text-sm space-y-3 text-slate-300">
+                  <div>
+                    <span className="text-slate-400">1. Locked fraction (0 to 1):</span>
+                    <div className="ml-4 mt-1">f_locked(t) = locked_total(t) / Y0</div>
+                  </div>
+
+                  <div>
+                    <span className="text-slate-400">2. Eligible investor share (capped, basis points 0-10000):</span>
+                    <div className="ml-4 mt-1">eligible_share_bps = min(investor_fee_share_bps, floor(f_locked(t) × 10000))</div>
+                  </div>
+
+                  <div>
+                    <span className="text-slate-400">3. Total allocated to investors:</span>
+                    <div className="ml-4 mt-1">investor_allocation = floor(claimed_quote × eligible_share_bps / 10000)</div>
+                  </div>
+
+                  <div>
+                    <span className="text-slate-400">4. Per-investor weight:</span>
+                    <div className="ml-4 mt-1">weight_i(t) = locked_i(t) / locked_total(t)</div>
+                  </div>
+
+                  <div>
+                    <span className="text-slate-400">5. Per-investor payout (floor rounding):</span>
+                    <div className="ml-4 mt-1">payout_i = floor(investor_allocation × weight_i(t))</div>
+                    <div className="ml-4 mt-1 text-xs text-slate-400">IF payout_i &lt; min_payout_lamports: payout_i = 0 (accumulate as dust)</div>
+                  </div>
+
+                  <div>
+                    <span className="text-slate-400">6. Creator remainder:</span>
+                    <div className="ml-4 mt-1">creator_amount = claimed_quote - sum(payout_i)</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 rounded-lg p-6">
+                <h4 className="font-semibold mb-4 text-primary">Worked Example</h4>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-3 text-sm">
+                    <div className="bg-slate-900 rounded p-3">
+                      <div className="text-slate-400 text-xs mb-1">Policy Configuration:</div>
+                      <div className="font-mono text-xs space-y-1">
+                        <div>Y0 = 1,000,000 tokens</div>
+                        <div>investor_fee_share_bps = 7000 (70%)</div>
+                        <div>daily_cap_lamports = 0 (no cap)</div>
+                        <div>min_payout_lamports = 1,000</div>
+                      </div>
+                    </div>
+
+                    <div className="bg-slate-900 rounded p-3">
+                      <div className="text-slate-400 text-xs mb-1">Distribution Event:</div>
+                      <div className="font-mono text-xs">
+                        claimed_quote = 10,000 tokens
+                      </div>
+                    </div>
+
+                    <div className="bg-slate-900 rounded p-3">
+                      <div className="text-slate-400 text-xs mb-1">Investor States (Streamflow):</div>
+                      <div className="font-mono text-xs space-y-1">
+                        <div>Investor A: locked = 200,000</div>
+                        <div>Investor B: locked = 150,000</div>
+                        <div>Investor C: locked = 100,000</div>
+                        <div className="text-primary">locked_total = 450,000</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 text-sm">
+                    <div className="bg-slate-900 rounded p-3">
+                      <div className="text-success text-xs font-semibold mb-2">Calculation Steps:</div>
+                      <div className="font-mono text-xs space-y-2">
+                        <div>
+                          <div className="text-slate-400">1. f_locked:</div>
+                          <div className="ml-4">450,000 / 1,000,000 = 0.45 (45%)</div>
+                        </div>
+
+                        <div>
+                          <div className="text-slate-400">2. eligible_share_bps:</div>
+                          <div className="ml-4">min(7000, floor(0.45 × 10000))</div>
+                          <div className="ml-4">= min(7000, 4500) = 4500 bps</div>
+                        </div>
+
+                        <div>
+                          <div className="text-slate-400">3. investor_allocation:</div>
+                          <div className="ml-4">floor(10,000 × 4500 / 10000)</div>
+                          <div className="ml-4 text-primary">= 4,500 tokens</div>
+                        </div>
+
+                        <div>
+                          <div className="text-slate-400">4. Individual payouts:</div>
+                          <div className="ml-4">Alice: floor(4,500 × 0.4444) = 2,000 ✅</div>
+                          <div className="ml-4">Bob: floor(4,500 × 0.3333) = 1,500 ✅</div>
+                          <div className="ml-4">Charlie: floor(4,500 × 0.2222) = 1,000 ✅</div>
+                        </div>
+
+                        <div>
+                          <div className="text-slate-400">5. Creator remainder:</div>
+                          <div className="ml-4 text-success">10,000 - 4,500 = 5,500 tokens</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

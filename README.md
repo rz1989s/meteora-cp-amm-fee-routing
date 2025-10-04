@@ -1206,7 +1206,7 @@ MIT
 ## Support
 
 For questions or issues:
-- **Telegram:** [@algopapi](https://t.me/algopapi)
+- **Telegram:** [@RZ1989sol](https://t.me/RZ1989sol)
 - **Twitter:** [@RZ1989sol](https://x.com/RZ1989sol)
 - **GitHub Issues:** [Create an issue](https://github.com/rz1989s/meteora-cp-amm-fee-routing/issues)
 

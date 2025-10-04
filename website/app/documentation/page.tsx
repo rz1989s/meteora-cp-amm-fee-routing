@@ -145,38 +145,119 @@ anchor --version  # Should now show: anchor-cli 0.31.1`}
             </p>
 
             <div className="bg-slate-800 rounded-lg p-4 mb-4">
-              <h5 className="font-semibold mb-3">Accounts</h5>
-              <div className="space-y-2 text-sm font-mono">
-                <div className="grid grid-cols-3 gap-4 pb-2 border-b border-slate-700 text-slate-400">
-                  <span>Name</span>
-                  <span>Mutability</span>
-                  <span>Signer</span>
-                </div>
-                <div className="grid grid-cols-3 gap-4 py-2">
-                  <span>policy</span>
-                  <span className="text-slate-400">read-only</span>
-                  <span className="text-slate-400">no</span>
-                </div>
-                <div className="grid grid-cols-3 gap-4 py-2">
-                  <span>pool</span>
-                  <span className="text-slate-400">read-only</span>
-                  <span className="text-slate-400">no</span>
-                </div>
-                <div className="grid grid-cols-3 gap-4 py-2">
-                  <span>position</span>
-                  <span className="text-warning">mutable</span>
-                  <span className="text-slate-400">no</span>
-                </div>
-                <div className="grid grid-cols-3 gap-4 py-2">
-                  <span>position_owner</span>
-                  <span className="text-slate-400">read-only</span>
-                  <span className="text-slate-400">no (PDA)</span>
-                </div>
-                <div className="grid grid-cols-3 gap-4 py-2">
-                  <span>creator</span>
-                  <span className="text-slate-400">read-only</span>
-                  <span className="text-success">yes</span>
-                </div>
+              <h5 className="font-semibold mb-3">Complete Accounts Table</h5>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-700 text-slate-400">
+                      <th className="text-left py-2 pr-4">Account</th>
+                      <th className="text-left py-2 pr-4">Type</th>
+                      <th className="text-left py-2 pr-4">Mutable</th>
+                      <th className="text-left py-2 pr-4">Signer</th>
+                      <th className="text-left py-2">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody className="font-mono text-xs">
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">authority</td>
+                      <td className="py-2 pr-4 text-slate-400">Signer</td>
+                      <td className="py-2 pr-4 text-warning">✅</td>
+                      <td className="py-2 pr-4 text-success">✅</td>
+                      <td className="py-2 text-slate-400">Creator authority</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">position_owner_pda</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">PDA that owns position NFT</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">vault</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Vault reference for PDA</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">position_nft_mint</td>
+                      <td className="py-2 pr-4 text-slate-400">Signer</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4 text-success">✅</td>
+                      <td className="py-2 text-slate-400">Position NFT mint (new keypair)</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">position_nft_account</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4 text-warning">✅</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Position NFT token account</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">position</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4 text-warning">✅</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Position data account</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">pool</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4 text-warning">✅</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">CP-AMM pool</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">pool_authority</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Pool authority (constant)</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">quote_mint</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Quote token mint</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">rent</td>
+                      <td className="py-2 pr-4 text-slate-400">Sysvar</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Rent sysvar</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">token_program</td>
+                      <td className="py-2 pr-4 text-slate-400">Program</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">SPL Token program</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">system_program</td>
+                      <td className="py-2 pr-4 text-slate-400">Program</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">System program</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">event_authority</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Meteora event authority</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 pr-4">cp_amm_program</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Meteora CP-AMM program</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
 
@@ -228,12 +309,190 @@ await program.methods
             </div>
 
             <div className="bg-slate-800 rounded-lg p-4 mb-4">
-              <h5 className="font-semibold mb-3">Remaining Accounts</h5>
+              <h5 className="font-semibold mb-3">Complete Accounts Table</h5>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-slate-700 text-slate-400">
+                      <th className="text-left py-2 pr-4">Account</th>
+                      <th className="text-left py-2 pr-4">Type</th>
+                      <th className="text-left py-2 pr-4">Mutable</th>
+                      <th className="text-left py-2 pr-4">Signer</th>
+                      <th className="text-left py-2">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody className="font-mono text-xs">
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">caller</td>
+                      <td className="py-2 pr-4 text-slate-400">Signer</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4 text-success">✅</td>
+                      <td className="py-2 text-slate-400">Permissionless caller</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">policy</td>
+                      <td className="py-2 pr-4 text-slate-400">Account&lt;Policy&gt;</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Fee distribution policy</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">progress</td>
+                      <td className="py-2 pr-4 text-slate-400">Account&lt;Progress&gt;</td>
+                      <td className="py-2 pr-4 text-warning">✅</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Daily progress tracking</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">position_owner_pda</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Position owner PDA</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">vault</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Vault reference</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">pool_authority</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Pool authority (constant)</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">pool</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">CP-AMM pool</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">position</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4 text-warning">✅</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Position data account</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">position_nft_account</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Position NFT account</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">treasury_token_a</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4 text-warning">✅</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Program treasury for token A</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">treasury_token_b</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4 text-warning">✅</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Program treasury for token B</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">pool_token_a_vault</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4 text-warning">✅</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Pool token A vault</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">pool_token_b_vault</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4 text-warning">✅</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Pool token B vault</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">token_a_mint</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Token A mint</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">token_b_mint</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Token B mint (quote)</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">token_a_program</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Token A program</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">token_b_program</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Token B program</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">event_authority</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Meteora event authority</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">cp_amm_program</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Meteora CP-AMM program</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">creator_ata</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4 text-warning">✅</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Creator quote ATA</td>
+                    </tr>
+                    <tr className="border-b border-slate-700/50">
+                      <td className="py-2 pr-4">streamflow_program</td>
+                      <td className="py-2 pr-4 text-slate-400">AccountInfo</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">Streamflow program</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 pr-4">token_program</td>
+                      <td className="py-2 pr-4 text-slate-400">Program</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 pr-4">❌</td>
+                      <td className="py-2 text-slate-400">SPL Token program</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="bg-slate-800 rounded-lg p-4 mb-4">
+              <h5 className="font-semibold mb-3">Remaining Accounts (Paged)</h5>
               <p className="text-xs text-slate-400 mb-2">
-                Pass alternating pairs of Streamflow stream account and investor token account:
+                Alternating pattern for investor distributions:
               </p>
               <div className="space-y-1 text-sm font-mono">
-                <div className="text-slate-300">[stream_0, investor_ata_0, stream_1, investor_ata_1, ...]</div>
+                <div className="text-slate-300">[stream_pubkey, investor_ata, stream_pubkey, investor_ata, ...]</div>
+                <div className="text-xs text-slate-400 mt-2">
+                  • stream_pubkey: Streamflow Contract account (read-only)
+                  <br />
+                  • investor_ata: Investor's quote token account (mutable)
+                </div>
               </div>
             </div>
 
@@ -354,6 +613,538 @@ await program.methods
     </div>
   );
 
+  const policyConfigTab = (
+    <div className="space-y-6">
+      <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+        <h3 className="text-2xl font-bold mb-4 text-primary">Policy Configuration Guide</h3>
+        <p className="text-slate-300 mb-6">
+          Configure the Policy account to control fee distribution behavior, caps, and thresholds.
+        </p>
+
+        <div className="space-y-6">
+          <div>
+            <h4 className="text-xl font-semibold mb-3">Recommended Settings</h4>
+            <CodeBlock
+              language="typescript"
+              code={`// Example: 70% to investors (capped by locked fraction), 30% to creator minimum
+const policyConfig = {
+  y0: new BN(1_000_000_000),           // 1 billion tokens streamed at TGE
+  investorFeeShareBps: 7000,           // 70% max to investors
+  dailyCapLamports: new BN(0),         // No daily cap (unlimited)
+  minPayoutLamports: new BN(1_000),    // 1,000 lamports dust threshold
+  quoteMint: quoteMintPubkey,
+  creatorWallet: creatorPubkey,
+};`}
+              showLineNumbers={false}
+            />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-slate-800 rounded-lg p-4">
+              <h4 className="font-semibold mb-3 text-success">y0 (Total Investor Allocation)</h4>
+              <div className="text-sm text-slate-300 space-y-2">
+                <p>Set to total tokens minted and streamed to investors at TGE.</p>
+                <p className="text-slate-400">
+                  • Used as denominator for locked fraction calculation<br />
+                  • Must match actual Streamflow stream configurations<br />
+                  • Critical for accurate pro-rata calculations
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-slate-800 rounded-lg p-4">
+              <h4 className="font-semibold mb-3 text-primary">investor_fee_share_bps (Max Investor Share)</h4>
+              <div className="text-sm text-slate-300 space-y-2">
+                <p>Range: 0-10,000 basis points (0% - 100%)</p>
+                <p className="text-slate-400">
+                  • Typical values: 5,000-8,000 (50%-80%)<br />
+                  • Actual share = min(investor_fee_share_bps, locked_fraction × 10000)<br />
+                  • Example: If 50% locked and share is 70%, investors get 50%
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-slate-800 rounded-lg p-4">
+              <h4 className="font-semibold mb-3 text-warning">daily_cap_lamports (Daily Cap)</h4>
+              <div className="text-sm text-slate-300 space-y-2">
+                <p>Set to 0 for unlimited distribution.</p>
+                <p className="text-slate-400">
+                  • Non-zero enforces daily maximum<br />
+                  • Excess carries to next day automatically<br />
+                  • Useful for smoothing distributions over time
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-slate-800 rounded-lg p-4">
+              <h4 className="font-semibold mb-3 text-secondary">min_payout_lamports (Dust Threshold)</h4>
+              <div className="text-sm text-slate-300 space-y-2">
+                <p>Payouts below this threshold are skipped and accumulated.</p>
+                <p className="text-slate-400">
+                  • Prevents expensive small transfers<br />
+                  • Dust carries forward to next distribution<br />
+                  • Recommended: 1,000-10,000 lamports depending on token value
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 rounded-lg p-6">
+            <h4 className="text-lg font-semibold mb-3">Configuration Examples</h4>
+            <div className="space-y-4">
+              <div className="bg-slate-900 rounded-lg p-4">
+                <h5 className="font-semibold mb-2 text-success">Conservative (Investor-Focused)</h5>
+                <CodeBlock
+                  language="typescript"
+                  code={`{
+  y0: new BN(1_000_000_000),
+  investorFeeShareBps: 8000,        // 80% max to investors
+  dailyCapLamports: new BN(100_000), // Cap at 100K per day
+  minPayoutLamports: new BN(5_000),  // Higher dust threshold
+}`}
+                  showLineNumbers={false}
+                />
+              </div>
+
+              <div className="bg-slate-900 rounded-lg p-4">
+                <h5 className="font-semibold mb-2 text-warning">Balanced</h5>
+                <CodeBlock
+                  language="typescript"
+                  code={`{
+  y0: new BN(1_000_000_000),
+  investorFeeShareBps: 6000,        // 60% max to investors
+  dailyCapLamports: new BN(0),       // No cap
+  minPayoutLamports: new BN(1_000),  // Standard threshold
+}`}
+                  showLineNumbers={false}
+                />
+              </div>
+
+              <div className="bg-slate-900 rounded-lg p-4">
+                <h5 className="font-semibold mb-2 text-secondary">Creator-Focused</h5>
+                <CodeBlock
+                  language="typescript"
+                  code={`{
+  y0: new BN(1_000_000_000),
+  investorFeeShareBps: 4000,        // 40% max to investors
+  dailyCapLamports: new BN(0),       // No cap
+  minPayoutLamports: new BN(500),    // Lower threshold
+}`}
+                  showLineNumbers={false}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const integrationTab = (
+    <div className="space-y-6">
+      <div className="bg-gradient-to-br from-success/20 to-success/5 border border-success/30 rounded-xl p-6">
+        <h3 className="text-2xl font-bold mb-4 text-success">6-Step Integration Guide</h3>
+        <p className="text-slate-300 mb-6">
+          Complete walkthrough for deploying and configuring the fee routing program.
+        </p>
+
+        <div className="space-y-8">
+          {/* Step 1 */}
+          <div className="bg-slate-900 rounded-lg p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg">1</div>
+              <h4 className="text-xl font-semibold">Deploy Program</h4>
+            </div>
+            <CodeBlock
+              language="bash"
+              code={`# Build program
+anchor build
+
+# Deploy to devnet
+solana program deploy target/deploy/fee_routing.so \\
+  --program-id target/deploy/fee_routing-keypair.json \\
+  --url devnet
+
+# Verify deployment
+solana program show <PROGRAM_ID> --url devnet`}
+              showLineNumbers={false}
+            />
+          </div>
+
+          {/* Step 2 */}
+          <div className="bg-slate-900 rounded-lg p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg">2</div>
+              <h4 className="text-xl font-semibold">Initialize Policy Account</h4>
+            </div>
+            <p className="text-sm text-slate-300 mb-3">
+              Create the Policy PDA with your distribution configuration:
+            </p>
+            <CodeBlock
+              language="typescript"
+              code={`const [policyPda] = await PublicKey.findProgramAddress(
+  [Buffer.from("policy")],
+  program.programId
+);
+
+await program.methods
+  .initializePolicy({
+    y0: new BN(1_000_000_000),           // 1B tokens
+    investorFeeShareBps: 7000,           // 70% max
+    dailyCapLamports: new BN(0),         // No cap
+    minPayoutLamports: new BN(1_000),    // 1K dust threshold
+    quoteMint: quoteMint.publicKey,
+    creatorWallet: creator.publicKey,
+  })
+  .accounts({
+    authority: creator.publicKey,
+    policy: policyPda,
+    systemProgram: SystemProgram.programId,
+  })
+  .signers([creator])
+  .rpc();`}
+              showLineNumbers={false}
+            />
+          </div>
+
+          {/* Step 3 */}
+          <div className="bg-slate-900 rounded-lg p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg">3</div>
+              <h4 className="text-xl font-semibold">Initialize Progress Account</h4>
+            </div>
+            <p className="text-sm text-slate-300 mb-3">
+              Create the Progress PDA to track daily distribution state:
+            </p>
+            <CodeBlock
+              language="typescript"
+              code={`const [progressPda] = await PublicKey.findProgramAddress(
+  [Buffer.from("progress")],
+  program.programId
+);
+
+await program.methods
+  .initializeProgress()
+  .accounts({
+    authority: creator.publicKey,
+    progress: progressPda,
+    systemProgram: SystemProgram.programId,
+  })
+  .signers([creator])
+  .rpc();`}
+              showLineNumbers={false}
+            />
+          </div>
+
+          {/* Step 4 */}
+          <div className="bg-slate-900 rounded-lg p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg">4</div>
+              <h4 className="text-xl font-semibold">Create Honorary Position</h4>
+            </div>
+            <p className="text-sm text-slate-300 mb-3">
+              Initialize the quote-only fee position in the Meteora pool:
+            </p>
+            <CodeBlock
+              language="typescript"
+              code={`const positionNftMint = Keypair.generate();
+const [positionOwnerPda] = await PublicKey.findProgramAddress(
+  [
+    Buffer.from("vault"),
+    vault.publicKey.toBuffer(),
+    Buffer.from("investor_fee_pos_owner"),
+  ],
+  program.programId
+);
+
+// Derive Meteora PDAs
+const [position] = await PublicKey.findProgramAddress(
+  [Buffer.from("position"), positionNftMint.publicKey.toBuffer()],
+  CP_AMM_PROGRAM_ID
+);
+
+const [positionNftAccount] = await PublicKey.findProgramAddress(
+  [Buffer.from("position_nft_account"), positionNftMint.publicKey.toBuffer()],
+  CP_AMM_PROGRAM_ID
+);
+
+await program.methods
+  .initializePosition()
+  .accounts({
+    authority: creator.publicKey,
+    positionOwnerPda: positionOwnerPda,
+    vault: vault.publicKey,
+    positionNftMint: positionNftMint.publicKey,
+    positionNftAccount: positionNftAccount,
+    position: position,
+    pool: pool.publicKey,
+    poolAuthority: POOL_AUTHORITY,
+    quoteMint: quoteMint.publicKey,
+    // ... other accounts
+  })
+  .signers([creator, positionNftMint])
+  .rpc();`}
+              showLineNumbers={false}
+            />
+          </div>
+
+          {/* Step 5 */}
+          <div className="bg-slate-900 rounded-lg p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg">5</div>
+              <h4 className="text-xl font-semibold">Setup Distribution Crank</h4>
+            </div>
+            <p className="text-sm text-slate-300 mb-3">
+              Configure a cron job or keeper bot to call distribute_fees every 24 hours:
+            </p>
+            <CodeBlock
+              language="typescript"
+              code={`// Pseudo-code for crank bot
+async function distributionCrank() {
+  const progress = await program.account.progress.fetch(progressPda);
+  const now = Date.now() / 1000;
+
+  // Check if 24h elapsed
+  if (now < progress.lastDistributionTs + 86400) {
+    console.log("24h not elapsed yet");
+    return;
+  }
+
+  // Fetch all investor streams
+  const investors = await fetchInvestorStreams();
+
+  // Paginate (e.g., 50 investors per page)
+  const PAGE_SIZE = 50;
+  const totalPages = Math.ceil(investors.length / PAGE_SIZE);
+
+  for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
+    const start = pageIndex * PAGE_SIZE;
+    const end = Math.min(start + PAGE_SIZE, investors.length);
+    const pageInvestors = investors.slice(start, end);
+
+    // Build remaining accounts
+    const remainingAccounts = [];
+    for (const inv of pageInvestors) {
+      remainingAccounts.push(
+        { pubkey: inv.streamPubkey, isSigner: false, isWritable: false },
+        { pubkey: inv.ata, isSigner: false, isWritable: true }
+      );
+    }
+
+    // Execute distribution for this page
+    await program.methods
+      .distributeFees(pageIndex)
+      .accounts({ /* ... all accounts ... */ })
+      .remainingAccounts(remainingAccounts)
+      .signers([cranker])
+      .rpc();
+
+    console.log(\`Page \${pageIndex} distributed\`);
+  }
+}
+
+// Run every hour (will only execute if 24h elapsed)
+setInterval(distributionCrank, 3600 * 1000);`}
+              showLineNumbers={false}
+            />
+          </div>
+
+          {/* Step 6 */}
+          <div className="bg-slate-900 rounded-lg p-6">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg">6</div>
+              <h4 className="text-xl font-semibold">Monitor Events</h4>
+            </div>
+            <p className="text-sm text-slate-300 mb-3">
+              Listen for program events to track distributions and monitor health:
+            </p>
+            <CodeBlock
+              language="typescript"
+              code={`// Subscribe to program events
+const feeListener = program.addEventListener("QuoteFeesClaimed", (event) => {
+  console.log(\`Fees claimed: \${event.amountClaimed} tokens on day \${event.day}\`);
+});
+
+const investorListener = program.addEventListener("InvestorPayoutPage", (event) => {
+  console.log(\`Page \${event.pageIndex}: \${event.investorsPaid} investors paid, total: \${event.totalPaidThisPage}\`);
+});
+
+const creatorListener = program.addEventListener("CreatorPayoutDayClosed", (event) => {
+  console.log(\`Day \${event.day} closed: Creator received \${event.creatorAmount} tokens\`);
+});
+
+// Clean up listeners when done
+// program.removeEventListener(feeListener);
+// program.removeEventListener(investorListener);
+// program.removeEventListener(creatorListener);`}
+              showLineNumbers={false}
+            />
+          </div>
+        </div>
+
+        <div className="mt-8 bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 rounded-lg p-6">
+          <h4 className="font-semibold text-lg mb-3">🎉 Integration Complete!</h4>
+          <p className="text-sm text-slate-300">
+            Your fee routing system is now live. The program will automatically:
+          </p>
+          <ul className="text-sm text-slate-300 mt-3 space-y-1 ml-6">
+            <li>• Accrue quote-only fees from the Meteora pool</li>
+            <li>• Distribute fees pro-rata to investors every 24 hours</li>
+            <li>• Send remainder to creator wallet after each distribution</li>
+            <li>• Emit events for all state changes for monitoring</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+
+  const troubleshootingTab = (
+    <div className="space-y-6">
+      <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+        <h3 className="text-2xl font-bold mb-4 text-warning">Troubleshooting & Failure Modes</h3>
+        <p className="text-slate-300 mb-6">
+          Common failure scenarios and their resolutions. Each mode includes error description, cause, and solution.
+        </p>
+
+        <div className="space-y-4">
+          {[
+            {
+              num: 1,
+              title: "24h Time Gate Violation",
+              error: "DistributionWindowNotElapsed",
+              scenario: "Calling distribute_fees(0) before 24 hours elapsed.",
+              resolution: "Wait until now >= last_distribution_ts + 86400 seconds.",
+              example: "Last distribution: Day 1 at 12:00 PM\nNext distribution: Day 2 at 12:00 PM or later\nAttempting at Day 2, 11:00 AM → FAILS"
+            },
+            {
+              num: 2,
+              title: "Invalid Page Index",
+              error: "InvalidPageIndex",
+              scenario: "Calling wrong page number or out-of-order pages.",
+              resolution: "Call pages sequentially starting from 0, within same 24h window.",
+              example: "✅ distribute_fees(0) → Success (current_page = 1)\n❌ distribute_fees(2) → FAILS (expected page 1)\n✅ distribute_fees(1) → Success (current_page = 2)"
+            },
+            {
+              num: 3,
+              title: "Base Fees Detected",
+              error: "BaseFeesNotAllowed",
+              scenario: "Honorary position accrues fees in base token (token A).",
+              resolution: "Position configuration must guarantee quote-only accrual. This should be caught during initialize_position validation.",
+              example: "Prevention: Validate pool tick range and token order before initialization."
+            },
+            {
+              num: 4,
+              title: "Daily Cap Exceeded",
+              error: "DailyCapExceeded",
+              scenario: "Distribution amount exceeds daily_cap_lamports.",
+              resolution: "Excess amount automatically carries to next day in carry_over_lamports. Not a fatal error.",
+              example: "Daily cap: 5,000 tokens\nClaimed fees: 10,000 tokens\nDistributed today: 5,000 tokens\nCarry over: 5,000 tokens → Added to next day's distribution"
+            },
+            {
+              num: 5,
+              title: "Streamflow Account Ownership Mismatch",
+              error: "InvalidStreamflowAccount",
+              scenario: "Remaining accounts include non-Streamflow accounts.",
+              resolution: "Ensure all stream accounts in remaining_accounts are owned by Streamflow program.",
+              example: "Validation check:\nrequire!(\n  stream_account.owner == &streamflow_sdk::id(),\n  FeeRoutingError::InvalidStreamflowAccount\n);"
+            },
+            {
+              num: 6,
+              title: "Locked Amount Exceeds Y0",
+              error: "LockedExceedsTotal",
+              scenario: "Sum of locked amounts > y0 (data integrity issue).",
+              resolution: "Verify Streamflow configuration matches policy y0. This indicates misconfiguration.",
+              example: "If Y0 = 1,000,000 but total locked = 1,200,000 → ERROR"
+            },
+            {
+              num: 7,
+              title: "Arithmetic Overflow",
+              error: "ArithmeticOverflow",
+              scenario: "Calculation exceeds u64 maximum.",
+              resolution: "All arithmetic uses checked operations. Should never occur with realistic token amounts.",
+              example: "Protected operations:\namount.checked_mul(bps)\n  .and_then(|x| x.checked_div(BPS_DENOMINATOR))\n  .ok_or(FeeRoutingError::ArithmeticOverflow)?"
+            },
+            {
+              num: 8,
+              title: "Creator Payout Double-Send",
+              error: "CreatorPayoutAlreadySent",
+              scenario: "Attempting to send creator payout twice in same day.",
+              resolution: "Flag creator_payout_sent prevents duplicate payouts. This is a safety check.",
+              example: "Only final page of day can send creator payout, and only once."
+            },
+            {
+              num: 9,
+              title: "Transaction Size Limits",
+              error: "Transaction exceeds size limit (not a program error)",
+              scenario: "Too many investors in single page, transaction too large.",
+              resolution: "Reduce page size. Recommended: 30-50 investors per page depending on account sizes.",
+              example: "If 100 investors per page fails, try 50 investors per page."
+            },
+            {
+              num: 10,
+              title: "Missing Investor ATAs",
+              error: "Account not found (Solana error)",
+              scenario: "Investor quote ATA doesn't exist.",
+              resolution: "Create ATAs before distribution, or skip investor (implementation choice). Current implementation requires ATAs to exist.",
+              example: "Pre-create all investor ATAs:\nfor (const inv of investors) {\n  await getOrCreateAssociatedTokenAccount(...);\n}"
+            }
+          ].map((failure) => (
+            <motion.div
+              key={failure.num}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: failure.num * 0.05 }}
+              className="bg-slate-800 border border-slate-700 rounded-lg p-6"
+            >
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex items-center space-x-3">
+                  <div className="bg-warning/20 text-warning rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
+                    {failure.num}
+                  </div>
+                  <h4 className="text-lg font-semibold">{failure.title}</h4>
+                </div>
+                <span className="px-3 py-1 bg-error/20 text-error rounded-full text-xs font-semibold">
+                  {failure.error}
+                </span>
+              </div>
+
+              <div className="space-y-3 text-sm">
+                <div>
+                  <span className="text-slate-400 font-semibold">Scenario:</span>
+                  <p className="text-slate-300 mt-1">{failure.scenario}</p>
+                </div>
+
+                <div>
+                  <span className="text-success font-semibold">Resolution:</span>
+                  <p className="text-slate-300 mt-1">{failure.resolution}</p>
+                </div>
+
+                <div className="bg-slate-900 rounded p-3">
+                  <span className="text-primary font-semibold text-xs">Example:</span>
+                  <pre className="text-xs text-slate-300 mt-2 whitespace-pre-wrap font-mono">
+                    {failure.example}
+                  </pre>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-8 bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 rounded-lg p-6">
+          <h4 className="font-semibold text-lg mb-3">💡 General Debugging Tips</h4>
+          <ul className="text-sm text-slate-300 space-y-2">
+            <li>• <strong>Check Progress state:</strong> Always verify current_page and creator_payout_sent before distributions</li>
+            <li>• <strong>Monitor events:</strong> All state changes emit events - use them for debugging</li>
+            <li>• <strong>Validate input data:</strong> Ensure Streamflow streams match Policy y0 configuration</li>
+            <li>• <strong>Test with small amounts first:</strong> Use small token amounts to verify logic before production</li>
+            <li>• <strong>Check anchor logs:</strong> Use `anchor test --skip-local-validator` with deployed programs for detailed logs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+
   const eventsTab = (
     <div className="space-y-6">
       <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
@@ -469,6 +1260,9 @@ await program.methods
             tabs={[
               { id: 'quickstart', label: 'Quick Start', content: quickStartTab },
               { id: 'api', label: 'API Reference', content: apiTab },
+              { id: 'config', label: 'Policy Config', content: policyConfigTab },
+              { id: 'integration', label: 'Integration', content: integrationTab },
+              { id: 'troubleshooting', label: 'Troubleshooting', content: troubleshootingTab },
               { id: 'errors', label: 'Error Codes', content: errorsTab },
               { id: 'events', label: 'Events', content: eventsTab },
             ]}
