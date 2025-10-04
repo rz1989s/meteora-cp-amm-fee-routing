@@ -1039,7 +1039,7 @@ fee-routing
     ✔ Should handle overflow gracefully
     ✔ Should reject invalid page index
 
-17 passing (29ms)
+17 passing (32ms)
 0 failing`}
               showLineNumbers={false}
             />
@@ -1056,7 +1056,7 @@ fee-routing
               code={`$ anchor build
 
 Compiling fee-routing v0.1.0
-Finished \`release\` profile [optimized] target(s) in 1m 06s
+Finished \`release\` profile [optimized] target(s)
 
 ✅ Status: SUCCESS
 ✅ Warnings: 16 (minor cfg warnings only)
