@@ -1279,7 +1279,7 @@ const creatorListener = program.addEventListener("CreatorPayoutDayClosed", (even
           <Book className="mx-auto mb-4 text-primary" size={48} />
           <h3 className="text-2xl font-bold mb-2">Need More Information?</h3>
           <p className="text-slate-300 mb-6">
-            The full README.md contains 1,063 lines of comprehensive documentation covering
+            The full README.md contains comprehensive documentation covering
             architecture, implementation details, testing strategies, and deployment guides.
           </p>
           <a

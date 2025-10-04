@@ -56,7 +56,7 @@ export default function Footer() {
                   className="text-slate-400 hover:text-primary transition-colors flex items-center space-x-2"
                 >
                   <FileText size={16} />
-                  <span>Full README (1,063 lines)</span>
+                  <span>README</span>
                 </a>
               </li>
               <li>

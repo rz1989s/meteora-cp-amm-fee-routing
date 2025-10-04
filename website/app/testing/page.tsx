@@ -413,7 +413,7 @@ Output: target/deploy/fee_routing.so (316KB)`}
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="text-slate-300">Documentation</span>
-                <span className="text-success font-semibold">1,063 lines</span>
+                <span className="text-success font-semibold">Comprehensive</span>
               </div>
               <ProgressBar value={100} color="success" showLabel={false} />
             </div>

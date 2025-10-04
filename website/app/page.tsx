@@ -73,8 +73,8 @@ export default function Home() {
             />
             <MetricCard
               title="Documentation"
-              value="1,063"
-              description="Lines of comprehensive docs"
+              value="Complete"
+              description="Comprehensive documentation"
               icon={Code}
               color="primary"
               delay={0.2}

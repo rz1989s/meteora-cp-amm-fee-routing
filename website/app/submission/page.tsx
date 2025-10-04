@@ -186,7 +186,7 @@ export default function SubmissionPage() {
                   3. Exceptional Documentation
                 </h3>
                 <p className="text-slate-300">
-                  1,063 lines of comprehensive README covering architecture, implementation details,
+                  Comprehensive README covering architecture, implementation details,
                   testing strategies, deployment guides, and troubleshooting. Every function is
                   well-commented with clear explanations.
                 </p>
