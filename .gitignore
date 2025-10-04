@@ -13,3 +13,4 @@ test-ledger
 .idea/
 keys/
 *.so
+.playwright-mcp/
