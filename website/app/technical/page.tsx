@@ -117,6 +117,7 @@ let (position_owner, bump) = Pubkey::find_program_address(
     &fee_routing::ID
 );`}
           showLineNumbers={false}
+          githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/programs/fee-routing/src/constants.rs"
         />
       </div>
     </div>
@@ -157,6 +158,7 @@ for investor in investors {
         progress.carry_over_lamports += payout;
     }
 }`}
+          githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/programs/fee-routing/src/lib.rs"
         />
       </div>
 
@@ -198,6 +200,7 @@ for investor in investors {
 
     Ok(())
 }`}
+          githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/programs/fee-routing/src/instructions/initialize_position.rs"
         />
       </div>
 
@@ -246,6 +249,7 @@ for investor in investors {
     progress.current_page += 1;
     Ok(())
 }`}
+          githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/programs/fee-routing/src/instructions/distribute_fees.rs"
         />
       </div>
     </div>

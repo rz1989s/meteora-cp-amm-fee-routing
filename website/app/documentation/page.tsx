@@ -206,6 +206,7 @@ await program.methods
   })
   .signers([creator])
   .rpc();`}
+              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/tests/fee-routing.ts"
             />
           </div>
 
@@ -264,6 +265,7 @@ await program.methods
   })
   .remainingAccounts(remainingAccounts)
   .rpc();`}
+              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/tests/fee-routing.ts"
             />
           </div>
         </div>
@@ -377,6 +379,7 @@ await program.methods
     pub timestamp: i64,
 }`}
               showLineNumbers={false}
+              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/programs/fee-routing/src/events.rs"
             />
           </div>
 
@@ -393,6 +396,7 @@ await program.methods
     pub timestamp: i64,
 }`}
               showLineNumbers={false}
+              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/programs/fee-routing/src/events.rs"
             />
           </div>
 
@@ -412,6 +416,7 @@ await program.methods
     pub timestamp: i64,
 }`}
               showLineNumbers={false}
+              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/programs/fee-routing/src/events.rs"
             />
           </div>
 
@@ -430,6 +435,7 @@ await program.methods
     pub timestamp: i64,
 }`}
               showLineNumbers={false}
+              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/programs/fee-routing/src/events.rs"
             />
           </div>
         </div>

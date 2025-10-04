@@ -208,6 +208,171 @@ Status: ✅ ALL PASSING`}
     </div>
   );
 
+  const testExamplesTab = (
+    <div className="space-y-6">
+      <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+        <h3 className="text-2xl font-bold mb-4 text-primary">Critical Path Test Examples</h3>
+        <p className="text-slate-300 mb-6">
+          Sample test code demonstrating core functionality verification. All tests run against
+          local validator with cloned Meteora CP-AMM and Streamflow programs.
+        </p>
+
+        <div className="space-y-6">
+          <div>
+            <h4 className="font-semibold mb-3 text-lg">Pro-Rata Distribution Test</h4>
+            <CodeBlock
+              title="tests/fee-routing.ts - Pro-Rata Calculation"
+              language="typescript"
+              code={`it('Should calculate pro-rata distribution correctly', async () => {
+  // Setup: 3 investors with different locked amounts
+  const investors = [
+    { address: alice, locked: 150_000 },  // 50% of total locked
+    { address: bob, locked: 100_000 },    // 33.3% of total locked
+    { address: charlie, locked: 50_000 }, // 16.7% of total locked
+  ];
+
+  // Total locked: 300,000 out of Y0=1,000,000 (30% locked fraction)
+  // With 70% investor_fee_share_bps, eligible share = min(70%, 30%) = 30%
+
+  // Claim 10,000 tokens in fees
+  await simulateFeeAccrual(pool, 10_000);
+
+  // Distribute fees (page 0 - all investors)
+  await program.methods
+    .distributeFees(0)
+    .accounts({ /* ... */ })
+    .remainingAccounts(buildInvestorAccounts(investors))
+    .rpc();
+
+  // Verify pro-rata distribution
+  // Investor pool = 10,000 × 30% = 3,000 tokens
+  const aliceBalance = await getTokenBalance(aliceAta);
+  const bobBalance = await getTokenBalance(bobAta);
+  const charlieBalance = await getTokenBalance(charlieAta);
+
+  expect(aliceBalance).to.equal(1_500);   // 3,000 × 50.0% = 1,500
+  expect(bobBalance).to.equal(1_000);     // 3,000 × 33.3% = 1,000
+  expect(charlieBalance).to.equal(500);   // 3,000 × 16.7% = 500
+
+  // Creator gets remainder: 10,000 - 3,000 = 7,000
+  const creatorBalance = await getTokenBalance(creatorAta);
+  expect(creatorBalance).to.equal(7_000);
+});`}
+              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/tests/fee-routing.ts"
+            />
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-3 text-lg">Pagination Idempotency Test</h4>
+            <CodeBlock
+              title="tests/fee-routing.ts - Idempotent Pagination"
+              language="typescript"
+              code={`it('Should handle pagination idempotently', async () => {
+  // Setup: 150 investors (requires 3 pages at 50/page)
+  const investors = generateInvestors(150);
+
+  // Page 0: Investors 0-49
+  await program.methods
+    .distributeFees(0)
+    .accounts({ /* ... */ })
+    .remainingAccounts(buildInvestorAccounts(investors.slice(0, 50)))
+    .rpc();
+
+  const progress1 = await program.account.progress.fetch(progressPda);
+  expect(progress1.currentPage).to.equal(1); // Next expected page
+
+  // Attempting to re-run page 0 should fail (prevents double-payment)
+  try {
+    await program.methods
+      .distributeFees(0)
+      .accounts({ /* ... */ })
+      .rpc();
+    expect.fail('Should have thrown InvalidPageIndex error');
+  } catch (err) {
+    expect(err.toString()).to.include('InvalidPageIndex');
+  }
+
+  // Page 1: Investors 50-99 (correct sequence)
+  await program.methods
+    .distributeFees(1)
+    .accounts({ /* ... */ })
+    .remainingAccounts(buildInvestorAccounts(investors.slice(50, 100)))
+    .rpc();
+
+  // Page 2: Investors 100-149 (final page triggers creator payout)
+  await program.methods
+    .distributeFees(2)
+    .accounts({ /* ... */ })
+    .remainingAccounts(buildInvestorAccounts(investors.slice(100, 150)))
+    .rpc();
+
+  const progress2 = await program.account.progress.fetch(progressPda);
+  expect(progress2.creatorPayoutSent).to.be.true; // Creator received remainder
+});`}
+              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/tests/fee-routing.ts"
+            />
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-3 text-lg">Quote-Only Validation Test</h4>
+            <CodeBlock
+              title="tests/fee-routing.ts - Quote-Only Enforcement"
+              language="typescript"
+              code={`it('Should reject pools with base token fees', async () => {
+  // Create a pool configuration that would generate base token fees
+  const invalidPool = await createPoolWithBaseFees({
+    tokenA: baseMint,
+    tokenB: quoteMint,
+    tickRange: { lower: -100, upper: 100 }, // Would accrue both base & quote
+  });
+
+  // Attempt to initialize honorary position with invalid pool
+  try {
+    await program.methods
+      .initializePosition()
+      .accounts({
+        policy: policyPda,
+        pool: invalidPool,
+        /* ... */
+      })
+      .rpc();
+
+    expect.fail('Should have thrown BaseFeesNotAllowed error');
+  } catch (err) {
+    expect(err.toString()).to.include('BaseFeesNotAllowed');
+  }
+
+  // Verify: Valid quote-only configuration succeeds
+  const validPool = await createQuoteOnlyPool({
+    tokenA: baseMint,
+    tokenB: quoteMint,
+    tickRange: { lower: 0, upper: 0 }, // Quote-only range
+  });
+
+  const tx = await program.methods
+    .initializePosition()
+    .accounts({
+      policy: policyPda,
+      pool: validPool,
+      /* ... */
+    })
+    .rpc();
+
+  expect(tx).to.be.a('string'); // Transaction signature confirms success
+
+  // Verify event emission
+  const events = await program.account.honoraryPositionInitialized.all();
+  expect(events.length).to.equal(1);
+  expect(events[0].account.pool.toString()).to.equal(validPool.toString());
+});`}
+              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/tests/fee-routing.ts"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   const qualityTab = (
     <div className="space-y-6">
       <div className="grid md:grid-cols-2 gap-6">
@@ -417,6 +582,7 @@ Output: target/deploy/fee_routing.so (316KB)`}
           <TabGroup
             tabs={[
               { id: 'results', label: 'Test Results', content: resultsTab },
+              { id: 'examples', label: 'Test Examples', content: testExamplesTab },
               { id: 'unit', label: 'Unit Tests', content: unitTestsTab },
               { id: 'quality', label: 'Quality Metrics', content: qualityTab },
             ]}

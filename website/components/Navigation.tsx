@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Github } from 'lucide-react';
 import { useState } from 'react';
 
 const navItems = [
@@ -29,20 +29,31 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                href={item.path}
-                className={`px-4 py-2 rounded-lg transition-all ${
-                  pathname === item.path
-                    ? 'bg-primary text-white'
-                    : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center space-x-4">
+            <a
+              href="https://github.com/rz1989s/meteora-cp-amm-fee-routing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-all"
+              title="View on GitHub"
+            >
+              <Github size={20} />
+            </a>
+            <div className="flex space-x-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  className={`px-4 py-2 rounded-lg transition-all ${
+                    pathname === item.path
+                      ? 'bg-primary text-white'
+                      : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -57,6 +68,16 @@ export default function Navigation() {
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 space-y-2">
+            <a
+              href="https://github.com/rz1989s/meteora-cp-amm-fee-routing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-all"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <Github size={20} />
+              <span>View on GitHub</span>
+            </a>
             {navItems.map((item) => (
               <Link
                 key={item.path}

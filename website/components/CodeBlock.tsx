@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { Copy, Check } from 'lucide-react';
+import { Copy, Check, ExternalLink } from 'lucide-react';
 
 interface CodeBlockProps {
   code: string;
   language?: string;
   showLineNumbers?: boolean;
   title?: string;
+  githubLink?: string;
 }
 
 export default function CodeBlock({
@@ -17,6 +18,7 @@ export default function CodeBlock({
   language = 'rust',
   showLineNumbers = true,
   title,
+  githubLink,
 }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
@@ -31,22 +33,36 @@ export default function CodeBlock({
       {title && (
         <div className="bg-slate-800 px-4 py-2 border-b border-slate-700 flex items-center justify-between">
           <span className="text-sm font-medium text-slate-300">{title}</span>
-          <button
-            onClick={handleCopy}
-            className="flex items-center space-x-2 px-3 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors text-sm"
-          >
-            {copied ? (
-              <>
-                <Check size={16} className="text-success" />
-                <span className="text-success">Copied!</span>
-              </>
-            ) : (
-              <>
-                <Copy size={16} />
-                <span>Copy</span>
-              </>
+          <div className="flex items-center space-x-2">
+            {githubLink && (
+              <a
+                href={githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-1 px-3 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors text-sm"
+                title="View on GitHub"
+              >
+                <ExternalLink size={14} />
+                <span>GitHub</span>
+              </a>
             )}
-          </button>
+            <button
+              onClick={handleCopy}
+              className="flex items-center space-x-2 px-3 py-1 rounded-lg bg-slate-700 hover:bg-slate-600 transition-colors text-sm"
+            >
+              {copied ? (
+                <>
+                  <Check size={16} className="text-success" />
+                  <span className="text-success">Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy size={16} />
+                  <span>Copy</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
       )}
       {!title && (
