@@ -118,7 +118,7 @@ All data is sourced from actual project metrics:
 - Documentation: 1,063 lines (actual README.md)
 - Build status: 100% success, 0 errors
 - Security: 0 unsafe code blocks
-- Program ID: Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS
+- Program ID: RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
 - Repository: github.com/rz1989s/meteora-cp-amm-fee-routing
 
 ## Interactive Features

@@ -184,7 +184,7 @@ All website claims verified against actual project state:
 
 | Claim | Website | Actual | Verified |
 |-------|---------|--------|----------|
-| Program ID | `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS` | `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS` | ✅ |
+| Program ID | `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce` | `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce` | ✅ |
 | Integration Tests | 17/17 passing | 17 passing (42ms) | ✅ |
 | Unit Tests | 7/7 passing | 7 passing (per FINAL_STATUS.md) | ✅ |
 | Total Tests | 24 (17+7) | 24 | ✅ |

@@ -22,7 +22,7 @@
 
 - [x] Program compiles successfully with `anchor build`
 - [x] Uses Anchor framework (v0.30.1)
-- [x] Program ID: `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS`
+- [x] Program ID: `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce`
 - [x] No `unsafe` code
 - [x] Deterministic PDA seeds
 

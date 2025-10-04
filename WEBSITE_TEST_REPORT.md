@@ -158,7 +158,7 @@ Comprehensive automated testing of the Meteora DAMM V2 Fee Routing pitch website
   - Twitter: @RZ1989sol (link working)
   - GitHub: rz1989s (link working)
   - Repository URL: github.com/rz1989s/meteora-cp-amm-fee-routing
-  - Program ID: Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS ✅
+  - Program ID: RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce ✅
   - Submission Date: October 4, 2025
   - License: MIT
 - ✅ **Why This Wins Section:**
@@ -211,7 +211,7 @@ Comprehensive automated testing of the Meteora DAMM V2 Fee Routing pitch website
 - ✅ Description: "Permissionless fee routing program for Meteora DAMM V2 (CP-AMM) pools"
 - ✅ Quick Links section (Technical, Testing, Documentation, Submission)
 - ✅ Connect section (GitHub, Twitter icons as links)
-- ✅ **Program ID displayed:** `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS` ✅
+- ✅ **Program ID displayed:** `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce` ✅
 - ✅ Copyright: "© 2025 RECTOR. Submission for Meteora DAMM V2 Fee Routing Bounty."
 
 **Consistency:**
@@ -226,7 +226,7 @@ Comprehensive automated testing of the Meteora DAMM V2 Fee Routing pitch website
 
 | Metric | Website Display | Actual Value | Status |
 |--------|----------------|--------------|--------|
-| Program ID | `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS` | `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS` | ✅ MATCH |
+| Program ID | `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce` | `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce` | ✅ MATCH |
 | Integration Tests | 17/17 passing | 17 passing (FINAL_STATUS.md) | ✅ MATCH |
 | Unit Tests | 7/7 passing | 7 passing | ✅ MATCH |
 | Total Tests | 24 (17+7) | 24 | ✅ MATCH |

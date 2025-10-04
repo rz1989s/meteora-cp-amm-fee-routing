@@ -10,7 +10,7 @@
 **Prize:** $7,500 USDC
 **Deadline:** October 17, 2025
 **Sponsor:** Star (https://star.new)
-**Program ID:** `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS`
+**Program ID:** `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce`
 
 **What We Built:**
 An automated Solana smart contract that collects trading fees from Meteora DAMM V2 (CP-AMM) pools and distributes them fairly to investors based on their Streamflow-locked token amounts, with a 24-hour permissionless crank mechanism.
@@ -608,7 +608,7 @@ Show first ~50 lines with "Read Full Documentation" button:
 ```markdown
 # Meteora DAMM V2 Fee Routing
 
-**Program ID:** `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS`
+**Program ID:** `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce`
 
 ## Overview
 

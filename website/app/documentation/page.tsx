@@ -1338,6 +1338,150 @@ anchor test
     </div>
   );
 
+  const liveDeploymentTab = (
+    <div className="space-y-6">
+      <div className="bg-gradient-to-br from-success/20 to-primary/10 border border-success/30 rounded-xl p-8">
+        <div className="text-center mb-8">
+          <h3 className="text-3xl font-bold mb-3 gradient-text">🚀 Live Devnet Deployment</h3>
+          <p className="text-slate-300 text-lg">
+            This program is deployed and verifiable on Solana Devnet
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="bg-slate-900 rounded-lg p-6 border border-primary/30">
+            <h4 className="text-lg font-semibold mb-4 text-primary flex items-center space-x-2">
+              <span>✨</span>
+              <span>Program ID (Vanity)</span>
+            </h4>
+            <div className="bg-slate-800 rounded p-4 mb-4">
+              <code className="text-success font-mono text-sm break-all">
+                RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
+              </code>
+            </div>
+            <a
+              href="https://explorer.solana.com/address/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 text-primary hover:text-secondary transition-colors"
+            >
+              <span>View on Solana Explorer</span>
+              <span>→</span>
+            </a>
+            <p className="text-xs text-slate-400 mt-3">
+              Starts with &quot;RECT&quot; - representing RECTOR (project author)
+            </p>
+          </div>
+
+          <div className="bg-slate-900 rounded-lg p-6 border border-secondary/30">
+            <h4 className="text-lg font-semibold mb-4 text-secondary flex items-center space-x-2">
+              <span>👤</span>
+              <span>Deployer Wallet (Vanity)</span>
+            </h4>
+            <div className="bg-slate-800 rounded p-4 mb-4">
+              <code className="text-success font-mono text-sm break-all">
+                RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b
+              </code>
+            </div>
+            <a
+              href="https://explorer.solana.com/address/RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b?cluster=devnet"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 text-primary hover:text-secondary transition-colors"
+            >
+              <span>View on Solana Explorer</span>
+              <span>→</span>
+            </a>
+            <p className="text-xs text-slate-400 mt-3">
+              Upgrade authority - Controls program updates
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-slate-900 rounded-lg p-6 border border-warning/30 mb-6">
+          <h4 className="text-lg font-semibold mb-4 text-warning">📝 Deployment Transaction</h4>
+          <div className="space-y-3">
+            <div>
+              <span className="text-sm text-slate-400 block mb-2">Signature:</span>
+              <div className="bg-slate-800 rounded p-3">
+                <code className="text-success font-mono text-xs break-all">
+                  55tj463QSGJz9uZoC9zGynQ8qzpMRr4daDTw2sA2MkLRQx5f5poU3vFptNFEMVx1ExESA8QbRHtc2E731LAjYCtW
+                </code>
+              </div>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-slate-400">Program Size:</span>
+              <span className="text-slate-200 font-semibold">316,024 bytes (316 KB)</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-slate-400">Deployment Cost:</span>
+              <span className="text-slate-200 font-semibold">2.20 SOL</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-slate-400">Network:</span>
+              <span className="text-slate-200 font-semibold">Solana Devnet</span>
+            </div>
+          </div>
+          <a
+            href="https://explorer.solana.com/tx/55tj463QSGJz9uZoC9zGynQ8qzpMRr4daDTw2sA2MkLRQx5f5poU3vFptNFEMVx1ExESA8QbRHtc2E731LAjYCtW?cluster=devnet"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center space-x-2 text-primary hover:text-secondary transition-colors mt-4"
+          >
+            <span>View Transaction Details</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <div className="bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 rounded-lg p-6">
+          <h4 className="text-lg font-semibold mb-4">🔍 Verify Deployment Yourself</h4>
+          <CodeBlock
+            language="bash"
+            code={`# Check program exists on devnet
+solana program show RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --url devnet
+
+# Expected output:
+# Program Id: RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
+# Owner: BPFLoaderUpgradeab1e11111111111111111111111
+# Authority: RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b
+# Data Length: 316024 bytes
+# Balance: 2.20 SOL
+
+# Verify deployer wallet
+solana balance RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b --url devnet`}
+            showLineNumbers={false}
+          />
+        </div>
+
+        <div className="mt-6 bg-gradient-to-br from-success/20 to-success/5 border border-success/30 rounded-lg p-6 text-center">
+          <h4 className="font-semibold text-xl mb-3 text-success">✅ 100% Verifiable</h4>
+          <p className="text-slate-300 mb-4">
+            All deployment details are publicly verifiable on Solana Explorer.
+            This proves the program is not just documentation - it&apos;s live, deployed, and functional.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <a
+              href="https://explorer.solana.com/address/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 bg-primary rounded-lg font-semibold hover:bg-primary/80 transition-all"
+            >
+              View Program on Explorer
+            </a>
+            <a
+              href="https://explorer.solana.com/tx/55tj463QSGJz9uZoC9zGynQ8qzpMRr4daDTw2sA2MkLRQx5f5poU3vFptNFEMVx1ExESA8QbRHtc2E731LAjYCtW?cluster=devnet"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 bg-secondary rounded-lg font-semibold hover:bg-secondary/80 transition-all"
+            >
+              View Deploy Transaction
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   const eventsTab = (
     <div className="space-y-6">
       <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
@@ -1452,6 +1596,7 @@ anchor test
           <TabGroup
             tabs={[
               { id: 'quickstart', label: 'Quick Start', content: quickStartTab },
+              { id: 'deployment', label: 'Live Deployment 🚀', content: liveDeploymentTab },
               { id: 'api', label: 'API Reference', content: apiTab },
               { id: 'config', label: 'Policy Config', content: policyConfigTab },
               { id: 'integration', label: 'Integration', content: integrationTab },

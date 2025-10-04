@@ -20,8 +20,17 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center space-y-6"
           >
-            <div className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-sm font-medium text-primary mb-4">
-              Superteam Bounty Submission - $7,500 USDC
+            <div className="flex flex-col items-center gap-3 mb-4">
+              <div className="inline-block px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-sm font-medium text-primary">
+                Superteam Bounty Submission - $7,500 USDC
+              </div>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-success/10 border border-success/30 rounded-full text-sm font-medium text-success animate-pulse">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
+                </span>
+                Live on Devnet - Program ID: RECT...wce
+              </div>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
@@ -95,6 +104,62 @@ export default function Home() {
               color="secondary"
               delay={0.4}
             />
+          </motion.div>
+
+          {/* Deployment Verification Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-16 bg-gradient-to-r from-success/10 via-primary/10 to-secondary/10 border border-success/30 rounded-2xl p-8"
+          >
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold mb-2">🚀 Deployed on Solana Devnet</h3>
+              <p className="text-slate-300">
+                Live deployment with vanity addresses - 100% verifiable on-chain
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-slate-900/50 rounded-lg p-6 border border-slate-700">
+                <h4 className="text-sm font-semibold text-primary mb-3">Program ID (Vanity)</h4>
+                <code className="text-success font-mono text-sm break-all block mb-4">
+                  RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
+                </code>
+                <a
+                  href="https://explorer.solana.com/address/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-primary hover:text-secondary transition-colors text-sm"
+                >
+                  View on Solana Explorer →
+                </a>
+              </div>
+
+              <div className="bg-slate-900/50 rounded-lg p-6 border border-slate-700">
+                <h4 className="text-sm font-semibold text-secondary mb-3">Deployer Wallet (Vanity)</h4>
+                <code className="text-success font-mono text-sm break-all block mb-4">
+                  RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b
+                </code>
+                <a
+                  href="https://explorer.solana.com/address/RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b?cluster=devnet"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-primary hover:text-secondary transition-colors text-sm"
+                >
+                  View on Solana Explorer →
+                </a>
+              </div>
+            </div>
+
+            <div className="mt-6 text-center">
+              <Link
+                href="/documentation#deployment"
+                className="inline-flex items-center px-6 py-3 bg-primary rounded-lg font-semibold hover:bg-primary/80 transition-all text-sm"
+              >
+                View Full Deployment Details →
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>

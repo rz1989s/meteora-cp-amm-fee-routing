@@ -3,7 +3,7 @@
 **Project:** Meteora DAMM V2 (CP-AMM) Fee Routing Program
 **Bounty URL:** https://earn.superteam.fun/listing/build-permissionless-fee-routing-anchor-program-for-meteora-dlmm-v2 *(Note: URL says "dlmm" but bounty is for DAMM V2)*
 **Prize:** $7,500 USDC
-**Program ID:** `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS`
+**Program ID:** `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce`
 
 **Date:** October 4, 2025
 **Verification:** 100% Requirements Met

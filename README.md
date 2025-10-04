@@ -63,7 +63,10 @@ Permissionless 24-hour crank that:
 - Supports pagination for large investor sets
 - Enforces 24h time gate, daily caps, and dust handling
 
-**Program ID:** `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS`
+**Program ID:** `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce` ✨
+
+**Devnet Deployment:** [View on Solana Explorer](https://explorer.solana.com/address/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet)
+**Deployer Wallet:** `RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b`
 
 ---
 
@@ -203,7 +206,7 @@ anchor test
 ```bash
 anchor build
 # Output: target/deploy/fee_routing.so
-# Program ID: Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS
+# Program ID: RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
 ```
 
 ---

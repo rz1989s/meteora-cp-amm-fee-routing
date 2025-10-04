@@ -129,7 +129,7 @@ export default function SubmissionPage() {
                 <div>
                   <span className="text-slate-400 block mb-1">Program ID:</span>
                   <code className="text-xs bg-slate-800 px-2 py-1 rounded block">
-                    Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS
+                    RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
                   </code>
                 </div>
                 <div>

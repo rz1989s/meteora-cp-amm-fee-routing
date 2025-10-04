@@ -212,5 +212,5 @@ MIT License - see project root for details.
 ## Acknowledgments
 
 - Built for the Superteam Meteora DAMM V2 Fee Routing Program bounty
-- Program ID: `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS`
+- Program ID: `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce`
 - Repository: [meteora-cp-amm-fee-routing](https://github.com/rz1989s/meteora-cp-amm-fee-routing)
