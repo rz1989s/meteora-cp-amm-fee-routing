@@ -21,28 +21,41 @@ export default function TabGroup({ tabs, defaultTab }: TabGroupProps) {
 
   return (
     <div className="w-full">
-      <div className="flex flex-wrap gap-2 mb-6 border-b border-slate-700">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`relative px-6 py-3 font-medium transition-colors ${
-              activeTab === tab.id
-                ? 'text-white'
-                : 'text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            {tab.label}
-            {activeTab === tab.id && (
-              <motion.div
-                layoutId="activeTab"
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary"
-                transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-              />
-            )}
-          </button>
-        ))}
+      {/* Horizontal scrollable tabs container with fade indicators */}
+      <div className="relative mb-6">
+        {/* Left fade indicator */}
+        <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent pointer-events-none z-10 hidden md:block" />
+
+        {/* Right fade indicator */}
+        <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent pointer-events-none z-10 hidden md:block" />
+
+        {/* Scrollable tabs */}
+        <div className="overflow-x-auto scrollbar-hide border-b border-slate-700">
+          <div className="flex gap-2 min-w-max">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative px-6 py-3 font-medium transition-colors whitespace-nowrap ${
+                  activeTab === tab.id
+                    ? 'text-white'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                {tab.label}
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-secondary"
+                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
+
       <motion.div
         key={activeTab}
         initial={{ opacity: 0, y: 10 }}
