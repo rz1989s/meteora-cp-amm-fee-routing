@@ -187,6 +187,10 @@ See `archive/bounty-analysis.md` for detailed test scenarios (historical referen
 - **Anchor version**: 0.31.1 (via AVM - Anchor Version Manager)
 - **Rust edition**: 2021
 - **Test runner**: ts-mocha with 1000s timeout
+- **⚠️ IMPORTANT**: Always run `npm run type-check:strict` in website/ after making code changes to ensure TypeScript strictness
+  - This ensures the codebase remains clean, clear, and type-safe
+  - Fix all errors before committing
+  - Command: `cd website && npm run type-check:strict`
 - **Release profile**: overflow checks enabled, LTO fat, single codegen unit
 - **Binary size**: 316 KB
 - All arithmetic must use checked operations or explicit overflow handling

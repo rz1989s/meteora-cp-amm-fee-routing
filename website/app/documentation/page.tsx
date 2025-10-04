@@ -1479,6 +1479,110 @@ solana balance RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b --url devnet`}
           </div>
         </div>
       </div>
+
+      {/* Deployment Guide Section */}
+      <div className="bg-slate-900 border border-slate-700 rounded-xl p-8 mt-6">
+        <h3 className="text-3xl font-bold mb-4 gradient-text">📚 How to Deploy Your Own</h3>
+        <p className="text-slate-300 mb-8">
+          Complete guide for deploying this program to Solana Devnet or Mainnet.
+        </p>
+
+        <div className="space-y-8">
+          {/* Prerequisites */}
+          <div>
+            <h4 className="text-xl font-semibold mb-4 text-primary">📋 Prerequisites</h4>
+            <CodeBlock
+              language="bash"
+              code={`# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Install Solana CLI
+sh -c "$(curl -sSfL https://release.solana.com/stable/install)"
+
+# Install Anchor 0.31.1
+cargo install --git https://github.com/coral-xyz/anchor avm --force
+avm install 0.31.1
+avm use 0.31.1
+
+# Create deployment wallet
+solana-keygen new --outfile ~/.config/solana/deployer.json
+solana config set --keypair ~/.config/solana/deployer.json
+solana config set --url devnet
+
+# Fund wallet (devnet)
+solana airdrop 5`}
+              showLineNumbers={false}
+            />
+          </div>
+
+          {/* Build */}
+          <div>
+            <h4 className="text-xl font-semibold mb-4 text-success">🏗️ Build & Deploy</h4>
+            <CodeBlock
+              language="bash"
+              code={`# Clone repository
+git clone https://github.com/rz1989s/meteora-cp-amm-fee-routing.git
+cd meteora-cp-amm-fee-routing
+
+# Install dependencies
+npm install
+
+# Build program
+anchor build
+
+# Deploy to devnet
+solana program deploy \\
+  target/deploy/fee_routing.so \\
+  --program-id target/deploy/fee_routing-keypair.json \\
+  --url devnet
+
+# Verify deployment
+solana program show <YOUR_PROGRAM_ID> --url devnet`}
+              showLineNumbers={false}
+            />
+          </div>
+
+          {/* Optional: Vanity Address */}
+          <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/30 rounded-lg p-6">
+            <h4 className="text-lg font-semibold mb-3 text-primary">✨ Optional: Generate Vanity Address</h4>
+            <p className="text-sm text-slate-300 mb-4">
+              Create a custom program ID starting with specific letters (like &quot;RECT&quot; in our deployment):
+            </p>
+            <CodeBlock
+              language="bash"
+              code={`# Generate vanity keypair (may take several minutes)
+solana-keygen grind --starts-with YOUR:1
+
+# Move to program keypair location
+mv YOUR*.json target/deploy/fee_routing-keypair.json
+
+# Update lib.rs with new program ID
+# Update Anchor.toml with new program ID
+
+# Rebuild
+anchor build`}
+              showLineNumbers={false}
+            />
+          </div>
+
+          {/* Complete Guide */}
+          <div className="bg-gradient-to-br from-secondary/10 to-secondary/5 border border-secondary/30 rounded-lg p-6 text-center">
+            <h4 className="font-semibold text-lg mb-3">📖 Full Deployment Guide</h4>
+            <p className="text-slate-300 mb-4">
+              For comprehensive deployment instructions including post-deployment setup,
+              account initialization, and crank configuration, see:
+            </p>
+            <a
+              href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/dev/DEPLOYMENT.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-6 py-3 bg-secondary rounded-lg font-semibold hover:bg-secondary/80 transition-all"
+            >
+              View DEPLOYMENT.md on GitHub →
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   );
 
@@ -1596,13 +1700,23 @@ solana balance RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b --url devnet`}
           <TabGroup
             tabs={[
               { id: 'quickstart', label: 'Quick Start', content: quickStartTab },
-              { id: 'deployment', label: 'Live Deployment 🚀', content: liveDeploymentTab },
+              { id: 'deployment', label: 'Live Deployment & Guide 🚀', content: liveDeploymentTab },
               { id: 'api', label: 'API Reference', content: apiTab },
               { id: 'config', label: 'Policy Config', content: policyConfigTab },
-              { id: 'integration', label: 'Integration', content: integrationTab },
-              { id: 'verification', label: 'Verification ✓', content: verificationTab },
-              { id: 'troubleshooting', label: 'Troubleshooting', content: troubleshootingTab },
-              { id: 'errors', label: 'Error Codes', content: errorsTab },
+              { id: 'integration', label: 'Integration & Verification', content: (
+                <div className="space-y-8">
+                  {integrationTab}
+                  <div className="border-t-2 border-slate-700 my-8"></div>
+                  {verificationTab}
+                </div>
+              )},
+              { id: 'help', label: 'Help & Troubleshooting', content: (
+                <div className="space-y-8">
+                  {troubleshootingTab}
+                  <div className="border-t-2 border-slate-700 my-8"></div>
+                  {errorsTab}
+                </div>
+              )},
               { id: 'events', label: 'Events', content: eventsTab },
             ]}
             defaultTab="quickstart"
