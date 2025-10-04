@@ -11,32 +11,121 @@ export default function TechnicalPage() {
     <div className="space-y-8">
       <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
         <h3 className="text-xl font-bold mb-4">System Flow Diagram</h3>
-        <div className="bg-slate-800 rounded-lg p-6 font-mono text-sm overflow-x-auto">
-          <pre className="text-slate-300">{`┌─────────────────────────────────────────────────────────┐
-│                  Meteora DAMM V2 Pool                   │
-│             (Generates Quote-Only Fees)                 │
-└────────────────────┬────────────────────────────────────┘
-                     │ Fee Accrual
-                     ▼
-┌─────────────────────────────────────────────────────────┐
-│            Honorary LP Position (PDA-Owned)             │
-│              [Accumulates Quote Fees]                   │
-└────────────────────┬────────────────────────────────────┘
-                     │ 24h Crank (Permissionless)
-                     ▼
-┌─────────────────────────────────────────────────────────┐
-│           Fee Distribution Smart Contract               │
-│  ┌──────────────────┐    ┌─────────────────────────┐   │
-│  │  Streamflow Data │───▶│  Pro-Rata Calculation   │   │
-│  │  (Locked Amounts)│    │  (Based on Lock %)      │   │
-│  └──────────────────┘    └─────────────────────────┘   │
-└────────────┬──────────────────────────┬─────────────────┘
-             │                          │
-             ▼                          ▼
-    ┌────────────────┐        ┌──────────────────┐
-    │   Investors    │        │  Creator Wallet  │
-    │  (Pro-Rata)    │        │   (Remainder)    │
-    └────────────────┘        └──────────────────┘`}</pre>
+        <div className="bg-slate-800 rounded-lg p-6 overflow-x-auto">
+          <svg viewBox="0 0 800 650" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
+            {/* Meteora DAMM V2 Pool */}
+            <g>
+              <rect x="150" y="20" width="500" height="80" rx="8" fill="#1e293b" stroke="#3b82f6" strokeWidth="2"/>
+              <text x="400" y="50" textAnchor="middle" fill="#f1f5f9" fontSize="18" fontWeight="bold">
+                Meteora DAMM V2 Pool
+              </text>
+              <text x="400" y="75" textAnchor="middle" fill="#94a3b8" fontSize="14">
+                (Generates Quote-Only Fees)
+              </text>
+            </g>
+
+            {/* Arrow 1: Fee Accrual */}
+            <g>
+              <line x1="400" y1="100" x2="400" y2="140" stroke="#10b981" strokeWidth="3" markerEnd="url(#arrowhead-green)"/>
+              <text x="450" y="125" fill="#10b981" fontSize="13" fontWeight="500">Fee Accrual</text>
+            </g>
+
+            {/* Honorary LP Position */}
+            <g>
+              <rect x="150" y="140" width="500" height="80" rx="8" fill="#1e293b" stroke="#8b5cf6" strokeWidth="2"/>
+              <text x="400" y="170" textAnchor="middle" fill="#f1f5f9" fontSize="18" fontWeight="bold">
+                Honorary LP Position (PDA-Owned)
+              </text>
+              <text x="400" y="195" textAnchor="middle" fill="#94a3b8" fontSize="14">
+                [Accumulates Quote Fees]
+              </text>
+            </g>
+
+            {/* Arrow 2: 24h Crank */}
+            <g>
+              <line x1="400" y1="220" x2="400" y2="260" stroke="#f59e0b" strokeWidth="3" markerEnd="url(#arrowhead-orange)"/>
+              <text x="470" y="245" fill="#f59e0b" fontSize="13" fontWeight="500">24h Crank (Permissionless)</text>
+            </g>
+
+            {/* Fee Distribution Smart Contract */}
+            <g>
+              <rect x="100" y="260" width="600" height="180" rx="8" fill="#1e293b" stroke="#6366f1" strokeWidth="2"/>
+              <text x="400" y="285" textAnchor="middle" fill="#f1f5f9" fontSize="18" fontWeight="bold">
+                Fee Distribution Smart Contract
+              </text>
+
+              {/* Streamflow Data Box */}
+              <rect x="130" y="310" width="220" height="100" rx="6" fill="#0f172a" stroke="#10b981" strokeWidth="2"/>
+              <text x="240" y="340" textAnchor="middle" fill="#f1f5f9" fontSize="15" fontWeight="600">
+                Streamflow Data
+              </text>
+              <text x="240" y="365" textAnchor="middle" fill="#94a3b8" fontSize="13">
+                (Locked Amounts)
+              </text>
+              <text x="240" y="385" textAnchor="middle" fill="#64748b" fontSize="11">
+                locked_i(t) / Y0
+              </text>
+
+              {/* Arrow between boxes */}
+              <line x1="350" y1="360" x2="440" y2="360" stroke="#3b82f6" strokeWidth="2" markerEnd="url(#arrowhead-blue)"/>
+
+              {/* Pro-Rata Calculation Box */}
+              <rect x="450" y="310" width="220" height="100" rx="6" fill="#0f172a" stroke="#ec4899" strokeWidth="2"/>
+              <text x="560" y="340" textAnchor="middle" fill="#f1f5f9" fontSize="15" fontWeight="600">
+                Pro-Rata Calculation
+              </text>
+              <text x="560" y="365" textAnchor="middle" fill="#94a3b8" fontSize="13">
+                (Based on Lock %)
+              </text>
+              <text x="560" y="385" textAnchor="middle" fill="#64748b" fontSize="11">
+                payout_i = allocation × weight_i
+              </text>
+            </g>
+
+            {/* Arrow 3: Split to Investors and Creator */}
+            <g>
+              <line x1="250" y1="440" x2="250" y2="530" stroke="#10b981" strokeWidth="3" markerEnd="url(#arrowhead-green)"/>
+              <line x1="550" y1="440" x2="550" y2="530" stroke="#f59e0b" strokeWidth="3" markerEnd="url(#arrowhead-orange)"/>
+            </g>
+
+            {/* Investors Box */}
+            <g>
+              <rect x="80" y="530" width="340" height="80" rx="8" fill="#1e293b" stroke="#10b981" strokeWidth="2"/>
+              <text x="250" y="560" textAnchor="middle" fill="#f1f5f9" fontSize="18" fontWeight="bold">
+                Investors
+              </text>
+              <text x="250" y="585" textAnchor="middle" fill="#10b981" fontSize="14">
+                (Pro-Rata Distribution)
+              </text>
+            </g>
+
+            {/* Creator Wallet Box */}
+            <g>
+              <rect x="480" y="530" width="240" height="80" rx="8" fill="#1e293b" stroke="#f59e0b" strokeWidth="2"/>
+              <text x="600" y="560" textAnchor="middle" fill="#f1f5f9" fontSize="18" fontWeight="bold">
+                Creator Wallet
+              </text>
+              <text x="600" y="585" textAnchor="middle" fill="#f59e0b" fontSize="14">
+                (Remainder)
+              </text>
+            </g>
+
+            {/* Arrow markers */}
+            <defs>
+              <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                <polygon points="0 0, 10 3, 0 6" fill="#10b981" />
+              </marker>
+              <marker id="arrowhead-orange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                <polygon points="0 0, 10 3, 0 6" fill="#f59e0b" />
+              </marker>
+              <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                <polygon points="0 0, 10 3, 0 6" fill="#3b82f6" />
+              </marker>
+            </defs>
+          </svg>
+        </div>
+        <div className="mt-4 text-xs text-slate-400 text-center">
+          <p>Interactive SVG diagram showing the complete fee routing flow from pool to final distribution</p>
         </div>
       </div>
 
