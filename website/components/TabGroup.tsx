@@ -23,14 +23,14 @@ export default function TabGroup({ tabs, defaultTab }: TabGroupProps) {
     <div className="w-full">
       {/* Horizontal scrollable tabs container with fade indicators */}
       <div className="relative mb-6">
-        {/* Left fade indicator */}
-        <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent pointer-events-none z-10 hidden md:block" />
+        {/* Left fade indicator (visible on all screens) */}
+        <div className="absolute left-0 top-0 bottom-0 w-6 md:w-8 bg-gradient-to-r from-background to-transparent pointer-events-none z-10" />
 
-        {/* Right fade indicator */}
-        <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent pointer-events-none z-10 hidden md:block" />
+        {/* Right fade indicator (visible on all screens) */}
+        <div className="absolute right-0 top-0 bottom-0 w-6 md:w-8 bg-gradient-to-l from-background to-transparent pointer-events-none z-10" />
 
-        {/* Scrollable tabs */}
-        <div className="overflow-x-auto scrollbar-hide border-b border-slate-700">
+        {/* Scrollable tabs with padding to show partial next tab */}
+        <div className="overflow-x-auto scrollbar-hide border-b border-slate-700 pr-12 md:pr-16">
           <div className="flex gap-2 min-w-max">
             {tabs.map((tab) => (
               <button
