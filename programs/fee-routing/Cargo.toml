@@ -1,6 +1,6 @@
 [package]
 name = "fee-routing"
-version = "0.1.0"
+version = "0.2.0"
 description = "Permissionless fee routing for Meteora DAMM v2 (CP-AMM)"
 edition = "2021"
 

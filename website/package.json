@@ -1,0 +1,46 @@
+{
+  "name": "meteora-fee-routing-website",
+  "version": "1.0.0",
+  "description": "Professional pitch website for Meteora DLMM Fee Routing Program bounty submission",
+  "author": "RECTOR",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "framer-motion": "^12.23.22",
+    "lucide-react": "^0.544.0",
+    "next": "14.2.33",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-syntax-highlighter": "^15.6.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.33",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rz1989s/meteora-cp-amm-fee-routing"
+  },
+  "keywords": [
+    "solana",
+    "meteora",
+    "dlmm",
+    "fee-routing",
+    "anchor",
+    "blockchain",
+    "defi"
+  ]
+}
