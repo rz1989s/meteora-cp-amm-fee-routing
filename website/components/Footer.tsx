@@ -1,5 +1,6 @@
 import { Github, Twitter, MessageCircle, BookOpen, FileText } from 'lucide-react';
 import Link from 'next/link';
+import Logo from './Logo';
 
 export default function Footer() {
   return (
@@ -8,9 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">M</span>
-              </div>
+              <Logo size={32} />
               <span className="font-bold text-xl">Meteora Fee Routing</span>
             </div>
             <p className="text-slate-400 text-sm">
