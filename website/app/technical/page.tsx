@@ -567,11 +567,11 @@ for investor in investors {
           <div className="bg-slate-800 rounded-lg p-4">
             <h4 className="font-semibold mb-3 text-secondary">PDA Seeds</h4>
             <div className="space-y-2 font-mono text-xs">
-              <div><span className="text-slate-400">VAULT_SEED:</span> <span className="text-success">b"vault"</span></div>
-              <div><span className="text-slate-400">INVESTOR_FEE_POS_OWNER_SEED:</span> <span className="text-success">b"investor_fee_pos_owner"</span></div>
-              <div><span className="text-slate-400">POLICY_SEED:</span> <span className="text-success">b"policy"</span></div>
-              <div><span className="text-slate-400">PROGRESS_SEED:</span> <span className="text-success">b"progress"</span></div>
-              <div><span className="text-slate-400">TREASURY_SEED:</span> <span className="text-success">b"treasury"</span></div>
+              <div><span className="text-slate-400">VAULT_SEED:</span> <span className="text-success">b&quot;vault&quot;</span></div>
+              <div><span className="text-slate-400">INVESTOR_FEE_POS_OWNER_SEED:</span> <span className="text-success">b&quot;investor_fee_pos_owner&quot;</span></div>
+              <div><span className="text-slate-400">POLICY_SEED:</span> <span className="text-success">b&quot;policy&quot;</span></div>
+              <div><span className="text-slate-400">PROGRESS_SEED:</span> <span className="text-success">b&quot;progress&quot;</span></div>
+              <div><span className="text-slate-400">TREASURY_SEED:</span> <span className="text-success">b&quot;treasury&quot;</span></div>
             </div>
           </div>
 

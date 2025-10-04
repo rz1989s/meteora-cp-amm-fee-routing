@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { User, Mail, Twitter, Github, Award, Target, Star, Heart, MessageCircle } from 'lucide-react';
+import { User, Twitter, Github, Award, Target, Star, Heart, MessageCircle } from 'lucide-react';
 import MetricCard from '@/components/MetricCard';
 import Link from 'next/link';
 

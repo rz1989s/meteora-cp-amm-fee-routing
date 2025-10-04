@@ -491,7 +491,7 @@ await program.methods
                 <div className="text-xs text-slate-400 mt-2">
                   • stream_pubkey: Streamflow Contract account (read-only)
                   <br />
-                  • investor_ata: Investor's quote token account (mutable)
+                  • investor_ata: Investor&apos;s quote token account (mutable)
                 </div>
               </div>
             </div>
@@ -1003,7 +1003,7 @@ const creatorListener = program.addEventListener("CreatorPayoutDayClosed", (even
       <div className="bg-gradient-to-br from-success/20 to-success/5 border border-success/30 rounded-xl p-6">
         <h3 className="text-2xl font-bold mb-4 text-success">✅ Integration Verification & Proof</h3>
         <p className="text-slate-300 mb-6">
-          The 6-step integration guide is <strong>fully tested and verified</strong>. Here's the proof:
+          The 6-step integration guide is <strong>fully tested and verified</strong>. Here&apos;s the proof:
         </p>
 
         <div className="space-y-6">

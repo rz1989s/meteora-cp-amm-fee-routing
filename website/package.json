@@ -1,7 +1,7 @@
 {
   "name": "meteora-fee-routing-website",
   "version": "1.0.0",
-  "description": "Professional pitch website for Meteora DLMM Fee Routing Program bounty submission",
+  "description": "Professional pitch website for Meteora DAMM V2 Fee Routing Program bounty submission",
   "author": "RECTOR",
   "license": "MIT",
   "private": true,
@@ -9,23 +9,30 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "type-check:strict": "tsc --noEmit --strict --noUnusedLocals --noUnusedParameters --noUncheckedIndexedAccess --noImplicitReturns --noFallthroughCasesInSwitch",
+    "clean": "rm -rf .next out",
+    "preview": "npm run build && npm run start",
+    "export": "next build && next export",
+    "validate": "npm run type-check && npm run lint"
   },
   "dependencies": {
     "@types/react-syntax-highlighter": "^15.5.13",
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.544.0",
-    "next": "14.2.33",
-    "react": "^18",
-    "react-dom": "^18",
+    "next": "^15.5.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-syntax-highlighter": "^15.6.6"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
     "eslint": "^8",
-    "eslint-config-next": "14.2.33",
+    "eslint-config-next": "^15.5.4",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
@@ -37,7 +44,8 @@
   "keywords": [
     "solana",
     "meteora",
-    "dlmm",
+    "damm-v2",
+    "cp-amm",
     "fee-routing",
     "anchor",
     "blockchain",
