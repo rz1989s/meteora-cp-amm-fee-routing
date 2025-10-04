@@ -21,18 +21,13 @@ export default function TabGroup({ tabs, defaultTab }: TabGroupProps) {
 
   return (
     <div className="w-full">
-      {/* Horizontal scrollable tabs container with shadow indicators */}
+      {/* Horizontal scrollable tabs container with fade indicators */}
       <div className="relative mb-6">
-        {/* Left shadow indicator (visible on all screens) */}
-        <div className="absolute left-0 top-0 bottom-0 w-8 pointer-events-none z-10" style={{
-          background: 'linear-gradient(90deg, rgba(15, 23, 42, 1) 0%, rgba(15, 23, 42, 0) 100%)'
-        }} />
+        {/* Left fade indicator (visible on all screens) - using Tailwind bracket notation */}
+        <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#0F172A] to-transparent pointer-events-none z-10" />
 
-        {/* Right shadow indicator (visible on all screens) with subtle glow */}
-        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-16 pointer-events-none z-10" style={{
-          background: 'linear-gradient(270deg, rgba(15, 23, 42, 1) 0%, rgba(15, 23, 42, 0.8) 40%, rgba(15, 23, 42, 0) 100%)',
-          boxShadow: 'inset -2px 0 4px rgba(99, 102, 241, 0.1)'
-        }} />
+        {/* Right fade indicator (visible on all screens) - using Tailwind bracket notation */}
+        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-16 bg-gradient-to-l from-[#0F172A] via-[#0F172A]/80 to-transparent pointer-events-none z-10 shadow-[inset_-2px_0_4px_rgba(99,102,241,0.1)]" />
 
         {/* Scrollable tabs with padding to show partial next tab */}
         <div className="overflow-x-auto scrollbar-hide border-b border-slate-700 pr-16 md:pr-20">

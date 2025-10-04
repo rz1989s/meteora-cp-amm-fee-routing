@@ -21,8 +21,7 @@
     "cleanup:ports": "lsof -ti:3000,3001,3002,3003,3004,3005 | xargs kill -9 2>/dev/null || true",
     "cleanup:build": "rm -rf .next out node_modules/.cache",
     "cleanup:cache": "rm -rf .next/cache node_modules/.cache .turbo",
-    "cleanup:all": "npm run cleanup:servers && npm run cleanup:build && npm run cleanup:cache",
-    "predev": "npm run cleanup:ports"
+    "cleanup:all": "npm run cleanup:servers && npm run cleanup:build && npm run cleanup:cache"
   },
   "dependencies": {
     "@types/react-syntax-highlighter": "^15.5.13",
