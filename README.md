@@ -59,8 +59,8 @@ Permissionless 24-hour crank that:
 
 ```bash
 # Clone repository
-git clone https://github.com/your-org/meteora-dlmm-fee-routing
-cd meteora-dlmm-fee-routing
+git clone https://github.com/your-org/meteora-cp-amm-fee-routing
+cd meteora-cp-amm-fee-routing
 
 # Install dependencies
 npm install
@@ -1047,7 +1047,7 @@ MIT
 
 ## Resources
 
-- **Original Bounty:** [Superteam Earn](https://earn.superteam.fun/listing/build-permissionless-fee-routing-anchor-program-for-meteora-dlmm-v2)
+- **Original Bounty:** [Superteam Earn](https://earn.superteam.fun/listing/build-permissionless-fee-routing-anchor-program-for-meteora-dlmm-v2) *(Note: URL says "dlmm" but bounty is for DAMM V2 / CP-AMM)*
 - **Meteora Documentation:** [docs.meteora.ag](https://docs.meteora.ag/)
 - **Streamflow Documentation:** [docs.streamflow.finance](https://docs.streamflow.finance/)
 - **Anchor Book:** [book.anchor-lang.com](https://book.anchor-lang.com/)
@@ -1059,4 +1059,4 @@ MIT
 
 For questions or issues:
 - **Telegram:** https://t.me/algopapi
-- **GitHub Issues:** [Create an issue](https://github.com/your-org/meteora-dlmm-fee-routing/issues)
+- **GitHub Issues:** [Create an issue](https://github.com/your-org/meteora-cp-amm-fee-routing/issues)

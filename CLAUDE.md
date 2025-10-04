@@ -4,9 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Permissionless fee routing Anchor program for Meteora DAMM v2 (Constant Product AMM) pools. Creates an "honorary" NFT-based LP position that accrues fees, then distributes them to investors (pro-rata based on Streamflow locked amounts) via a 24-hour permissionless crank, with remainder going to creators.
+Permissionless fee routing Anchor program for Meteora DAMM v2 (Constant Product AMM / CP-AMM) pools. Creates an "honorary" NFT-based LP position that accrues fees, then distributes them to investors (pro-rata based on Streamflow locked amounts) via a 24-hour permissionless crank, with remainder going to creators.
 
 **Program ID**: `Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS`
+
+**Important Terminology Note:**
+- This project is for **Meteora DAMM V2** (also called **CP-AMM** - Constant Product AMM)
+- The bounty URL says "dlmm-v2" but that's a typo on the platform
+- The actual bounty document clearly states "DAMM V2" throughout
+- Always refer to this as DAMM V2 or CP-AMM, NOT DLMM
+- Only mention "DLMM" when referencing the original bounty URL
 
 ## Build & Test Commands
 
