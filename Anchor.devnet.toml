@@ -29,6 +29,10 @@ startup_wait = 10000
 shutdown_wait = 2000
 
 [test.validator]
-# No URL = starts local solana-test-validator
-# Account cloning will be handled via setup scripts in Story 2
-# For devnet testing, use: npm run test:devnet
+url = "https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30"
+
+[[test.validator.clone]]
+address = "cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG"
+
+[[test.validator.clone]]
+address = "strmRqUCoQUgGUan5YhzUZa6KqdzwX5L6FpUxfmKg5m"
