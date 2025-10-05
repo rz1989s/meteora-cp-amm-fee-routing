@@ -36,6 +36,8 @@ pub fn initialize_progress_handler(ctx: Context<InitializeProgress>) -> Result<(
     progress.pages_processed_today = 0;
     progress.total_investors = 0;
     progress.creator_payout_sent = false;
+    progress.has_base_fees = false;
+    progress.total_rounding_dust = 0;
     progress.bump = ctx.bumps.progress;
 
     msg!("Progress initialized successfully");

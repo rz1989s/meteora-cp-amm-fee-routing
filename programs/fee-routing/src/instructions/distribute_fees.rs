@@ -125,13 +125,57 @@ pub struct DistributeFees<'info> {
     // - Investor accounts (alternating: stream_pubkey, investor_ata)
 }
 
-pub fn distribute_fees_handler<'info>(ctx: Context<'_, '_, '_, 'info, DistributeFees<'info>>, page_index: u16) -> Result<()> {
+pub fn distribute_fees_handler<'info>(
+    ctx: Context<'_, '_, '_, 'info, DistributeFees<'info>>,
+    page_index: u16,
+    is_final_page: bool,
+) -> Result<()> {
     let policy = &ctx.accounts.policy;
     let progress = &mut ctx.accounts.progress;
     let clock = Clock::get()?;
     let now = clock.unix_timestamp;
 
-    // === 1. TIME GATE & DAY MANAGEMENT ===
+    // === 1. ACCOUNT OWNERSHIP VALIDATION ===
+    // Validate treasury token accounts are owned by treasury authority
+    {
+        let treasury_token_a_data = ctx.accounts.treasury_token_a.try_borrow_data()?;
+        let treasury_account_a = TokenAccount::try_deserialize(&mut &treasury_token_a_data[..])?;
+        require!(
+            treasury_account_a.owner == ctx.accounts.treasury_authority.key(),
+            FeeRoutingError::InvalidAccountOwnership
+        );
+    }
+
+    {
+        let treasury_token_b_data = ctx.accounts.treasury_token_b.try_borrow_data()?;
+        let treasury_account_b = TokenAccount::try_deserialize(&mut &treasury_token_b_data[..])?;
+        require!(
+            treasury_account_b.owner == ctx.accounts.treasury_authority.key(),
+            FeeRoutingError::InvalidAccountOwnership
+        );
+
+        // Validate quote mint matches policy
+        require!(
+            treasury_account_b.mint == policy.quote_mint,
+            FeeRoutingError::InvalidQuoteMint
+        );
+    }
+
+    // Validate creator ATA ownership
+    {
+        let creator_ata_data = ctx.accounts.creator_ata.try_borrow_data()?;
+        let creator_account = TokenAccount::try_deserialize(&mut &creator_ata_data[..])?;
+        require!(
+            creator_account.owner == policy.creator_wallet,
+            FeeRoutingError::InvalidAccountOwnership
+        );
+        require!(
+            creator_account.mint == policy.quote_mint,
+            FeeRoutingError::InvalidQuoteMint
+        );
+    }
+
+    // === 2. TIME GATE & DAY MANAGEMENT ===
     let is_new_day = now >= progress.last_distribution_ts + DISTRIBUTION_WINDOW_SECONDS;
 
     if page_index == 0 {
@@ -146,13 +190,14 @@ pub fn distribute_fees_handler<'info>(ctx: Context<'_, '_, '_, 'info, Distribute
         progress.current_page = 0;
         progress.pages_processed_today = 0;
         progress.creator_payout_sent = false;
+        progress.has_base_fees = false; // Reset base fee flag for new day
     } else {
         // Subsequent pages must be same day
         require!(!is_new_day, FeeRoutingError::InvalidPageIndex);
         require!(page_index == progress.current_page, FeeRoutingError::InvalidPageIndex);
     }
 
-    // === 2. CLAIM FEES FROM HONORARY POSITION ===
+    // === 3. CLAIM FEES FROM HONORARY POSITION ===
     // Only claim on first page to get fresh fee total
     let (claimed_token_a, claimed_token_b) = if page_index == 0 {
         // Get balances before claiming
@@ -246,10 +291,19 @@ pub fn distribute_fees_handler<'info>(ctx: Context<'_, '_, '_, 'info, Distribute
     // Bounty requirement (line 101): "If any base fees are observed or a claim returns
     // non-zero base, the crank must fail deterministically (no distribution)"
     // Enforce quote-only by failing if any Token A (base) fees are detected
-    if page_index == 0 && claimed_token_a > 0 {
-        msg!("Base token fees detected: {} lamports", claimed_token_a);
-        msg!("Position must be configured for quote-only accrual");
-        return Err(FeeRoutingError::BaseFeesDetected.into());
+    if page_index == 0 {
+        if claimed_token_a > 0 {
+            msg!("Base token fees detected: {} lamports", claimed_token_a);
+            msg!("Position must be configured for quote-only accrual");
+            progress.has_base_fees = true; // Set flag for subsequent pages
+            return Err(FeeRoutingError::BaseFeesDetected.into());
+        }
+    } else {
+        // On subsequent pages, check if base fees were detected on page 0
+        require!(
+            !progress.has_base_fees,
+            FeeRoutingError::BaseFeesDetected
+        );
     }
 
     // Add carry-over from previous cycles
@@ -258,7 +312,7 @@ pub fn distribute_fees_handler<'info>(ctx: Context<'_, '_, '_, 'info, Distribute
         .checked_add(progress.carry_over_lamports)
         .ok_or(FeeRoutingError::ArithmeticOverflow)?;
 
-    // === 3. PARSE INVESTOR ACCOUNTS FROM REMAINING ===
+    // === 4. PARSE INVESTOR ACCOUNTS FROM REMAINING ===
     let remaining_accounts = &ctx.remaining_accounts;
     require!(
         remaining_accounts.len() % 2 == 0,
@@ -266,12 +320,20 @@ pub fn distribute_fees_handler<'info>(ctx: Context<'_, '_, '_, 'info, Distribute
     );
 
     let investor_count = remaining_accounts.len() / 2;
+
+    // Validate investor count doesn't exceed maximum
+    require!(
+        investor_count <= MAX_INVESTORS_PER_PAGE,
+        FeeRoutingError::TooManyInvestors
+    );
+
     let mut locked_amounts: Vec<u64> = Vec::with_capacity(investor_count);
     let mut total_locked: u64 = 0;
 
     // Read locked amounts from Streamflow accounts
     for i in 0..investor_count {
         let stream_account = &remaining_accounts[i * 2];
+        let investor_ata = &remaining_accounts[i * 2 + 1];
 
         // Validate stream account owner is Streamflow program
         require!(
@@ -283,6 +345,20 @@ pub fn distribute_fees_handler<'info>(ctx: Context<'_, '_, '_, 'info, Distribute
         // Using borsh deserialization directly
         let contract_data = stream_account.try_borrow_data()?;
         let contract = streamflow_sdk::state::Contract::try_from_slice(&contract_data)?;
+
+        // Note: We validate the quote mint through the investor's ATA below
+        // This is sufficient since the investor ATA must match the policy quote mint
+        // and the Streamflow contract must distribute to this ATA
+
+        // Validate investor ATA
+        {
+            let investor_ata_data = investor_ata.try_borrow_data()?;
+            let investor_token_account = TokenAccount::try_deserialize(&mut &investor_ata_data[..])?;
+            require!(
+                investor_token_account.mint == policy.quote_mint,
+                FeeRoutingError::InvalidQuoteMint
+            );
+        }
 
         // Calculate locked amount:
         // locked = net_amount_deposited - (vested_available + cliff_available)
@@ -304,7 +380,7 @@ pub fn distribute_fees_handler<'info>(ctx: Context<'_, '_, '_, 'info, Distribute
             .ok_or(FeeRoutingError::ArithmeticOverflow)?;
     }
 
-    // === 4. CALCULATE PRO-RATA DISTRIBUTION ===
+    // === 5. CALCULATE PRO-RATA DISTRIBUTION ===
     use crate::math::DistributionMath;
 
     // Calculate locked fraction: f_locked(t) = locked_total(t) / Y0
@@ -332,20 +408,28 @@ pub fn distribute_fees_handler<'info>(ctx: Context<'_, '_, '_, 'info, Distribute
         progress.daily_distributed_to_investors,
     )?;
 
-    // === 5. DISTRIBUTE TO INVESTORS ===
+    // === 6. DISTRIBUTE TO INVESTORS ===
     let mut page_total_distributed = 0u64;
     let mut investors_paid = 0u16;
     let mut accumulated_dust = 0u64;
+    let mut rounding_dust_this_page = 0u64;
+
+    // Track total theoretical allocation to compare against actual distribution
+    let mut total_theoretical_payout = 0u64;
 
     for i in 0..investor_count {
         let investor_locked = locked_amounts[i];
 
-        // Calculate this investor's payout
+        // Calculate this investor's payout (floor division creates rounding dust)
         let payout = DistributionMath::calculate_investor_payout(
             investor_locked,
             total_locked,
             distributable,
         )?;
+
+        total_theoretical_payout = total_theoretical_payout
+            .checked_add(payout)
+            .ok_or(FeeRoutingError::ArithmeticOverflow)?;
 
         // Check minimum threshold
         if DistributionMath::meets_minimum_threshold(payout, policy.min_payout_lamports) {
@@ -383,13 +467,26 @@ pub fn distribute_fees_handler<'info>(ctx: Context<'_, '_, '_, 'info, Distribute
         }
     }
 
-    // === 6. UPDATE PROGRESS STATE ===
+    // Calculate rounding dust: difference between distributable and sum of floor'd payouts
+    // This tracks the "lost" lamports due to integer division rounding
+    if distributable > total_theoretical_payout {
+        rounding_dust_this_page = distributable
+            .checked_sub(total_theoretical_payout)
+            .ok_or(FeeRoutingError::ArithmeticOverflow)?;
+    }
+
+    // === 7. UPDATE PROGRESS STATE ===
     progress.daily_distributed_to_investors = progress.daily_distributed_to_investors
         .checked_add(page_total_distributed)
         .ok_or(FeeRoutingError::ArithmeticOverflow)?;
 
     progress.carry_over_lamports = accumulated_dust
         .checked_add(new_carry_over)
+        .ok_or(FeeRoutingError::ArithmeticOverflow)?;
+
+    // Track lifetime rounding dust for transparency
+    progress.total_rounding_dust = progress.total_rounding_dust
+        .checked_add(rounding_dust_this_page)
         .ok_or(FeeRoutingError::ArithmeticOverflow)?;
 
     progress.current_page = progress.current_page.checked_add(1)
@@ -404,13 +501,8 @@ pub fn distribute_fees_handler<'info>(ctx: Context<'_, '_, '_, 'info, Distribute
         timestamp: now,
     });
 
-    // === 7. CREATOR PAYOUT (FINAL PAGE ONLY) ===
-    // Determine if this is the final page based on whether there are more investors to process
-    // If remaining_accounts is empty or this is a signal from caller, it's the final page
-    let is_final_page = investor_count == 0 ||
-        (ctx.remaining_accounts.len() >= 2 &&
-         ctx.remaining_accounts.len() / 2 < 100); // Assume max 100 investors per page
-
+    // === 8. CREATOR PAYOUT (FINAL PAGE ONLY) ===
+    // Use explicit is_final_page parameter from caller to prevent multiple payouts
     if is_final_page && !progress.creator_payout_sent {
         // Calculate remainder: total claimed minus investor allocation
         let remainder = total_available

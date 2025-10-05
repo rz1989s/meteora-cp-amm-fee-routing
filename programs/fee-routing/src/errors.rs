@@ -46,4 +46,10 @@ pub enum FeeRoutingError {
 
     #[msg("Base token fees detected - position must be quote-only")]
     BaseFeesDetected,
+
+    #[msg("Invalid account ownership - account owner mismatch")]
+    InvalidAccountOwnership,
+
+    #[msg("Too many investors in single page - exceeds maximum")]
+    TooManyInvestors,
 }

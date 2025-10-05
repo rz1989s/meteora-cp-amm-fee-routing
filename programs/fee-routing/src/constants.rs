@@ -18,3 +18,8 @@ pub const DISTRIBUTION_WINDOW_SECONDS: i64 = 86_400;
 
 /// Basis points denominator (10000 = 100%)
 pub const BPS_DENOMINATOR: u64 = 10_000;
+
+/// Maximum investors per page during distribution
+/// This limit ensures transactions stay within Solana's account limit
+/// and compute budget. Adjust based on gas profiling.
+pub const MAX_INVESTORS_PER_PAGE: usize = 100;

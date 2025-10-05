@@ -82,7 +82,8 @@ pub mod fee_routing {
     pub fn distribute_fees<'info>(
         ctx: Context<'_, '_, '_, 'info, DistributeFees<'info>>,
         page_index: u16,
+        is_final_page: bool,
     ) -> Result<()> {
-        distribute_fees_handler(ctx, page_index)
+        distribute_fees_handler(ctx, page_index, is_final_page)
     }
 }
