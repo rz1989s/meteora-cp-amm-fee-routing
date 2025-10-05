@@ -31,4 +31,25 @@ pub enum FeeRoutingError {
 
     #[msg("Creator payout already sent for this day")]
     CreatorPayoutAlreadySent,
+
+    #[msg("Invalid Streamflow account provided")]
+    InvalidStreamflowAccount,
+
+    #[msg("Invalid pool authority provided")]
+    InvalidPoolAuthority,
+
+    #[msg("Invalid program ID provided")]
+    InvalidProgram,
+
+    #[msg("Invalid treasury authority")]
+    InvalidTreasuryAuthority,
+
+    #[msg("Base token fees detected - position must be quote-only")]
+    BaseFeesDetected,
+
+    #[msg("Invalid account ownership - account owner mismatch")]
+    InvalidAccountOwnership,
+
+    #[msg("Too many investors in single page - exceeds maximum")]
+    TooManyInvestors,
 }

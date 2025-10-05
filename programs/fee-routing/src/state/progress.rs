@@ -26,6 +26,12 @@ pub struct Progress {
     /// Whether creator payout sent for current day
     pub creator_payout_sent: bool,
 
+    /// Flag to track if base fees were detected on page 0
+    pub has_base_fees: bool,
+
+    /// Total rounding dust accumulated over lifetime (for transparency)
+    pub total_rounding_dust: u64,
+
     /// Bump seed for PDA derivation
     pub bump: u8,
 }
@@ -40,5 +46,7 @@ impl Progress {
         2 + // pages_processed_today
         2 + // total_investors
         1 + // creator_payout_sent
+        1 + // has_base_fees
+        8 + // total_rounding_dust
         1; // bump
 }
