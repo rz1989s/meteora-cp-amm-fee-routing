@@ -90,7 +90,7 @@ export default function Home() {
             />
             <MetricCard
               title="Build Size"
-              value="362 KB"
+              value="371 KB"
               description="Optimized binary"
               icon={Zap}
               color="warning"
@@ -213,13 +213,35 @@ export default function Home() {
               <h2 className="text-3xl font-bold mb-6">Our Solution</h2>
               <div className="space-y-4 text-slate-300">
                 <p>
-                  A two-instruction Anchor program that creates an honorary quote-only LP position
+                  A four-instruction Anchor program that creates an honorary quote-only LP position
                   and distributes fees via a 24-hour permissionless crank:
                 </p>
                 <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 space-y-3">
                   <div className="flex items-start">
-                    <div className="bg-primary/20 text-primary rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">
+                    <div className="bg-success/20 text-success rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">
                       1
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">initialize_policy</h3>
+                      <p className="text-sm text-slate-400">
+                        Creates immutable Policy PDA with distribution configuration
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-success/20 text-success rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">
+                      2
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">initialize_progress</h3>
+                      <p className="text-sm text-slate-400">
+                        Creates mutable Progress PDA for daily distribution tracking
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-primary/20 text-primary rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">
+                      3
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">initialize_position</h3>
@@ -230,7 +252,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-start">
                     <div className="bg-secondary/20 text-secondary rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">
-                      2
+                      4
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">distribute_fees</h3>

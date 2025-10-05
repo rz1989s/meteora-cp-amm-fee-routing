@@ -2,6 +2,7 @@
   "name": "meteora-damm-v2-fee-routing",
   "version": "0.2.0",
   "description": "Permissionless fee routing Anchor program for Meteora DAMM v2 pools",
+  "license": "MIT",
   "scripts": {
     "test": "anchor test"
   },

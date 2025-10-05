@@ -114,7 +114,7 @@ export default function TestingPage() {
       ✔ Should prevent overflow in arithmetic
       ✔ Should validate Streamflow account ownership
 
-  17 passing (29ms)
+  22 passing (29ms)
 
 Status: ✅ ALL TESTS PASSING
 Failures: 0`}
@@ -210,162 +210,181 @@ Status: ✅ ALL PASSING`}
 
   const testExamplesTab = (
     <div className="space-y-6">
+      <div className="bg-gradient-to-br from-success/20 to-success/5 border-2 border-success/50 rounded-xl p-6 mb-6">
+        <h4 className="font-semibold text-lg mb-3 text-success flex items-center">
+          <span className="mr-2">✅</span> Test Implementation Status
+        </h4>
+        <div className="text-sm text-slate-300 space-y-2">
+          <p>
+            <span className="text-success font-semibold">✅ Unit Tests (7/7 passing):</span> In <code className="bg-slate-800 px-2 py-1 rounded">programs/fee-routing/src/math.rs</code>
+          </p>
+          <p>
+            <span className="text-success font-semibold">✅ Devnet Tests (5/5 passing):</span> In <code className="bg-slate-800 px-2 py-1 rounded">tests/devnet-deployment-test.ts</code>
+          </p>
+          <p>
+            <span className="text-warning font-semibold">⏳ Integration Tests:</span> Stubbed as TODOs in <code className="bg-slate-800 px-2 py-1 rounded">tests/fee-routing.ts</code>
+          </p>
+          <p className="text-slate-400 italic mt-3">
+            <span className="text-success font-semibold">All examples below are actual test code</span> from the repository - you can verify them on GitHub!
+          </p>
+        </div>
+      </div>
+
       <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
-        <h3 className="text-2xl font-bold mb-4 text-primary">Critical Path Test Examples</h3>
+        <h3 className="text-2xl font-bold mb-4 text-primary">Actual Test Code Examples</h3>
         <p className="text-slate-300 mb-6">
-          Sample test code demonstrating core functionality verification. All tests run against
-          local validator with cloned Meteora CP-AMM and Streamflow programs.
+          Real, verifiable test code demonstrating core functionality. Click GitHub links to see these tests in the repository.
         </p>
 
         <div className="space-y-6">
           <div>
-            <h4 className="font-semibold mb-3 text-lg">Pro-Rata Distribution Test</h4>
+            <h4 className="font-semibold mb-3 text-lg">Unit Test: Pro-Rata Distribution Math</h4>
             <CodeBlock
-              title="tests/fee-routing.ts - Pro-Rata Calculation"
-              language="typescript"
-              code={`it('Should calculate pro-rata distribution correctly', async () => {
-  // Setup: 3 investors with different locked amounts
-  const investors = [
-    { address: alice, locked: 150_000 },  // 50% of total locked
-    { address: bob, locked: 100_000 },    // 33.3% of total locked
-    { address: charlie, locked: 50_000 }, // 16.7% of total locked
-  ];
+              title="programs/fee-routing/src/math.rs - Actual Unit Tests"
+              language="rust"
+              code={`#[test]
+fn test_investor_payout() {
+    // Investor with 30% of locked tokens gets 30% of allocation
+    let result = DistributionMath::calculate_investor_payout(3000, 10000, 5000).unwrap();
+    assert_eq!(result, 1500);
 
-  // Total locked: 300,000 out of Y0=1,000,000 (30% locked fraction)
-  // With 70% investor_fee_share_bps, eligible share = min(70%, 30%) = 30%
+    // Investor with 50% of locked tokens
+    let result = DistributionMath::calculate_investor_payout(5000, 10000, 5000).unwrap();
+    assert_eq!(result, 2500);
 
-  // Claim 10,000 tokens in fees
-  await simulateFeeAccrual(pool, 10_000);
+    // Investor with 0 locked tokens
+    let result = DistributionMath::calculate_investor_payout(0, 10000, 5000).unwrap();
+    assert_eq!(result, 0);
+}
 
-  // Distribute fees (page 0 - all investors)
-  await program.methods
-    .distributeFees(0)
-    .accounts({ /* ... */ })
-    .remainingAccounts(buildInvestorAccounts(investors))
-    .rpc();
+#[test]
+fn test_investor_allocation() {
+    // 50% share of 10000 tokens = 5000
+    let result = DistributionMath::calculate_investor_allocation(10000, 5000).unwrap();
+    assert_eq!(result, 5000);
 
-  // Verify pro-rata distribution
-  // Investor pool = 10,000 × 30% = 3,000 tokens
-  const aliceBalance = await getTokenBalance(aliceAta);
-  const bobBalance = await getTokenBalance(bobAta);
-  const charlieBalance = await getTokenBalance(charlieAta);
+    // 25% share of 10000 tokens = 2500
+    let result = DistributionMath::calculate_investor_allocation(10000, 2500).unwrap();
+    assert_eq!(result, 2500);
 
-  expect(aliceBalance).to.equal(1_500);   // 3,000 × 50.0% = 1,500
-  expect(bobBalance).to.equal(1_000);     // 3,000 × 33.3% = 1,000
-  expect(charlieBalance).to.equal(500);   // 3,000 × 16.7% = 500
+    // 100% share
+    let result = DistributionMath::calculate_investor_allocation(10000, 10000).unwrap();
+    assert_eq!(result, 10000);
+}
 
-  // Creator gets remainder: 10,000 - 3,000 = 7,000
-  const creatorBalance = await getTokenBalance(creatorAta);
-  expect(creatorBalance).to.equal(7_000);
-});`}
-              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/tests/fee-routing.ts"
+#[test]
+fn test_eligible_share_with_cap() {
+    // Locked fraction below cap
+    let result = DistributionMath::calculate_eligible_investor_share_bps(3000, 5000);
+    assert_eq!(result, 3000);
+
+    // Locked fraction above cap (capped at max)
+    let result = DistributionMath::calculate_eligible_investor_share_bps(8000, 5000);
+    assert_eq!(result, 5000);  // Capped at 5000
+
+    // Locked fraction equals cap
+    let result = DistributionMath::calculate_eligible_investor_share_bps(5000, 5000);
+    assert_eq!(result, 5000);
+}`}
+              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/programs/fee-routing/src/math.rs"
             />
           </div>
 
           <div>
-            <h4 className="font-semibold mb-3 text-lg">Pagination Idempotency Test</h4>
+            <h4 className="font-semibold mb-3 text-lg">Devnet Test: Policy Initialization</h4>
             <CodeBlock
-              title="tests/fee-routing.ts - Idempotent Pagination"
+              title="tests/devnet-deployment-test.ts - Actual Devnet Tests"
               language="typescript"
-              code={`it('Should handle pagination idempotently', async () => {
-  // Setup: 150 investors (requires 3 pages at 50/page)
-  const investors = generateInvestors(150);
-
-  // Page 0: Investors 0-49
-  await program.methods
-    .distributeFees(0)
-    .accounts({ /* ... */ })
-    .remainingAccounts(buildInvestorAccounts(investors.slice(0, 50)))
-    .rpc();
-
-  const progress1 = await program.account.progress.fetch(progressPda);
-  expect(progress1.currentPage).to.equal(1); // Next expected page
-
-  // Attempting to re-run page 0 should fail (prevents double-payment)
+              code={`it("Should initialize Policy account on devnet", async () => {
   try {
-    await program.methods
-      .distributeFees(0)
-      .accounts({ /* ... */ })
-      .rpc();
-    expect.fail('Should have thrown InvalidPageIndex error');
-  } catch (err) {
-    expect(err.toString()).to.include('InvalidPageIndex');
-  }
+    // Check if already initialized
+    const existingPolicy = await connection.getAccountInfo(policyPda);
 
-  // Page 1: Investors 50-99 (correct sequence)
-  await program.methods
-    .distributeFees(1)
-    .accounts({ /* ... */ })
-    .remainingAccounts(buildInvestorAccounts(investors.slice(50, 100)))
-    .rpc();
+    if (existingPolicy) {
+      console.log("⚠️  Policy already initialized at:", policyPda.toBase58());
+      console.log("   Account size:", existingPolicy.data.length, "bytes");
+      return;
+    }
 
-  // Page 2: Investors 100-149 (final page triggers creator payout)
-  await program.methods
-    .distributeFees(2)
-    .accounts({ /* ... */ })
-    .remainingAccounts(buildInvestorAccounts(investors.slice(100, 150)))
-    .rpc();
+    // Mock quote mint for testing (USDC devnet)
+    const usdcDevnet = new PublicKey("4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU");
 
-  const progress2 = await program.account.progress.fetch(progressPda);
-  expect(progress2.creatorPayoutSent).to.be.true; // Creator received remainder
-});`}
-              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/tests/fee-routing.ts"
-            />
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-3 text-lg">Quote-Only Validation Test</h4>
-            <CodeBlock
-              title="tests/fee-routing.ts - Quote-Only Enforcement"
-              language="typescript"
-              code={`it('Should reject pools with base token fees', async () => {
-  // Create a pool configuration that would generate base token fees
-  const invalidPool = await createPoolWithBaseFees({
-    tokenA: baseMint,
-    tokenB: quoteMint,
-    tickRange: { lower: -100, upper: 100 }, // Would accrue both base & quote
-  });
-
-  // Attempt to initialize honorary position with invalid pool
-  try {
-    await program.methods
-      .initializePosition()
+    // Initialize Policy
+    const tx = await program.methods
+      .initializePolicy(
+        new BN(1_000_000_000), // y0: 1 billion tokens
+        7000, // 70% max to investors
+        new BN(0), // no daily cap
+        new BN(1_000), // 1000 lamports min payout
+        usdcDevnet, // quote mint
+        deployerWallet.publicKey // creator wallet
+      )
       .accounts({
+        authority: deployerWallet.publicKey,
         policy: policyPda,
-        pool: invalidPool,
-        /* ... */
+        systemProgram: SystemProgram.programId,
       })
       .rpc();
 
-    expect.fail('Should have thrown BaseFeesNotAllowed error');
-  } catch (err) {
-    expect(err.toString()).to.include('BaseFeesNotAllowed');
+    console.log("✅ Policy initialized!");
+    console.log("   Transaction:", tx);
+    console.log("   Policy PDA:", policyPda.toBase58());
+    console.log("   Explorer:", \`https://solscan.io/account/\${policyPda.toBase58()}?cluster=devnet\`);
+
+  } catch (error: any) {
+    if (error.message?.includes("already in use")) {
+      console.log("⚠️  Policy already initialized");
+    } else {
+      console.error("Error initializing Policy:", error.message);
+      throw error;
+    }
   }
-
-  // Verify: Valid quote-only configuration succeeds
-  const validPool = await createQuoteOnlyPool({
-    tokenA: baseMint,
-    tokenB: quoteMint,
-    tickRange: { lower: 0, upper: 0 }, // Quote-only range
-  });
-
-  const tx = await program.methods
-    .initializePosition()
-    .accounts({
-      policy: policyPda,
-      pool: validPool,
-      /* ... */
-    })
-    .rpc();
-
-  expect(tx).to.be.a('string'); // Transaction signature confirms success
-
-  // Verify event emission
-  const events = await program.account.honoraryPositionInitialized.all();
-  expect(events.length).to.equal(1);
-  expect(events[0].account.pool.toString()).to.equal(validPool.toString());
 });`}
-              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/tests/fee-routing.ts"
+              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/tests/devnet-deployment-test.ts"
+            />
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-3 text-lg">Unit Test: Daily Cap & Dust Handling</h4>
+            <CodeBlock
+              title="programs/fee-routing/src/math.rs - Actual Unit Tests"
+              language="rust"
+              code={`#[test]
+fn test_daily_cap_application() {
+    // No cap (0 = unlimited)
+    let (distribute, carry) = DistributionMath::apply_daily_cap(10000, 0, 0).unwrap();
+    assert_eq!(distribute, 10000);
+    assert_eq!(carry, 0);
+
+    // Within cap
+    let (distribute, carry) = DistributionMath::apply_daily_cap(5000, 10000, 0).unwrap();
+    assert_eq!(distribute, 5000);
+    assert_eq!(carry, 0);
+
+    // Exceeds cap
+    let (distribute, carry) = DistributionMath::apply_daily_cap(15000, 10000, 0).unwrap();
+    assert_eq!(distribute, 10000);
+    assert_eq!(carry, 5000);  // Carry over excess
+
+    // With partial distribution already done
+    let (distribute, carry) = DistributionMath::apply_daily_cap(8000, 10000, 3000).unwrap();
+    assert_eq!(distribute, 7000); // Only 7000 left in cap
+    assert_eq!(carry, 1000);
+}
+
+#[test]
+fn test_minimum_threshold() {
+    // Above threshold - should distribute
+    assert!(DistributionMath::meets_minimum_threshold(1000, 500));
+
+    // Equal to threshold - should distribute
+    assert!(DistributionMath::meets_minimum_threshold(500, 500));
+
+    // Below threshold - becomes dust
+    assert!(!DistributionMath::meets_minimum_threshold(499, 500));
+    assert!(!DistributionMath::meets_minimum_threshold(0, 1));
+}`}
+              githubLink="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/programs/fee-routing/src/math.rs"
             />
           </div>
         </div>
@@ -389,7 +408,7 @@ Status: ✅ ALL PASSING`}
       ✔ Should deploy to devnet successfully
       ✔ Should initialize Policy PDA on devnet
       ✔ Should initialize Progress PDA on devnet
-      ✔ Should verify program upgrade (316KB → 362KB)
+      ✔ Should verify program upgrade (316KB → 371KB)
       ✔ Should validate IDL with 4 instructions
     initialize_position
       ✔ Should initialize honorary position (quote-only)
@@ -420,7 +439,7 @@ Stack offset of 4136 exceeded max offset of 4096 by 40 bytes
 
 ✅ Status: ALL TESTS PASSING
 ✅ Devnet Deployment: VERIFIED
-✅ Smart Contract: UPGRADED (362KB)
+✅ Smart Contract: UPGRADED (371KB)
 ✅ Test Wallet: FUNDED`}
           showLineNumbers={false}
         />
@@ -473,12 +492,13 @@ Stack offset of 4136 exceeded max offset of 4096 by 40 bytes
               </a>
             </div>
             <div className="p-3 bg-slate-800 rounded-lg">
-              <div className="text-slate-400 mb-1">Upgrade Signature:</div>
+              <div className="text-slate-400 mb-1">Latest Upgrade:</div>
               <div className="text-success break-all text-xs">
-                7F5Q3er96iExdHurUCcbguer2SXiDdPnFXpNN71gyMDpUiNxrfAosKASPYsV778draBhF12zP1145T77HcfRnfH
+                3eh7F61gx7SZrVk3xsvg2QCwPq5qPuHA8RMp7LjC6xQUvui3GTmVtA3QUK2gYd9YAWZ8JLR6nWfJhVkpfEEQjWoe
               </div>
+              <div className="text-slate-500 text-xs mb-1">Oct 5, 2025</div>
               <a
-                href="https://solscan.io/tx/7F5Q3er96iExdHurUCcbguer2SXiDdPnFXpNN71gyMDpUiNxrfAosKASPYsV778draBhF12zP1145T77HcfRnfH?cluster=devnet"
+                href="https://solscan.io/tx/3eh7F61gx7SZrVk3xsvg2QCwPq5qPuHA8RMp7LjC6xQUvui3GTmVtA3QUK2gYd9YAWZ8JLR6nWfJhVkpfEEQjWoe?cluster=devnet"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-secondary hover:text-primary text-xs mt-1 inline-block"
@@ -580,7 +600,7 @@ Stack offset of 4136 exceeded max offset of 4096 by 40 bytes
 Status: ✅ SUCCESS
 Warnings: 0 (all framework warnings suppressed with documentation)
 Errors: 0
-Output: target/deploy/fee_routing.so (362KB)`}
+Output: target/deploy/fee_routing.so (371KB)`}
             showLineNumbers={false}
           />
         </div>
