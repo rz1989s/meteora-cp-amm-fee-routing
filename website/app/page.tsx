@@ -29,7 +29,7 @@ export default function Home() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
                 </span>
-                Live on Devnet - Program ID: RECT...wce
+                Live on Devnet - Program ID: RECt...3WP
               </div>
             </div>
 
@@ -124,10 +124,10 @@ export default function Home() {
               <div className="bg-slate-900/50 rounded-lg p-6 border border-slate-700">
                 <h4 className="text-sm font-semibold text-primary mb-3">Program ID (Vanity)</h4>
                 <code className="text-success font-mono text-sm break-all block mb-4">
-                  RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
+                  RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP
                 </code>
                 <a
-                  href="https://solscan.io/account/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
+                  href="https://solscan.io/account/RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP?cluster=devnet"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-primary hover:text-secondary transition-colors text-sm"

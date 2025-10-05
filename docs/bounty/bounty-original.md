@@ -1,6 +1,6 @@
 # Build Permissionless Fee Routing Anchor Program for Meteora DAMM V2
 
-**Bounty URL:** https://earn.superteam.fun/listing/build-permissionless-fee-routing-anchor-program-for-meteora-dlmm-v2
+**Bounty URL:** <https://earn.superteam.fun/listing/build-permissionless-fee-routing-anchor-program-for-meteora-dlmm-v2>
 
 **Sponsor:** Star
 
@@ -20,7 +20,7 @@
 
 **Skills Needed:** Blockchain
 
-**Contact:** https://t.me/algopapi
+**Contact:** <https://t.me/algopapi>
 
 ---
 
@@ -83,11 +83,13 @@ In June we launched star with our own fundraiser and raised $450K in 48 hours, l
 ### Required accounts and state (document clearly)
 
 **For initialization:**
+
 - `cp-amm` program + pool accounts/config; token vaults; system and token programs.
 - `InvestorFeePositionOwnerPda` (program PDA) and the new position account(s).
 - Verification of quote mint identity.
 
 **For crank:**
+
 - Honorary position + its owner PDA.
 - Program quote treasury ATA (for pool's quote mint).
 - Creator quote ATA.
@@ -106,13 +108,16 @@ In June we launched star with our own fundraiser and raised $450K in 48 hours, l
 ### Acceptance criteria
 
 **Honorary position:**
+
 - Owned by program PDA; validated quote‑only accrual or clean rejection.
 
 **Crank:**
+
 - Claims quote fees, distributes to investors by still‑locked share, routes complement to creator on day close.
 - Enforces 24h gating, supports pagination with idempotent retries, respects caps and dust handling.
 
 **Tests (local validator/bankrun):**
+
 - Initialize pool and honorary position; simulate quote fee accrual; run crank across multiple pages.
 - Cases:
   - partial locks: investor payouts match weights within rounding tolerance; creator gets complement.
@@ -121,6 +126,7 @@ In June we launched star with our own fundraiser and raised $450K in 48 hours, l
   - Base‑fee presence causes deterministic failure with no distribution.
 
 **Quality:**
+
 - Anchor‑compatible; no `unsafe`; deterministic seeds.
 - Clear README with integration steps, account tables, error codes, and day/pagination semantics.
 - Emit events: `HonoraryPositionInitialized`, `QuoteFeesClaimed`, `InvestorPayoutPage`, `CreatorPayoutDayClosed`.
@@ -128,37 +134,9 @@ In June we launched star with our own fundraiser and raised $450K in 48 hours, l
 ### Deliverables
 
 Public Git repo containing:
+
 - The module/crate (Anchor‑compatible) with clear instruction interfaces and account requirements.
 - Tests demonstrating end‑to‑end flows against `cp-amm` and Streamflow on a local validator.
 - `README.md` documenting setup, wiring, PDAs, policies, and failure modes.
 
 ---
-
-## Comments (9)
-
-**Dave Eth** (4h ago):
-> Can we get the white pepper for this project? Where is the X/Twitter handle I can't finding it
-
-**Stephen Williams** (4d ago):
-> Done creating mine here👇 https://x.com/StephenOgh77883/status/1972311843072078142
-
-**Token Harvester** (7d ago):
-> are we actually using a deploy cp-amm and Streamflow programs on local validator and do real integration, or we're using mock.
-
-**Ming Cheng** (8d ago):
-> This position is open yet?
-
-**Levente Tan** (10d ago):
-> That sounds pretty interesting, I have rich experience of building this kinda project and hope to work with this project, let's connect Please check my past work on my git handle (0xTan1319) and portfo...
-
-**Abubakar Sadiq Abusufyan** (11d ago):
-> Hope to win
-
-**Lyle D** (12d ago):
-> Going to start Can it be deployed on testnet? Is there a discord or telegram if I need something from you?
-
-**Don Martinez** (12d ago):
-> I'll do my best sir, looks a really promising project.
-
-**Tristan Nguyen** (13d ago):
-> I am taking this mission

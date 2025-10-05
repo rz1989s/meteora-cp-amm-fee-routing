@@ -6,13 +6,13 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-fee_routing = "RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce"
+fee_routing = "RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP"
 
 [programs.devnet]
-fee_routing = "RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce"
+fee_routing = "RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP"
 
 [programs.mainnet]
-fee_routing = "RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce"
+fee_routing = "RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP"
 
 [registry]
 url = "https://api.apr.dev"

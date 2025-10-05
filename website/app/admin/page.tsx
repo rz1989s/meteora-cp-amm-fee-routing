@@ -6,12 +6,12 @@ import { motion } from 'framer-motion';
 import { Activity, Database, Clock, TrendingUp, AlertCircle, CheckCircle2, ExternalLink, Calendar } from 'lucide-react';
 
 // Program constants
-const PROGRAM_ID = new PublicKey('RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce');
+const PROGRAM_ID = new PublicKey('RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP');
 const DEVNET_RPC = 'https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30';
 
 // PDA addresses from devnet deployment
-const POLICY_PDA = new PublicKey('pmv5FxM6VobnJqABGBATT3hDLDzNjph1ceDPaEQrV7Q');
-const PROGRESS_PDA = new PublicKey('G8yuGH2eWAMmD5t3Kt8ygfxAGkocGuQdqqSFtPuZjJer');
+const POLICY_PDA = new PublicKey('6YyC75eRsssSnHrRFYpRiyoohCQyLqiHDe6CRje69hzt');
+const PROGRESS_PDA = new PublicKey('9cumYPtnKQmKsVmTeKguv7h3YWspRoMUQeqgAHMFNXxv');
 
 interface PolicyAccount {
   y0: string;
@@ -20,6 +20,7 @@ interface PolicyAccount {
   minPayoutLamports: string;
   quoteMint: string;
   creatorWallet: string;
+  authority: string;
   bump: number;
 }
 
@@ -29,7 +30,11 @@ interface ProgressAccount {
   dailyDistributedToInvestors: string;
   carryOverLamports: string;
   currentPage: number;
+  pagesProcessedToday: number;
+  totalInvestors: number;
   creatorPayoutSent: boolean;
+  hasBaseFees: boolean;
+  totalRoundingDust: string;
   bump: number;
 }
 
@@ -132,6 +137,10 @@ export default function AdminDashboard() {
     const creatorWallet = new PublicKey(data.slice(offset, offset + 32)).toBase58();
     offset += 32;
 
+    // Read authority (Pubkey - 32 bytes)
+    const authority = new PublicKey(data.slice(offset, offset + 32)).toBase58();
+    offset += 32;
+
     // Read bump (u8 - 1 byte)
     const bump = data.readUInt8(offset);
 
@@ -142,6 +151,7 @@ export default function AdminDashboard() {
       minPayoutLamports: minPayoutLamports.toString(),
       quoteMint,
       creatorWallet,
+      authority,
       bump,
     };
   };
@@ -166,13 +176,29 @@ export default function AdminDashboard() {
     const carryOverLamports = data.readBigUInt64LE(offset);
     offset += 8;
 
-    // Read current_page (u8 - 1 byte)
-    const currentPage = data.readUInt8(offset);
-    offset += 1;
+    // Read current_page (u16 - 2 bytes)
+    const currentPage = data.readUInt16LE(offset);
+    offset += 2;
+
+    // Read pages_processed_today (u16 - 2 bytes)
+    const pagesProcessedToday = data.readUInt16LE(offset);
+    offset += 2;
+
+    // Read total_investors (u16 - 2 bytes)
+    const totalInvestors = data.readUInt16LE(offset);
+    offset += 2;
 
     // Read creator_payout_sent (bool - 1 byte)
     const creatorPayoutSent = data.readUInt8(offset) === 1;
     offset += 1;
+
+    // Read has_base_fees (bool - 1 byte)
+    const hasBaseFees = data.readUInt8(offset) === 1;
+    offset += 1;
+
+    // Read total_rounding_dust (u64 - 8 bytes)
+    const totalRoundingDust = data.readBigUInt64LE(offset);
+    offset += 8;
 
     // Read bump (u8 - 1 byte)
     const bump = data.readUInt8(offset);
@@ -183,7 +209,11 @@ export default function AdminDashboard() {
       dailyDistributedToInvestors: dailyDistributedToInvestors.toString(),
       carryOverLamports: carryOverLamports.toString(),
       currentPage,
+      pagesProcessedToday,
+      totalInvestors,
       creatorPayoutSent,
+      hasBaseFees,
+      totalRoundingDust: totalRoundingDust.toString(),
       bump,
     };
   };

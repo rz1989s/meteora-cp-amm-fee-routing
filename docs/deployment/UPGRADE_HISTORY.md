@@ -4,10 +4,10 @@ This document tracks all upgrades to the fee-routing program on devnet.
 
 ## Program Information
 
-- **Program ID**: `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce`
+- **Program ID**: `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP`
 - **Deployer/Authority**: `RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b`
 - **Network**: Devnet
-- **Explorer**: [View on Solscan](https://solscan.io/account/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet)
+- **Explorer**: [View on Solscan](https://solscan.io/account/RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP?cluster=devnet)
 
 ---
 
@@ -38,14 +38,14 @@ This document tracks all upgrades to the fee-routing program on devnet.
 **Build Status**:
 - ✅ Binary size: 371 KB (380,928 bytes)
 - ✅ Cargo build: 0 errors, 0 warnings
-- ✅ Cargo test: 7/7 unit tests passing
-- ✅ Anchor test: 22/22 integration tests passing
+- ✅ Cargo test: 7/7 unit tests + 4/4 integration logic tests passing
+- ✅ Anchor test: 16/16 real tests passing (5 devnet + 7 unit + 4 integration logic)
 
 ---
 
 ### v0.2.0 - Initial Deployment
 
-**Binary Size**: 362 KB (370,688 bytes)
+**Binary Size**: 371 KB (370,696 bytes)
 
 **Features**:
 - 4 instructions: `initialize_policy`, `initialize_progress`, `initialize_position`, `distribute_fees`
@@ -69,7 +69,7 @@ solana config set --keypair ~/.config/solana/REC-devnet.json
 
 # Upgrade program
 anchor upgrade target/deploy/fee_routing.so \
-  --program-id RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce \
+  --program-id RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP \
   --provider.cluster devnet
 ```
 
@@ -77,7 +77,7 @@ anchor upgrade target/deploy/fee_routing.so \
 
 ```bash
 # Check program info
-solana program show RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --url devnet
+solana program show RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP --url devnet
 
 # Verify binary size
 ls -lh target/deploy/fee_routing.so

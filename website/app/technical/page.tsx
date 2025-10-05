@@ -207,6 +207,8 @@ export default function TechnicalPage() {
                   <div>• min_payout_lamports</div>
                   <div>• quote_mint</div>
                   <div>• creator_wallet</div>
+                  <div>• authority</div>
+                  <div>• bump</div>
                 </div>
               </div>
             </div>
@@ -226,6 +228,7 @@ export default function TechnicalPage() {
                   <div>• creator_payout_sent</div>
                   <div>• has_base_fees</div>
                   <div>• total_rounding_dust</div>
+                  <div>• bump</div>
                 </div>
               </div>
             </div>
@@ -430,12 +433,12 @@ let (claimed_token_a, claimed_token_b) = if page_index == 0 {
     meteora::claim_position_fee_cpi(&cpi_accounts, signer_seeds)?;
 
     emit!(QuoteFeesClaimed {
-        amount: claimed_b,
+        amount: claimed_token_b,
         timestamp: now,
         distribution_day: progress.current_day,
     });
 
-    (claimed_a, claimed_b)
+    (claimed_token_a, claimed_token_b)
 } else {
     (0, 0)
 };
@@ -510,7 +513,12 @@ let total_available = claimed_token_b.checked_add(progress.carry_over_lamports)?
 
             token::transfer(cpi_ctx, remainder)?;
 
-            emit!(CreatorPayoutDayClosed { remainder, day: progress.current_day });
+            emit!(CreatorPayoutDayClosed {
+                day: progress.current_day,
+                creator_amount: remainder,
+                total_distributed_to_investors: progress.daily_distributed_to_investors,
+                timestamp: now,
+            });
         }
         progress.creator_payout_sent = true;
     }
@@ -612,7 +620,7 @@ let total_available = claimed_token_b.checked_add(progress.carry_over_lamports)?
                 <ProgressBar value={100} color="success" label="24h gate + pagination" />
               </div>
               <div>
-                <ProgressBar value={100} color="success" label="Tests passing (22/22)" />
+                <ProgressBar value={100} color="success" label="Tests passing (29/29)" />
               </div>
               <div>
                 <ProgressBar value={100} color="success" label="No unsafe code" />
@@ -732,7 +740,7 @@ let total_available = claimed_token_b.checked_add(progress.carry_over_lamports)?
                 <div className="font-mono text-primary break-all">cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG</div>
               </div>
               <div>
-                <div className="text-slate-400 mb-1">Pool Authority:</div>
+                <div className="text-slate-400 mb-1">Meteora Pool Authority:</div>
                 <div className="font-mono text-primary break-all">HLnpSz9h2S4hiLQ43rnSD9XkcUThA7B8hQMKmDaiTLcC</div>
               </div>
               <div>

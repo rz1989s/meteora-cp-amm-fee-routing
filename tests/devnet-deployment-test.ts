@@ -2,7 +2,7 @@
  * Devnet Deployment Test
  * Tests the live deployed program on Solana Devnet
  *
- * Program ID: RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
+ * Program ID: RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP
  * Deployer: RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b
  */
 
@@ -16,7 +16,7 @@ describe("Devnet Deployment Test", () => {
   // Connect to devnet
   const connection = new Connection("https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30", "confirmed");
 
-  const programId = new PublicKey("RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce");
+  const programId = new PublicKey("RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP");
   const deployerWallet = anchor.AnchorProvider.env().wallet;
 
   const provider = new anchor.AnchorProvider(

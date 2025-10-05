@@ -77,7 +77,7 @@ Required for each test investor:
 
 ```bash
 # Check program exists on devnet
-solana program show RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --url devnet
+solana program show RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP --url devnet
 ```
 
 Expected output: Program account information
@@ -89,13 +89,13 @@ Expected output: Program account information
 anchor test --skip-build
 
 # Or manually query accounts
-solana account pmv5FxM6VobnJqABGBATT3hDLDzNjph1ceDPaEQrV7Q --url devnet  # Policy
-solana account G8yuGH2eWAMmD5t3Kt8ygfxAGkocGuQdqqSFtPuZjJer --url devnet  # Progress
+solana account 6YyC75eRsssSnHrRFYpRiyoohCQyLqiHDe6CRje69hzt --url devnet  # Policy
+solana account 9cumYPtnKQmKsVmTeKguv7h3YWspRoMUQeqgAHMFNXxv --url devnet  # Progress
 ```
 
 Policy and Progress are **already initialized** on devnet:
-- Policy PDA: `pmv5FxM6VobnJqABGBATT3hDLDzNjph1ceDPaEQrV7Q`
-- Progress PDA: `G8yuGH2eWAMmD5t3Kt8ygfxAGkocGuQdqqSFtPuZjJer`
+- Policy PDA: `6YyC75eRsssSnHrRFYpRiyoohCQyLqiHDe6CRje69hzt`
+- Progress PDA: `9cumYPtnKQmKsVmTeKguv7h3YWspRoMUQeqgAHMFNXxv`
 
 ### Step 3: Initialize Honorary Position
 
@@ -224,7 +224,7 @@ Verify:
 
 ```bash
 # Get recent transactions
-solana transaction-history RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --url devnet
+solana transaction-history RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP --url devnet
 
 # Get specific transaction
 solana confirm TX_SIGNATURE --url devnet
@@ -335,7 +335,7 @@ For faster iteration without waiting or spending SOL:
 anchor test
 
 # Results:
-# - 22/22 tests pass in ~2 seconds
+# - 16/16 real tests pass in ~2 seconds (5 devnet + 7 unit + 4 integration logic)
 # - No SOL cost
 # - Tests against cloned Meteora & Streamflow programs
 ```
@@ -360,11 +360,11 @@ Before running real devnet tests:
 If you encounter issues:
 
 1. **Check Solscan**: View transaction details and logs
-   - https://solscan.io/account/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet
+   - https://solscan.io/account/RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP?cluster=devnet
 
 2. **View Program Logs**: Use `solana logs` to monitor in real-time
    ```bash
-   solana logs RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --url devnet
+   solana logs RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP --url devnet
    ```
 
 3. **Test Locally First**: Validate logic with `anchor test` before devnet

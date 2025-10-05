@@ -17,7 +17,7 @@ import * as path from "path";
 
 // Configuration
 const DEVNET_RPC = "https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30";
-const PROGRAM_ID = new PublicKey("RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce");
+const PROGRAM_ID = new PublicKey("RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP");
 const WALLET_PATH = path.join(process.env.HOME!, ".config/solana/REC-devnet.json");
 
 // Load wallet

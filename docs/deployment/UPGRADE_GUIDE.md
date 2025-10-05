@@ -3,14 +3,14 @@
 ## Current Status
 
 **Deployed Program (OLD)**:
-- Program ID: `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce`
+- Program ID: `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP`
 - Size: 316 KB
 - Instructions: 2 (incomplete - with TODOs)
 - Status: ❌ Outdated
 
 **New Build (READY)**:
-- Program ID: Same (`RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce`)
-- Size: 362 KB
+- Program ID: Same (`RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP`)
+- Size: 371 KB
 - Instructions: 4 (complete - all features implemented)
 - Status: ✅ Ready for upgrade
 
@@ -45,24 +45,24 @@ This keeps the same Program ID.
 # Authority: RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b
 
 # Step 2: Check current program status
-solana program show RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --url devnet
+solana program show RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP --url devnet
 
 # Step 3: Upgrade the program binary
 anchor upgrade target/deploy/fee_routing.so \
-  --program-id RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce \
+  --program-id RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP \
   --provider.cluster devnet
 
 # Step 4: Update the IDL on-chain
-anchor idl upgrade RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce \
+anchor idl upgrade RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP \
   --filepath target/idl/fee_routing.json \
   --provider.cluster devnet
 
 # Step 5: Verify upgrade success
-solana program show RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --url devnet
+solana program show RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP --url devnet
 # Should show: Data Length: 362264 bytes
 
 # Step 6: Fetch and verify IDL
-anchor idl fetch RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce \
+anchor idl fetch RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP \
   --provider.cluster devnet \
   -o /tmp/deployed.json
 
@@ -113,11 +113,11 @@ After upgrade, verify everything is working:
 
 ```bash
 # 1. Check program size
-solana program show RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --url devnet | grep "Data Length"
+solana program show RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP --url devnet | grep "Data Length"
 # Expected: 362264 bytes
 
 # 2. Verify IDL has 4 instructions
-anchor idl fetch RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce \
+anchor idl fetch RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP \
   --provider.cluster devnet \
   -o /tmp/verify.json
 
@@ -129,7 +129,7 @@ jq '.errors[] | select(.name == "BaseFeesDetected")' /tmp/verify.json
 # Should return the BaseFeesDetected error definition
 
 # 4. Check upgrade authority (should remain the same)
-solana program show RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --url devnet | grep "Authority"
+solana program show RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP --url devnet | grep "Authority"
 # Expected: RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b
 ```
 
@@ -139,7 +139,7 @@ solana program show RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --url devnet | g
 
 After successful upgrade:
 
-- [ ] Program binary upgraded (362 KB)
+- [ ] Program binary upgraded (371 KB)
 - [ ] IDL updated on-chain (4 instructions)
 - [ ] Verification tests passed
 - [ ] Explorer link updated (if needed)
@@ -157,7 +157,7 @@ If something goes wrong, you can rollback to previous version:
 # Keep a backup before upgrading!
 
 anchor upgrade target/deploy/fee_routing_OLD.so \
-  --program-id RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce \
+  --program-id RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP \
   --provider.cluster devnet
 ```
 

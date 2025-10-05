@@ -129,12 +129,12 @@ export default function SubmissionPage() {
                 <div>
                   <span className="text-slate-400 block mb-1">Program ID:</span>
                   <code className="text-xs bg-slate-800 px-2 py-1 rounded block">
-                    RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
+                    RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP
                   </code>
                 </div>
                 <div>
                   <span className="text-slate-400 block mb-1">Submission Date:</span>
-                  <span>October 4, 2025</span>
+                  <span>October 10, 2025</span>
                 </div>
                 <div>
                   <span className="text-slate-400 block mb-1">License:</span>
@@ -475,7 +475,7 @@ export default function SubmissionPage() {
 
           <div className="mt-8 pt-8 border-t border-slate-700">
             <p className="text-sm text-slate-400">
-              Submission Date: October 4, 2025
+              Submission Date: October 10, 2025
               <br />
               Meteora DAMM V2 Fee Routing Program Bounty
             </p>

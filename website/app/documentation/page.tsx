@@ -511,7 +511,7 @@ const remainingAccounts = investors.flatMap((inv) => [
 ]);
 
 await program.methods
-  .distributeFees(0) // page_index = 0
+  .distributeFees(0, true) // page_index = 0, is_final_page = true
   .accounts({
     policy: policyPda,
     progress: progressPda,
@@ -932,8 +932,9 @@ async function distributionCrank() {
     }
 
     // Execute distribution for this page
+    const isFinalPage = (pageIndex === totalPages - 1);
     await program.methods
-      .distributeFees(pageIndex)
+      .distributeFees(pageIndex, isFinalPage)
       .accounts({ /* ... all accounts ... */ })
       .remainingAccounts(remainingAccounts)
       .signers([cranker])
@@ -1356,11 +1357,11 @@ anchor test
             </h4>
             <div className="bg-slate-800 rounded p-4 mb-4">
               <code className="text-success font-mono text-sm break-all">
-                RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
+                RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP
               </code>
             </div>
             <a
-              href="https://solscan.io/account/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
+              href="https://solscan.io/account/RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP?cluster=devnet"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 text-primary hover:text-secondary transition-colors"
@@ -1413,7 +1414,7 @@ anchor test
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Program Size:</span>
-              <span className="text-slate-200 font-semibold">370,696 bytes (362 KB)</span>
+              <span className="text-slate-200 font-semibold">370,696 bytes (371 KB)</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Upgrade Date:</span>
@@ -1482,17 +1483,17 @@ anchor test
           <CodeBlock
             language="bash"
             code={`# Check program info on devnet
-solana program show RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --url devnet
+solana program show RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP --url devnet
 
 # Expected output:
-# Program Id: RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
+# Program Id: RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP
 # Owner: BPFLoaderUpgradeab1e11111111111111111111111
 # Authority: RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b
-# Data Length: 370696 bytes (362 KB)
+# Data Length: 370696 bytes (371 KB)
 # Balance: 2.58 SOL
 
 # Verify hash matches source code
-solana program dump RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce /tmp/deployed.so --url devnet
+solana program dump RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP /tmp/deployed.so --url devnet
 shasum -a 256 /tmp/deployed.so
 # Expected: 4f92978f5feaeb1b953f6336631abdcac1ced2354ab617286afd4831ee36df44`}
             showLineNumbers={false}
@@ -1507,7 +1508,7 @@ shasum -a 256 /tmp/deployed.so
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <a
-              href="https://solscan.io/account/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
+              href="https://solscan.io/account/RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP?cluster=devnet"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 bg-primary rounded-lg font-semibold hover:bg-primary/80 transition-all"

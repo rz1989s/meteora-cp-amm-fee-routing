@@ -4,10 +4,15 @@
   "description": "Permissionless fee routing Anchor program for Meteora DAMM v2 pools",
   "license": "MIT",
   "scripts": {
-    "test": "anchor test"
+    "test": "anchor test",
+    "test:local": "ANCHOR_WALLET=~/.config/solana/test-wallet.json anchor test",
+    "build": "anchor build",
+    "deploy:devnet": "ANCHOR_WALLET=$HOME/.config/solana/REC-devnet.json anchor deploy --provider.cluster https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30",
+    "upgrade:devnet": "ANCHOR_WALLET=$HOME/.config/solana/REC-devnet.json anchor upgrade --program-id RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --provider.cluster https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30 target/deploy/fee_routing.so"
   },
   "dependencies": {
     "@coral-xyz/anchor": "0.31.1",
+    "@solana/spl-token": "^0.4.14",
     "@solana/web3.js": "^1.95.0"
   },
   "devDependencies": {
