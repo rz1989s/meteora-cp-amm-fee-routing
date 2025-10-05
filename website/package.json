@@ -24,6 +24,8 @@
     "cleanup:all": "npm run cleanup:servers && npm run cleanup:build && npm run cleanup:cache"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "^0.31.1",
+    "@solana/web3.js": "^1.98.4",
     "@types/react-syntax-highlighter": "^15.5.13",
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.544.0",
