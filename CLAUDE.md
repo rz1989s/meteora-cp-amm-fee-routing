@@ -83,7 +83,8 @@ anchor test --provider.cluster devnet
 ### Devnet Deployment
 - **Policy PDA**: `pmv5FxM6VobnJqABGBATT3hDLDzNjph1ceDPaEQrV7Q`
 - **Progress PDA**: `G8yuGH2eWAMmD5t3Kt8ygfxAGkocGuQdqqSFtPuZjJer`
-- **Latest Upgrade**: `3eh7F61gx7SZrVk3xsvg2QCwPq5qPuHA8RMp7LjC6xQUvui3GTmVtA3QUK2gYd9YAWZ8JLR6nWfJhVkpfEEQjWoe` (Oct 5, 2025)
+- **Latest Upgrade**: `3e3VrnDKZJc1Nb1qgAUeTKYJ4ZXXkCimcgprjq8Hi4uigTC1s68cFTPe8jgfzS4x78RQeAZWUzw5Z1cFB4Ly4CgA` (Oct 5, 2025 - 11:38)
+- **Previous Upgrade**: `3eh7F61gx7SZrVk3xsvg2QCwPq5qPuHA8RMp7LjC6xQUvui3GTmVtA3QUK2gYd9YAWZ8JLR6nWfJhVkpfEEQjWoe` (Oct 5, 2025 - 09:42)
 
 ## Core Architecture
 
