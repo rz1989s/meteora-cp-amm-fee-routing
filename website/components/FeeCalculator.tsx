@@ -21,7 +21,9 @@ export default function FeeCalculator() {
 
   const totalLocked = investors.reduce((sum, inv) => sum + inv.locked, 0);
   const fLocked = totalLocked / y0;
-  const eligibleShareBps = Math.min(investorShareBps, Math.floor(fLocked * 10000));
+  const maxEligibleBps = Math.floor(fLocked * 10000);
+  const eligibleShareBps = Math.min(investorShareBps, maxEligibleBps);
+  const isCapped = investorShareBps > maxEligibleBps;
   const investorFeeQuote = Math.floor((claimedFees * eligibleShareBps) / 10000);
   const creatorFee = claimedFees - investorFeeQuote;
 
@@ -85,6 +87,11 @@ export default function FeeCalculator() {
               <span>50%</span>
               <span className="font-bold text-secondary text-lg">
                 {(investorShareBps / 100).toFixed(0)}%
+                {isCapped && (
+                  <span className="text-xs text-yellow-400 ml-2">
+                    (capped → {(eligibleShareBps / 100).toFixed(0)}%)
+                  </span>
+                )}
               </span>
               <span>90%</span>
             </div>
@@ -130,6 +137,11 @@ export default function FeeCalculator() {
                 <span className="text-slate-300">Eligible Share:</span>
                 <span className="font-mono text-primary">{eligibleShareBps} bps</span>
               </div>
+              {isCapped && (
+                <div className="bg-yellow-500/10 border border-yellow-500/30 rounded px-2 py-1 text-xs text-yellow-400">
+                  ⚠️ Capped at {maxEligibleBps} bps (locked fraction limit)
+                </div>
+              )}
               <div className="border-t border-primary/30 pt-2 mt-2 flex justify-between font-semibold">
                 <span>Investor Pool:</span>
                 <span className="text-primary">${investorFeeQuote.toLocaleString()}</span>
