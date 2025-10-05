@@ -20,6 +20,8 @@
     "@solana/web3.js": "^1.95.0"
   },
   "devDependencies": {
+    "@meteora-ag/cp-amm-sdk": "^1.1.5",
+    "@streamflow/stream": "^9.0.2",
     "@types/chai": "^4.3.0",
     "@types/mocha": "^10.0.0",
     "chai": "^4.3.0",
