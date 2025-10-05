@@ -1398,57 +1398,103 @@ anchor test
           </div>
         </div>
 
-        <div className="bg-slate-900 rounded-lg p-6 border border-warning/30 mb-6">
-          <h4 className="text-lg font-semibold mb-4 text-warning">📝 Deployment Transaction</h4>
+        <div className="bg-slate-900 rounded-lg p-6 border border-success/30 mb-6">
+          <h4 className="text-lg font-semibold mb-4 text-success flex items-center gap-2">
+            ✅ Latest Program Upgrade (Verified)
+          </h4>
           <div className="space-y-3">
             <div>
-              <span className="text-sm text-slate-400 block mb-2">Signature:</span>
+              <span className="text-sm text-slate-400 block mb-2">Upgrade Signature:</span>
               <div className="bg-slate-800 rounded p-3">
                 <code className="text-success font-mono text-xs break-all">
-                  55tj463QSGJz9uZoC9zGynQ8qzpMRr4daDTw2sA2MkLRQx5f5poU3vFptNFEMVx1ExESA8QbRHtc2E731LAjYCtW
+                  3e3VrnDKZJc1Nb1qgAUeTKYJ4ZXXkCimcgprjq8Hi4uigTC1s68cFTPe8jgfzS4x78RQeAZWUzw5Z1cFB4Ly4CgA
                 </code>
               </div>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Program Size:</span>
-              <span className="text-slate-200 font-semibold">316,024 bytes (316 KB)</span>
+              <span className="text-slate-200 font-semibold">370,696 bytes (362 KB)</span>
             </div>
             <div className="flex justify-between items-center text-sm">
-              <span className="text-slate-400">Deployment Cost:</span>
-              <span className="text-slate-200 font-semibold">2.20 SOL</span>
+              <span className="text-slate-400">Upgrade Date:</span>
+              <span className="text-slate-200 font-semibold">Oct 5, 2025 at 11:38 AM</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-slate-400">Verification Status:</span>
+              <span className="text-success font-semibold">✅ Hash Verified & Synced</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Network:</span>
               <span className="text-slate-200 font-semibold">Solana Devnet</span>
             </div>
           </div>
+          <div className="flex gap-3 mt-4">
+            <a
+              href="https://solscan.io/tx/3e3VrnDKZJc1Nb1qgAUeTKYJ4ZXXkCimcgprjq8Hi4uigTC1s68cFTPe8jgfzS4x78RQeAZWUzw5Z1cFB4Ly4CgA?cluster=devnet"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 text-primary hover:text-secondary transition-colors"
+            >
+              <span>View Transaction</span>
+              <span>→</span>
+            </a>
+            <a
+              href="/admin"
+              className="inline-flex items-center space-x-2 text-success hover:text-success/80 transition-colors"
+            >
+              <span>Live Dashboard</span>
+              <span>→</span>
+            </a>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 rounded-lg p-6 mb-6">
+          <h4 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            🔐 Program Verification Report
+          </h4>
+          <p className="text-slate-300 mb-4">
+            The deployed program has been cryptographically verified to match the source code exactly.
+          </p>
+          <div className="bg-slate-900 rounded-lg p-4 mb-4">
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-slate-400">SHA-256 Hash:</span>
+              <code className="text-success font-mono text-xs">4f92978f...ee36df44</code>
+            </div>
+          </div>
+          <div className="space-y-2 text-sm text-slate-400">
+            <p>✅ Source code build matches deployed program</p>
+            <p>✅ All security fixes deployed (base fee detection + event transparency)</p>
+            <p>✅ All 29 tests passing post-verification</p>
+          </div>
           <a
-            href="https://solscan.io/tx/55tj463QSGJz9uZoC9zGynQ8qzpMRr4daDTw2sA2MkLRQx5f5poU3vFptNFEMVx1ExESA8QbRHtc2E731LAjYCtW?cluster=devnet"
+            href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/dev/docs/deployment/PROGRAM_VERIFICATION.md"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-2 text-primary hover:text-secondary transition-colors mt-4"
           >
-            <span>View Transaction Details</span>
+            <span>View Full Verification Report</span>
             <span>→</span>
           </a>
         </div>
 
         <div className="bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 rounded-lg p-6">
-          <h4 className="text-lg font-semibold mb-4">🔍 Verify Deployment Yourself</h4>
+          <h4 className="text-lg font-semibold mb-4">🔍 Verify Program Yourself</h4>
           <CodeBlock
             language="bash"
-            code={`# Check program exists on devnet
+            code={`# Check program info on devnet
 solana program show RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --url devnet
 
 # Expected output:
 # Program Id: RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
 # Owner: BPFLoaderUpgradeab1e11111111111111111111111
 # Authority: RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b
-# Data Length: 316024 bytes
-# Balance: 2.20 SOL
+# Data Length: 370696 bytes (362 KB)
+# Balance: 2.58 SOL
 
-# Verify deployer wallet
-solana balance RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b --url devnet`}
+# Verify hash matches source code
+solana program dump RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce /tmp/deployed.so --url devnet
+shasum -a 256 /tmp/deployed.so
+# Expected: 4f92978f5feaeb1b953f6336631abdcac1ced2354ab617286afd4831ee36df44`}
             showLineNumbers={false}
           />
         </div>
