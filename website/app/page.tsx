@@ -152,10 +152,16 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mt-6 text-center">
+            <div className="mt-6 flex flex-wrap justify-center gap-4">
+              <Link
+                href="/admin"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold hover:shadow-lg transition-all text-sm"
+              >
+                🔴 Live Admin Dashboard →
+              </Link>
               <Link
                 href="/documentation#deployment"
-                className="inline-flex items-center px-6 py-3 bg-primary rounded-lg font-semibold hover:bg-primary/80 transition-all text-sm"
+                className="inline-flex items-center px-6 py-3 bg-slate-800 border border-slate-700 rounded-lg font-semibold hover:bg-slate-700 transition-all text-sm"
               >
                 View Full Deployment Details →
               </Link>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Connection, PublicKey } from '@solana/web3.js';
 import { motion } from 'framer-motion';
-import { Activity, Database, Clock, TrendingUp, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Activity, Database, Clock, TrendingUp, AlertCircle, CheckCircle2, ExternalLink, Calendar } from 'lucide-react';
 
 // Program constants
 const PROGRAM_ID = new PublicKey('RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce');
@@ -33,10 +33,18 @@ interface ProgressAccount {
   bump: number;
 }
 
+interface TransactionHistory {
+  signature: string;
+  timestamp: number;
+  type: string;
+  success: boolean;
+}
+
 export default function AdminDashboard() {
   const [connection, setConnection] = useState<Connection | null>(null);
   const [policy, setPolicy] = useState<PolicyAccount | null>(null);
   const [progress, setProgress] = useState<ProgressAccount | null>(null);
+  const [transactions, setTransactions] = useState<TransactionHistory[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
@@ -69,6 +77,16 @@ export default function AdminDashboard() {
           const progressData = deserializeProgress(progressInfo.data);
           setProgress(progressData);
         }
+
+        // Fetch recent transactions
+        const signatures = await connection.getSignaturesForAddress(PROGRAM_ID, { limit: 10 });
+        const txHistory: TransactionHistory[] = signatures.map((sig) => ({
+          signature: sig.signature,
+          timestamp: sig.blockTime || 0,
+          type: sig.err ? 'Failed' : 'Success',
+          success: !sig.err,
+        }));
+        setTransactions(txHistory);
 
         setLastUpdate(new Date());
       } catch (err: unknown) {
@@ -351,11 +369,32 @@ export default function AdminDashboard() {
               <div className="bg-slate-900/50 rounded-lg p-4">
                 <p className="text-sm text-slate-400">Daily Distributed</p>
                 <p className="text-lg font-bold mt-1">{formatSol(progress.dailyDistributedToInvestors)} SOL</p>
+                <div className="mt-2 h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-primary to-secondary"
+                    style={{
+                      width: `${Math.min(
+                        (Number(progress.dailyDistributedToInvestors) /
+                          (Number(policy?.dailyCapLamports) || 1)) *
+                          100,
+                        100
+                      )}%`,
+                    }}
+                  />
+                </div>
+                <p className="text-xs text-slate-500 mt-1">
+                  {Number(policy?.dailyCapLamports) > 0
+                    ? `${((Number(progress.dailyDistributedToInvestors) / Number(policy?.dailyCapLamports)) * 100).toFixed(1)}% of daily cap`
+                    : 'No cap set'}
+                </p>
               </div>
 
               <div className="bg-slate-900/50 rounded-lg p-4">
                 <p className="text-sm text-slate-400">Carry Over</p>
                 <p className="text-lg font-bold mt-1">{formatSol(progress.carryOverLamports)} SOL</p>
+                {Number(progress.carryOverLamports) > 0 && (
+                  <p className="text-xs text-warning mt-2">Will be added to next distribution</p>
+                )}
               </div>
 
               <div className="bg-slate-900/50 rounded-lg p-4 col-span-2">
@@ -378,7 +417,7 @@ export default function AdminDashboard() {
           </motion.div>
         )}
 
-        {/* Distribution Statistics */}
+        {/* Transaction History */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -390,44 +429,123 @@ export default function AdminDashboard() {
               <TrendingUp className="text-success" size={24} />
             </div>
             <div>
-              <h2 className="text-xl font-bold">Distribution History</h2>
-              <p className="text-sm text-slate-400">Recent fee distributions and events</p>
+              <h2 className="text-xl font-bold">Recent Transactions</h2>
+              <p className="text-sm text-slate-400">Latest program interactions on Devnet</p>
             </div>
           </div>
 
-          <div className="bg-slate-900/50 rounded-lg p-6 text-center">
-            <p className="text-slate-400">Distribution history tracking coming soon...</p>
-            <p className="text-sm text-slate-500 mt-2">Monitor transaction logs for detailed distribution events</p>
-          </div>
+          {transactions.length > 0 ? (
+            <div className="space-y-2">
+              {transactions.map((tx) => (
+                <div
+                  key={tx.signature}
+                  className="bg-slate-900/50 rounded-lg p-4 flex items-center justify-between hover:bg-slate-900/70 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <Calendar className="text-slate-400" size={16} />
+                    <div>
+                      <p className="font-mono text-sm">
+                        {tx.signature.slice(0, 8)}...{tx.signature.slice(-8)}
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        {tx.timestamp > 0 ? new Date(tx.timestamp * 1000).toLocaleString() : 'Pending'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`px-2 py-1 rounded text-xs font-medium ${
+                        tx.success
+                          ? 'bg-success/10 text-success'
+                          : 'bg-red-500/10 text-red-500'
+                      }`}
+                    >
+                      {tx.success ? 'Success' : 'Failed'}
+                    </span>
+                    <a
+                      href={`https://solscan.io/tx/${tx.signature}?cluster=devnet`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
+                      title="View on Solscan"
+                    >
+                      <ExternalLink className="text-primary" size={16} />
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-slate-900/50 rounded-lg p-6 text-center">
+              <p className="text-slate-400">No transactions found</p>
+              <p className="text-sm text-slate-500 mt-2">Program transactions will appear here</p>
+            </div>
+          )}
         </motion.div>
 
-        {/* Program Info */}
+        {/* Program Info & Quick Links */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
           className="bg-slate-800/50 border border-slate-700 rounded-xl p-6"
         >
-          <h3 className="text-lg font-bold mb-4">Program Information</h3>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-slate-400">Program ID:</span>
+          <h3 className="text-lg font-bold mb-4">Program Information & Quick Links</h3>
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-slate-400 text-sm">Program ID:</span>
               <a
                 href={`https://solscan.io/account/${PROGRAM_ID.toBase58()}?cluster=devnet`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary hover:underline font-mono"
+                className="flex items-center gap-2 text-primary hover:underline font-mono text-sm"
               >
-                {PROGRAM_ID.toBase58()}
+                {PROGRAM_ID.toBase58().slice(0, 8)}...{PROGRAM_ID.toBase58().slice(-8)}
+                <ExternalLink size={14} />
               </a>
             </div>
-            <div className="flex justify-between">
-              <span className="text-slate-400">Network:</span>
-              <span className="text-white">Solana Devnet</span>
+
+            <div className="flex justify-between items-center">
+              <span className="text-slate-400 text-sm">Policy PDA:</span>
+              <a
+                href={`https://solscan.io/account/${POLICY_PDA.toBase58()}?cluster=devnet`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-primary hover:underline font-mono text-sm"
+              >
+                {POLICY_PDA.toBase58().slice(0, 8)}...{POLICY_PDA.toBase58().slice(-8)}
+                <ExternalLink size={14} />
+              </a>
             </div>
+
+            <div className="flex justify-between items-center">
+              <span className="text-slate-400 text-sm">Progress PDA:</span>
+              <a
+                href={`https://solscan.io/account/${PROGRESS_PDA.toBase58()}?cluster=devnet`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-primary hover:underline font-mono text-sm"
+              >
+                {PROGRESS_PDA.toBase58().slice(0, 8)}...{PROGRESS_PDA.toBase58().slice(-8)}
+                <ExternalLink size={14} />
+              </a>
+            </div>
+
+            <div className="border-t border-slate-700 pt-3 mt-3">
+              <div className="flex justify-between">
+                <span className="text-slate-400 text-sm">Network:</span>
+                <span className="text-white text-sm">Solana Devnet</span>
+              </div>
+            </div>
+
             <div className="flex justify-between">
-              <span className="text-slate-400">RPC Endpoint:</span>
-              <span className="text-white">Helius Devnet</span>
+              <span className="text-slate-400 text-sm">RPC Endpoint:</span>
+              <span className="text-white text-sm">Helius Devnet</span>
+            </div>
+
+            <div className="flex justify-between">
+              <span className="text-slate-400 text-sm">Refresh Rate:</span>
+              <span className="text-white text-sm">30 seconds</span>
             </div>
           </div>
         </motion.div>
