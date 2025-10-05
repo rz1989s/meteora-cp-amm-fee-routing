@@ -1680,28 +1680,75 @@ anchor build`}
           </div>
 
           {/* Real Network Testing Guide */}
-          <div className="bg-gradient-to-br from-secondary/20 to-secondary/5 border border-secondary/30 rounded-lg p-6">
-            <h4 className="text-xl font-semibold mb-4 text-secondary flex items-center space-x-2">
-              <span>📖</span>
-              <span>Mainnet Testing Reference</span>
-            </h4>
-            <div className="space-y-3 text-slate-300">
-              <p>
+          <div className="bg-gradient-to-br from-secondary/20 to-secondary/5 border border-secondary/30 rounded-lg p-8 hover:border-secondary/50 transition-all">
+            <div className="flex items-start justify-between mb-6">
+              <div>
+                <div className="inline-flex items-center space-x-2 mb-3">
+                  <span className="text-3xl">📖</span>
+                  <h4 className="text-2xl font-bold text-secondary">Mainnet Testing Reference</h4>
+                </div>
+                <p className="text-slate-300 text-sm">
+                  Comprehensive production deployment guide
+                </p>
+              </div>
+              <div className="bg-secondary/20 border border-secondary/40 rounded-lg px-3 py-1">
+                <span className="text-xs font-semibold text-secondary uppercase tracking-wide">Production Ready</span>
+              </div>
+            </div>
+
+            <div className="space-y-4 text-slate-300 mb-6">
+              <p className="leading-relaxed">
                 For teams planning mainnet deployment, we&apos;ve prepared a comprehensive guide
                 that documents the real network testing process:
               </p>
-              <div className="bg-slate-900 rounded p-4 mt-4">
-                <p className="text-sm mb-3">
-                  <strong>docs/deployment/REAL_DEVNET_TESTING.md</strong>
-                  <br />
-                  <span className="text-slate-400">
-                    (Title says &quot;Devnet&quot; but serves as mainnet reference)
-                  </span>
-                </p>
-                <p className="text-sm text-slate-400">
-                  Covers: Prerequisites, step-by-step process, costs, monitoring,
-                  troubleshooting, and security considerations for production deployment.
-                </p>
+
+              {/* Guide Highlights */}
+              <div className="grid md:grid-cols-3 gap-3 my-6">
+                <div className="bg-slate-900/50 rounded-lg p-3 border border-slate-700/50">
+                  <div className="text-primary font-semibold text-sm mb-1">📋 Prerequisites</div>
+                  <div className="text-xs text-slate-400">Setup requirements & dependencies</div>
+                </div>
+                <div className="bg-slate-900/50 rounded-lg p-3 border border-slate-700/50">
+                  <div className="text-success font-semibold text-sm mb-1">🔧 Step-by-Step</div>
+                  <div className="text-xs text-slate-400">Complete deployment process</div>
+                </div>
+                <div className="bg-slate-900/50 rounded-lg p-3 border border-slate-700/50">
+                  <div className="text-warning font-semibold text-sm mb-1">🛡️ Security</div>
+                  <div className="text-xs text-slate-400">Best practices & safety checks</div>
+                </div>
+              </div>
+
+              {/* File Reference */}
+              <div className="bg-slate-900 rounded-lg p-5 border border-slate-700">
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <div className="font-mono text-sm font-semibold text-slate-200 mb-1">
+                      docs/deployment/REAL_DEVNET_TESTING.md
+                    </div>
+                    <div className="text-xs text-slate-500 italic">
+                      (Title says &quot;Devnet&quot; but serves as mainnet reference)
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded">Prerequisites</span>
+                  <span className="text-xs bg-success/20 text-success px-2 py-1 rounded">Process</span>
+                  <span className="text-xs bg-warning/20 text-warning px-2 py-1 rounded">Costs</span>
+                  <span className="text-xs bg-secondary/20 text-secondary px-2 py-1 rounded">Monitoring</span>
+                  <span className="text-xs bg-error/20 text-error px-2 py-1 rounded">Troubleshooting</span>
+                  <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded">Security</span>
+                </div>
+
+                <a
+                  href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/dev/docs/deployment/REAL_DEVNET_TESTING.md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center px-6 py-3 bg-secondary rounded-lg font-semibold hover:bg-secondary/80 transition-all shadow-lg hover:shadow-secondary/20 group"
+                >
+                  <span>View on GitHub</span>
+                  <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                </a>
               </div>
             </div>
           </div>
