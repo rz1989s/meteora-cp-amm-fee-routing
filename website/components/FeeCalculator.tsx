@@ -240,10 +240,10 @@ export default function FeeCalculator() {
                     Each person owns <strong>10% of the restaurant</strong> (total: 100%).
                   </p>
                   <p className="text-sm text-slate-300">
-                    <strong>Restaurant rule:</strong> "Your share of monthly profits = your current ownership %"
+                    <strong>Restaurant rule:</strong> &quot;Your share of monthly profits = your current ownership %&quot;
                   </p>
                   <p className="text-sm text-slate-300">
-                    After 6 months, 7 friends <strong>sold their ownership and left</strong> (they got cash, they're out!).
+                    After 6 months, 7 friends <strong>sold their ownership and left</strong> (they got cash, they&apos;re out!).
                     Only you + 2 friends still own the restaurant (<strong>30% total ownership</strong>).
                   </p>
                 </div>
@@ -367,7 +367,7 @@ export default function FeeCalculator() {
                 {/* Simple Rule */}
                 <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4">
                   <p className="text-sm text-amber-200 text-center font-semibold">
-                    💡 Simple Rule: "You can't claim restaurant profits after selling your ownership!"
+                    💡 Simple Rule: &quot;You can&apos;t claim restaurant profits after selling your ownership!&quot;
                   </p>
                   <p className="text-xs text-slate-400 text-center mt-2">
                     Your fee rewards = Your current commitment level
