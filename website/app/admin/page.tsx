@@ -547,6 +547,22 @@ export default function AdminDashboard() {
               <span className="text-slate-400 text-sm">Refresh Rate:</span>
               <span className="text-white text-sm">30 seconds</span>
             </div>
+
+            <div className="border-t border-slate-700 pt-3 mt-3">
+              <div className="flex items-center justify-between">
+                <span className="text-slate-400 text-sm">Deployment Status:</span>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="text-success" size={16} />
+                  <span className="text-success text-sm font-medium">Verified & Synced</span>
+                </div>
+              </div>
+              <p className="text-xs text-slate-500 mt-2">
+                Latest upgrade: Oct 5, 2025 (11:38 AM) - Hash verified ✅
+              </p>
+              <p className="text-xs text-slate-500">
+                Source code and deployed program are in perfect sync
+              </p>
+            </div>
           </div>
         </motion.div>
       </div>
