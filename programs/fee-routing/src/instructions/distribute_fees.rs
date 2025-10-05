@@ -285,7 +285,8 @@ pub fn distribute_fees_handler<'info>(
         if claimed_a > 0 {
             msg!("Base token fees detected: {} lamports", claimed_a);
             msg!("Position must be configured for quote-only accrual");
-            // DO NOT update progress.has_base_fees yet - state not modified
+            // Set flag BEFORE returning to block subsequent pages
+            progress.has_base_fees = true;
             return Err(FeeRoutingError::BaseFeesDetected.into());
         }
 
@@ -297,7 +298,7 @@ pub fn distribute_fees_handler<'info>(
         progress.current_page = 0;
         progress.pages_processed_today = 0;
         progress.creator_payout_sent = false;
-        progress.has_base_fees = false; // Reset base fee flag for new day
+        progress.has_base_fees = false; // No base fees detected, safe to proceed
 
         (claimed_a, claimed_b)
     } else {
@@ -529,6 +530,7 @@ pub fn distribute_fees_handler<'info>(
         page_index,
         investors_paid,
         total_distributed: page_total_distributed,
+        rounding_dust: rounding_dust_this_page,
         timestamp: now,
     });
 
