@@ -144,6 +144,12 @@ pub fn distribute_fees_handler<'info>(
             treasury_account_a.owner == ctx.accounts.treasury_authority.key(),
             FeeRoutingError::InvalidAccountOwnership
         );
+
+        // Validate token A mint matches pool's token A mint
+        require!(
+            treasury_account_a.mint == ctx.accounts.token_a_mint.key(),
+            FeeRoutingError::InvalidQuoteMint // Reuse error for mint mismatch
+        );
     }
 
     {
@@ -181,16 +187,6 @@ pub fn distribute_fees_handler<'info>(
     if page_index == 0 {
         // First page must respect 24h gate
         require!(is_new_day, FeeRoutingError::DistributionWindowNotElapsed);
-
-        // Reset state for new day
-        progress.last_distribution_ts = now;
-        progress.current_day = progress.current_day.checked_add(1)
-            .ok_or(FeeRoutingError::ArithmeticOverflow)?;
-        progress.daily_distributed_to_investors = 0;
-        progress.current_page = 0;
-        progress.pages_processed_today = 0;
-        progress.creator_payout_sent = false;
-        progress.has_base_fees = false; // Reset base fee flag for new day
     } else {
         // Subsequent pages must be same day
         require!(!is_new_day, FeeRoutingError::InvalidPageIndex);
@@ -198,8 +194,9 @@ pub fn distribute_fees_handler<'info>(
     }
 
     // === 3. CLAIM FEES FROM HONORARY POSITION ===
+    // CRITICAL: Claim fees and validate BEFORE updating state to prevent state corruption if tx fails
     // Only claim on first page to get fresh fee total
-    let (claimed_token_a, claimed_token_b) = if page_index == 0 {
+    let (_claimed_token_a, claimed_token_b) = if page_index == 0 {
         // Get balances before claiming
         let balance_a_before = {
             let data = ctx.accounts.treasury_token_a.try_borrow_data()?;
@@ -282,29 +279,36 @@ pub fn distribute_fees_handler<'info>(
 
         msg!("Fees claimed - Token A: {}, Token B (quote): {}", claimed_a, claimed_b);
 
+        // Bounty requirement (line 101): "If any base fees are observed or a claim returns
+        // non-zero base, the crank must fail deterministically (no distribution)"
+        // CRITICAL: Check BEFORE state updates to prevent corruption if tx fails
+        if claimed_a > 0 {
+            msg!("Base token fees detected: {} lamports", claimed_a);
+            msg!("Position must be configured for quote-only accrual");
+            // DO NOT update progress.has_base_fees yet - state not modified
+            return Err(FeeRoutingError::BaseFeesDetected.into());
+        }
+
+        // Base fee check passed - NOW safe to update state for new day
+        progress.last_distribution_ts = now;
+        progress.current_day = progress.current_day.checked_add(1)
+            .ok_or(FeeRoutingError::ArithmeticOverflow)?;
+        progress.daily_distributed_to_investors = 0;
+        progress.current_page = 0;
+        progress.pages_processed_today = 0;
+        progress.creator_payout_sent = false;
+        progress.has_base_fees = false; // Reset base fee flag for new day
+
         (claimed_a, claimed_b)
     } else {
         // Subsequent pages don't claim, just distribute remaining
-        (0, 0)
-    };
-
-    // Bounty requirement (line 101): "If any base fees are observed or a claim returns
-    // non-zero base, the crank must fail deterministically (no distribution)"
-    // Enforce quote-only by failing if any Token A (base) fees are detected
-    if page_index == 0 {
-        if claimed_token_a > 0 {
-            msg!("Base token fees detected: {} lamports", claimed_token_a);
-            msg!("Position must be configured for quote-only accrual");
-            progress.has_base_fees = true; // Set flag for subsequent pages
-            return Err(FeeRoutingError::BaseFeesDetected.into());
-        }
-    } else {
-        // On subsequent pages, check if base fees were detected on page 0
+        // Check if base fees were detected on page 0
         require!(
             !progress.has_base_fees,
             FeeRoutingError::BaseFeesDetected
         );
-    }
+        (0, 0)
+    };
 
     // Add carry-over from previous cycles
     // We only distribute quote token (token B) to investors
@@ -341,9 +345,19 @@ pub fn distribute_fees_handler<'info>(
             FeeRoutingError::InvalidStreamflowAccount
         );
 
-        // Deserialize Streamflow Contract account (no discriminator!)
-        // Using borsh deserialization directly
+        // Deserialize Streamflow Contract account
+        // Note: Streamflow Contract accounts do NOT have an 8-byte discriminator
+        // They use borsh serialization directly. The deserialization will fail
+        // if the account is not a valid Contract (acts as validation).
         let contract_data = stream_account.try_borrow_data()?;
+
+        // Additional validation: Check minimum account size
+        // Streamflow Contract accounts are typically 500+ bytes
+        require!(
+            contract_data.len() >= 400,
+            FeeRoutingError::InvalidStreamflowAccount
+        );
+
         let contract = streamflow_sdk::state::Contract::try_from_slice(&contract_data)?;
 
         // Note: We validate the quote mint through the investor's ATA below
@@ -469,6 +483,23 @@ pub fn distribute_fees_handler<'info>(
 
     // Calculate rounding dust: difference between distributable and sum of floor'd payouts
     // This tracks the "lost" lamports due to integer division rounding
+    //
+    // ROUNDING DUST STRATEGY:
+    // Floor division (a/b) in pro-rata distribution creates remainder lamports that cannot
+    // be distributed fairly. These lamports are NOT lost - they remain in the treasury.
+    //
+    // Example: 1000 lamports distributed to 3 investors (333, 333, 333) = 999 distributed
+    // Rounding dust: 1000 - 999 = 1 lamport remains in treasury
+    //
+    // IMPORTANT: Rounding dust is NEVER distributed to any party. It accumulates in:
+    // - progress.total_rounding_dust (tracked for transparency/auditing)
+    // - treasury_token_b account (physically held, can be rescued by admin later)
+    //
+    // This design ensures:
+    // 1. No party receives unfair advantage from rounding
+    // 2. Dust is transparent and auditable
+    // 3. Dust can be recovered via future governance/rescue mechanism
+    // 4. Math is deterministic and verifiable
     if distributable > total_theoretical_payout {
         rounding_dust_this_page = distributable
             .checked_sub(total_theoretical_payout)
@@ -484,7 +515,7 @@ pub fn distribute_fees_handler<'info>(
         .checked_add(new_carry_over)
         .ok_or(FeeRoutingError::ArithmeticOverflow)?;
 
-    // Track lifetime rounding dust for transparency
+    // Track lifetime rounding dust for transparency (audit trail only, never redistributed)
     progress.total_rounding_dust = progress.total_rounding_dust
         .checked_add(rounding_dust_this_page)
         .ok_or(FeeRoutingError::ArithmeticOverflow)?;
