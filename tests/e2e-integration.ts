@@ -232,13 +232,14 @@ describe("E2E Integration Tests", () => {
   });
 
   describe("Test 3: Fee Distribution Logic", () => {
-    it("Should calculate pro-rata shares correctly", async () => {
+    it("Should calculate pro-rata shares correctly", async function() {
       console.log("\n🧪 Test 3.1: Pro-Rata Distribution Math\n");
 
       const streams = streamConfig.streams;
       if (!streams || streams.length === 0) {
         console.log("⚠️  No streams configured");
         this.skip();
+        return;
       }
 
       // Calculate total currently locked
