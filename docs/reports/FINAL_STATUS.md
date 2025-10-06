@@ -87,7 +87,7 @@ Status: ✅ ALL PASSING
 |-----------|--------|---------|
 | **Anchor CLI** | ✅ 100% | v0.31.1 (via AVM) |
 | **anchor build** | ✅ 100% | Builds successfully, 0 errors |
-| **Test Strategy** | ✅ 100% | 🏆 Triple-Bundle: 21/21 local + 13/13 E2E + 17/17 devnet + 7/7 unit = 58 tests passing |
+| **Test Strategy** | ✅ 100% | 🏆 Triple-Bundle: 22/22 local + 13/13 E2E + 10/10 devnet + 7/7 unit = 52 tests passing |
 | **Unit Tests** | ✅ 100% | 7/7 Rust tests passing |
 | **Program Compilation** | ✅ 100% | 371KB binary generated |
 | **Dependencies** | ✅ 100% | All at correct versions |
@@ -268,7 +268,7 @@ source ~/.zshrc
 All issues were caused by using outdated Anchor version (0.30.1). After upgrading to the official recommended version (0.31.1) via AVM, everything works perfectly.
 
 **Test Results:**
-- 🏆 **Triple-Bundle Strategy**: 21/21 local + 13/13 E2E + 17/17 devnet + 7/7 unit = 58 tests ✅
+- 🏆 **Triple-Bundle Strategy**: 22/22 local + 13/13 E2E + 10/10 devnet + 7/7 unit = 52 tests ✅
 - Local Integration Tests: **21/21 passing** ✅
 - E2E Integration Tests: **13/13 passing** (2 skipped by design) ✅
 - Live Devnet Tests: **17/17 passing** ✅

@@ -207,15 +207,15 @@ All state changes must emit events for off-chain tracking:
 🏆 **Triple-Bundle Testing Strategy** - Comprehensive verification through local integration tests, E2E tests, AND live devnet deployment.
 
 **Test Results Summary:**
-- ✅ **Local Integration Bundle:** 21/21 passing (TypeScript)
+- ✅ **Local Integration Bundle:** 22/22 passing (TypeScript)
 - ✅ **E2E Integration Bundle:** 13/13 passing (TypeScript, 2 skipped by design)
-- ✅ **Devnet Bundle:** 17/17 passing (10 TypeScript + 7 Rust)
+- ✅ **Devnet Bundle:** 10/10 passing (TypeScript)
 - ✅ **Rust Unit Tests:** 7/7 passing
-- ✅ **Total:** 58 unique tests across all bundles
+- ✅ **Total:** 52 unique tests across all bundles
 
 ---
 
-### Bundle 1: Local Integration Tests (21/21 passing)
+### Bundle 1: Local Integration Tests (22/22 passing)
 
 **Purpose:** Core program logic and integration testing
 
@@ -242,6 +242,8 @@ npm run test:local        # All local integration tests
   - Error definitions verification
   - Source code validation
   - IDL verification
+
+- **1 test summary** display
 
 **Environment:**
 - Local `solana-test-validator`
@@ -288,7 +290,7 @@ npm run setup:local       # Setup environment first
 
 ---
 
-### Bundle 3: Live Devnet Tests (17/17 passing)
+### Bundle 3: Live Devnet Tests (10/10 passing)
 
 **Purpose:** Real-world production verification on live Solana devnet
 
@@ -334,11 +336,11 @@ npm run test:all          # Runs local + e2e + devnet + unit
 
 **Expected output:**
 ```
-✅ Local integration tests: 21/21 passing
+✅ Local integration tests: 22/22 passing
 ✅ E2E integration tests: 13/13 passing (2 skipped by design)
-✅ Devnet tests: 17/17 passing
+✅ Devnet tests: 10/10 passing
 ✅ Unit tests: 7/7 passing
-✅ Total: 58 tests passing
+✅ Total: 52 tests passing
 ```
 
 ---

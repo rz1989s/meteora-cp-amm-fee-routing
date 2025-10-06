@@ -203,7 +203,7 @@ export default function Home() {
             <div className="text-center">
               <div className="inline-block bg-gradient-to-r from-success via-primary to-secondary rounded-full p-[2px]">
                 <div className="bg-slate-900 rounded-full px-6 py-2">
-                  <span className="font-bold text-lg gradient-text">58/58 Total Tests Passing</span>
+                  <span className="font-bold text-lg gradient-text">52/52 Total Tests Passing</span>
                 </div>
               </div>
               <p className="text-sm text-slate-400 mt-3">

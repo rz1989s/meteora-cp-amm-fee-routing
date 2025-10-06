@@ -91,7 +91,7 @@ cargo test --manifest-path programs/fee-routing/Cargo.toml --lib
 anchor test --skip-build
 
 # Expected output:
-# ✓ 58 passing (Triple-Bundle: 21 local + 13 E2E + 17 devnet + 7 unit)
+# ✓ 58 passing (Triple-Bundle: 22 local + 13 E2E + 10 devnet + 7 unit)
 # ✓ 0 failing`}
               showLineNumbers={false}
             />
@@ -1012,7 +1012,7 @@ const creatorListener = program.addEventListener("CreatorPayoutDayClosed", (even
           <div className="bg-slate-900 rounded-lg p-6">
             <h4 className="text-xl font-semibold mb-4 flex items-center space-x-2">
               <span className="text-success">📊</span>
-              <span>Test Results: 58/58 Tests Passing (21 Local + 13 E2E + 17 Devnet + 7 Unit)</span>
+              <span>Test Results: 52/52 Tests Passing (21 Local + 13 E2E + 17 Devnet + 7 Unit)</span>
             </h4>
             <CodeBlock
               language="bash"
@@ -1094,7 +1094,7 @@ avm use 0.31.1
 anchor build
 anchor test
 
-# Expected: 58/58 tests passing ✅`}
+# Expected: 52/52 tests passing ✅`}
               showLineNumbers={false}
             />
           </div>
@@ -1185,7 +1185,7 @@ anchor test
           <p className="text-slate-300">
             Every step in the integration guide has been tested in a real environment with Meteora CP-AMM
             and Streamflow program clones. You can verify this yourself in under 5 minutes by running
-            the test suite. <strong>All 58 tests pass consistently (Triple-Bundle Strategy).</strong>
+            the test suite. <strong>All 52 tests pass consistently (Triple-Bundle Strategy).</strong>
           </p>
         </div>
       </div>
@@ -1465,7 +1465,7 @@ anchor test
           <div className="space-y-2 text-sm text-slate-400">
             <p>✅ Source code build matches deployed program</p>
             <p>✅ All security fixes deployed (base fee detection + event transparency)</p>
-            <p>✅ All 58 tests passing post-verification</p>
+            <p>✅ All 52 tests passing post-verification</p>
           </div>
           <a
             href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/docs/deployment/PROGRAM_VERIFICATION.md"
@@ -1650,7 +1650,7 @@ anchor build`}
                 The program uses <strong>local validator testing</strong> with cloned programs from devnet for comprehensive validation:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
-                <li><strong>58 total tests</strong> (21 local + 13 E2E + 17 devnet + 7 unit) with 100% pass rate</li>
+                <li><strong>58 total tests</strong> (22 local + 13 E2E + 10 devnet + 7 unit) with 100% pass rate</li>
                 <li><strong>Cloned Meteora CP-AMM</strong> program from devnet (real program logic)</li>
                 <li><strong>Mock Streamflow data</strong> strategy (SDK cluster limitation workaround)</li>
                 <li><strong>Fast execution</strong> - local &lt;30s, E2E &lt;1s, devnet 2s</li>

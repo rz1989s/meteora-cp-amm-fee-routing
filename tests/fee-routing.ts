@@ -163,43 +163,61 @@ describe("fee-routing - Integration Tests (17 tests)", () => {
     it("Test 1: Should initialize honorary position (quote-only)", async () => {
       console.log("\n🧪 Test 1: Initialize honorary position");
 
-      // Initialize Policy
-      await program.methods
-        .initializePolicy(
-          Y0,
-          INVESTOR_FEE_SHARE_BPS,
-          DAILY_CAP,
-          MIN_PAYOUT,
-          tokenBMint,
-          creatorWallet.publicKey
-        )
-        .accounts({
-          authority: authority.publicKey,
-          systemProgram: SystemProgram.programId,
-        })
-        .signers([authority])
-        .rpc();
+      // Initialize Policy (idempotent - pass if already exists)
+      try {
+        await program.methods
+          .initializePolicy(
+            Y0,
+            INVESTOR_FEE_SHARE_BPS,
+            DAILY_CAP,
+            MIN_PAYOUT,
+            tokenBMint,
+            creatorWallet.publicKey
+          )
+          .accounts({
+            authority: authority.publicKey,
+            systemProgram: SystemProgram.programId,
+          })
+          .signers([authority])
+          .rpc();
 
-      console.log("  ✅ Policy initialized");
+        console.log("  ✅ Policy initialized successfully");
+      } catch (error: any) {
+        // Check if error is "account already in use"
+        if (error.message && error.message.includes("already in use")) {
+          console.log("  ✅ Policy PDA already exists at expected address");
+        } else {
+          throw error; // Re-throw if it's a different error
+        }
+      }
 
-      // Verify policy state
+      // Verify policy state (whether new or existing)
       const policyAccount = await program.account.policy.fetch(policyPda);
       expect(policyAccount.y0.toString()).to.equal(Y0.toString());
       expect(policyAccount.investorFeeShareBps).to.equal(INVESTOR_FEE_SHARE_BPS);
       console.log("  ✅ Policy state verified");
 
-      // Initialize Progress
-      await program.methods
-        .initializeProgress()
-        .accounts({
-          policy: policyPda,
-          authority: authority.publicKey,
-          systemProgram: SystemProgram.programId,
-        })
-        .signers([authority])
-        .rpc();
+      // Initialize Progress (idempotent - pass if already exists)
+      try {
+        await program.methods
+          .initializeProgress()
+          .accounts({
+            policy: policyPda,
+            authority: authority.publicKey,
+            systemProgram: SystemProgram.programId,
+          })
+          .signers([authority])
+          .rpc();
 
-      console.log("  ✅ Progress initialized");
+        console.log("  ✅ Progress initialized successfully");
+      } catch (error: any) {
+        // Check if error is "account already in use"
+        if (error.message && error.message.includes("already in use")) {
+          console.log("  ✅ Progress PDA already exists at expected address");
+        } else {
+          throw error; // Re-throw if it's a different error
+        }
+      }
 
       // Initialize position (would call CP-AMM in full integration)
       // For now, just verify the instruction exists

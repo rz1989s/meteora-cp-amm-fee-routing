@@ -286,7 +286,7 @@ export default function SubmissionPage() {
               <div className="text-sm text-slate-300">Optimized Binary</div>
             </div>
             <div className="bg-secondary/20 border border-secondary/50 rounded-lg p-4 text-center">
-              <div className="text-3xl font-bold text-secondary mb-2">58/58</div>
+              <div className="text-3xl font-bold text-secondary mb-2">52/52</div>
               <div className="text-sm text-slate-300">Tests Passing</div>
             </div>
           </div>
@@ -312,7 +312,7 @@ export default function SubmissionPage() {
                 </h3>
                 <p className="text-slate-300">
                   Every single requirement from the bounty specification has been implemented and tested.
-                  All 58 tests pass (21 local + 13 E2E + 17 devnet + 7 unit), covering quote-only validation,
+                  All 52 tests pass (22 local + 13 E2E + 10 devnet + 7 unit), covering quote-only validation,
                   pro-rata distribution, pagination, edge cases, and security checks with triple-bundle strategy.
                 </p>
               </div>
@@ -346,7 +346,7 @@ export default function SubmissionPage() {
                   4. Rigorous Testing
                 </h3>
                 <p className="text-slate-300">
-                  58 total tests (21 local + 13 E2E + 17 devnet + 7 unit) with 100% pass rate. Tests cover
+                  58 total tests (22 local + 13 E2E + 10 devnet + 7 unit) with 100% pass rate. Tests cover
                   all critical paths, edge cases, security scenarios, and event emissions. Triple-bundle strategy
                   with real CP-AMM integration and mock Streamflow data for comprehensive testing.
                 </p>

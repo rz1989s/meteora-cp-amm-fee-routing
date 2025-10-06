@@ -26,7 +26,7 @@
 
 **Build & Quality**
 - 🏗️ **Build Size:** 371 KB (370,696 bytes, 0 errors, 0 warnings)
-- ✅ **Test Coverage:** 🏆 **Triple-Bundle Strategy** - 21/21 local + 13/13 E2E + 17/17 devnet + 7/7 unit = 58 tests passing
+- ✅ **Test Coverage:** 🏆 **Triple-Bundle Strategy** - 22/22 local + 13/13 E2E + 10/10 devnet + 7/7 unit = 52 tests passing
 - 📝 **Documentation:** Comprehensive (README + CLAUDE.md + pitch website)
 - 🔒 **Security:** 0 unsafe blocks
 - 💰 **Token Transfers:** Real SPL transfers implemented
@@ -1014,15 +1014,15 @@ const creatorListener = program.addEventListener("CreatorPayoutDayClosed", (even
 
 | Bundle | Tests | Status | Purpose |
 |--------|-------|--------|---------|
-| **Local Integration** | 21/21 passing | ✅ | Core program logic testing |
+| **Local Integration** | 22/22 passing | ✅ | Core program logic testing |
 | **E2E Integration** | 13/13 passing | ✅ | SDK integration with mock data |
-| **Live Devnet** | 17/17 passing | ✅ | Real-world production verification |
+| **Live Devnet** | 10/10 passing | ✅ | Real-world production verification |
 | **Rust Unit** | 7/7 passing | ✅ | Math & validation functions |
-| **Total** | 58 tests | ✅ | Comprehensive coverage |
+| **Total** | 52 tests | ✅ | Comprehensive coverage |
 
 ---
 
-### Bundle 1: Local Integration Tests (21/21 passing)
+### Bundle 1: Local Integration Tests (22/22 passing)
 
 **Purpose:** Core program logic and integration testing
 
@@ -1095,7 +1095,7 @@ npm run setup:local       # Setup environment first
 
 ---
 
-### Bundle 3: Live Devnet Tests (17/17 passing)
+### Bundle 3: Live Devnet Tests (10/10 passing)
 
 **Purpose:** Real-world production verification on live Solana devnet
 
@@ -1162,11 +1162,11 @@ npm run test:all          # Runs local + e2e + devnet + unit
 
 **Expected output:**
 ```
-✅ Local integration tests: 21/21 passing
+✅ Local integration tests: 22/22 passing
 ✅ E2E integration tests: 13/13 passing (2 skipped by design)
-✅ Devnet tests: 17/17 passing
+✅ Devnet tests: 10/10 passing
 ✅ Unit tests: 7/7 passing
-✅ Total: 58 tests passing
+✅ Total: 52 tests passing
 ```
 
 ---

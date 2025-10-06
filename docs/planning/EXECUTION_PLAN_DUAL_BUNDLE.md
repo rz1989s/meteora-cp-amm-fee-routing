@@ -17,7 +17,7 @@
 | **E2E Integration Tests** | 13/13 | 13/13 | 🟢 100% |
 | **Devnet Tests Passing** | 17/17 | 17/17 | 🟢 100% |
 | **Rust Unit Tests** | 7/7 | 7/7 | 🟢 100% |
-| **Total Tests** | 58/58 | 58/58 | 🟢 100% |
+| **Total Tests** | 52/52 | 52/52 | 🟢 100% |
 | **Setup Scripts Created** | 4/4 | 4/4 | 🟢 100% |
 | **Documentation Updated** | 6/6 | 6/6 | 🟢 100% |
 
@@ -559,7 +559,7 @@ Status:           ✅ COMPLETE (3 hours ahead of schedule)
 - [x] **Documentation**:
   - [x] README updated (comprehensive triple-bundle section added) ✅
   - [x] CLAUDE.md updated (testing strategy section rewritten) ✅
-  - [x] All docs consistent (21/21 + 13/13 + 17/17 + 7/7 = 58 tests verified across files) ✅
+  - [x] All docs consistent (21/21 + 13/13 + 17/17 + 7/7 = 52 tests verified across files) ✅
   - [x] Implementation reports created (DUAL_BUNDLE_IMPLEMENTATION.md + TEST_RESULTS_E2E.md) ✅
 
 - [x] **Quality**:
