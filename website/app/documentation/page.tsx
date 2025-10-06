@@ -91,7 +91,7 @@ cargo test --manifest-path programs/fee-routing/Cargo.toml --lib
 anchor test --skip-build
 
 # Expected output:
-# ✓ 58 passing (Triple-Bundle: 22 local + 13 E2E + 10 devnet + 7 unit)
+# ✓ 52 passing (Triple-Bundle: 22 local + 13 E2E + 10 devnet + 7 unit)
 # ✓ 0 failing`}
               showLineNumbers={false}
             />
@@ -1040,7 +1040,7 @@ fee-routing
     ✔ Should handle overflow gracefully
     ✔ Should reject invalid page index
 
-58 passing (Triple-Bundle Strategy)
+52 passing (Triple-Bundle Strategy)
 0 failing`}
               showLineNumbers={false}
             />
@@ -1650,7 +1650,7 @@ anchor build`}
                 The program uses <strong>local validator testing</strong> with cloned programs from devnet for comprehensive validation:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
-                <li><strong>58 total tests</strong> (22 local + 13 E2E + 10 devnet + 7 unit) with 100% pass rate</li>
+                <li><strong>52 total tests</strong> (22 local + 13 E2E + 10 devnet + 7 unit) with 100% pass rate</li>
                 <li><strong>Cloned Meteora CP-AMM</strong> program from devnet (real program logic)</li>
                 <li><strong>Mock Streamflow data</strong> strategy (SDK cluster limitation workaround)</li>
                 <li><strong>Fast execution</strong> - local &lt;30s, E2E &lt;1s, devnet 2s</li>
@@ -1660,7 +1660,7 @@ anchor build`}
                 <code className="text-success font-mono text-sm">
                   npm run test:all
                   <br />
-                  # 58 passing (Triple-Bundle Strategy)
+                  # 52 passing (Triple-Bundle Strategy)
                   <br />
                   # ✅ All tests pass with comprehensive coverage
                 </code>

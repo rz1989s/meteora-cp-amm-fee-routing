@@ -592,7 +592,7 @@ fn test_minimum_threshold() {
           Test Suite Success - 52 Tests Passing (Triple-Bundle Strategy)
         </h3>
         <p className="text-slate-300 mb-4">
-          22 local + 13 E2E + 10 devnet + 7 unit = 58 total passing tests.
+          22 local + 13 E2E + 10 devnet + 7 unit = 52 total passing tests.
           All tests fully implemented and passing with mock Streamflow data strategy.
         </p>
         <CodeBlock

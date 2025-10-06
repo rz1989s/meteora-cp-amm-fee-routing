@@ -346,7 +346,7 @@ export default function SubmissionPage() {
                   4. Rigorous Testing
                 </h3>
                 <p className="text-slate-300">
-                  58 total tests (22 local + 13 E2E + 10 devnet + 7 unit) with 100% pass rate. Tests cover
+                  52 total tests (22 local + 13 E2E + 10 devnet + 7 unit) with 100% pass rate. Tests cover
                   all critical paths, edge cases, security scenarios, and event emissions. Triple-bundle strategy
                   with real CP-AMM integration and mock Streamflow data for comprehensive testing.
                 </p>
