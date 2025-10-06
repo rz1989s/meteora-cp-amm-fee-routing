@@ -1,0 +1,44 @@
+{
+  "network": "localhost",
+  "rpc": "http://127.0.0.1:8899",
+  "cpAmmProgramId": "cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG",
+  "feeRoutingProgramId": "RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP",
+  "config": {
+    "address": "8CNy9goNQNLM4wtgRw528tUQGMKD3vSuFRZY2gLGLLvF"
+  },
+  "tokens": {
+    "tokenA": {
+      "mint": "5PEMm8zYomdRCoNyGdvE8uWkKpzgEcQ3NFmFNCvCbxqS",
+      "decimals": 9,
+      "supply": 1000000000000000,
+      "name": "Token A (Base)"
+    },
+    "tokenB": {
+      "mint": "Gh7vFX4bSyxwAEYrZVLjwaGqCEfgQmPVAooAq4G7Z7km",
+      "decimals": 6,
+      "supply": 3000000000000,
+      "name": "Token B (Quote - USDC-like)"
+    }
+  },
+  "pool": {
+    "address": "jfH41pfDiqJ3GGa4GRuYgPmbt48u9c4FvDvMFsW3exk",
+    "tokenAVault": "9y5CxQH6eBK1dQVJHofNPguz2Yz1xUKZ4Xnc6HZcVYoE",
+    "tokenBVault": "HKjpSTzAxfzssMpAFG2acxPYa6gBv8R746r7Auyp6Vpr",
+    "lpMint": null,
+    "sqrtPrice": "583337266871351588",
+    "feeBps": 30
+  },
+  "position": {
+    "owner": "AvRPMKVLzhZ6UmZVsEC7FGSjwq1NC56Cw5RBSM9pU4fh",
+    "ownerBump": 255,
+    "nftMint": "552J2S6NNnVUHfsHqRq8Q7XMHGX594smKLAdUHSaeVD6",
+    "address": "hpj4Du6za7gZrocVLwTQrXnFTEHZJFATpsFRf9aUZi4"
+  },
+  "liquidity": {
+    "tokenA": 100000000000000,
+    "tokenB": 100000000000,
+    "priceRatio": "1"
+  },
+  "status": "COMPLETE - Real pool and position created",
+  "timestamp": "2025-10-06T03:54:58.055Z"
+}

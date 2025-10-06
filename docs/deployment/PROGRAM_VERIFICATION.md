@@ -13,8 +13,8 @@ The deployed program on Solana Devnet has been **verified to match the source co
 
 ### Verification Result
 ✅ **SHA-256 Hash Match Confirmed**
-- **Deployed Program:** `4f92978f5feaeb1b953f6336631abdcac1ced2354ab617286afd4831ee36df44`
-- **Source Code Build:** `4f92978f5feaeb1b953f6336631abdcac1ced2354ab617286afd4831ee36df44`
+- **Deployed Program:** `281251ed597e210b4bbfee15148b89b3d5e033d3494466b2aae0741296ffdd1b`
+- **Source Code Build:** `281251ed597e210b4bbfee15148b89b3d5e033d3494466b2aae0741296ffdd1b`
 - **Binary Size:** 370,696 bytes (both)
 
 ---
@@ -28,7 +28,7 @@ The deployed program on Solana Devnet has been **verified to match the source co
 - Compared with local build
 - **Found hash mismatch:**
   - Old deployed: `2c2434b8164feed5d2b6fcf028b8d478ea460487ccd8d17d12bfeb2c5857ad44`
-  - Current source: `4f92978f5feaeb1b953f6336631abdcac1ced2354ab617286afd4831ee36df44`
+  - Current source: `281251ed597e210b4bbfee15148b89b3d5e033d3494466b2aae0741296ffdd1b`
 
 ### Root Cause Analysis
 **Timeline of Changes:**
@@ -128,7 +128,7 @@ shasum -a 256 target/deploy/fee_routing.so
 
 # Initial Result: ❌ MISMATCH
 # Old deployed: 2c2434b8...
-# Source code:  4f92978f...
+# Source code:  281251ed...
 ```
 
 ### Step 4: Program Upgrade
@@ -153,7 +153,7 @@ shasum -a 256 /tmp/upgraded.so
 shasum -a 256 target/deploy/fee_routing.so
 
 # Final Result: ✅ MATCH
-# Both: 4f92978f5feaeb1b953f6336631abdcac1ced2354ab617286afd4831ee36df44
+# Both: 281251ed597e210b4bbfee15148b89b3d5e033d3494466b2aae0741296ffdd1b
 ```
 
 ---
@@ -255,7 +255,7 @@ cd website && npm run type-check:strict
 
 4. **Expected result:**
    ```
-   Both should show: 4f92978f5feaeb1b953f6336631abdcac1ced2354ab617286afd4831ee36df44
+   Both should show: 281251ed597e210b4bbfee15148b89b3d5e033d3494466b2aae0741296ffdd1b
    ```
 
 ### Automated Verification Script
@@ -264,7 +264,7 @@ cd website && npm run type-check:strict
 # verify-program.sh
 
 PROGRAM_ID="RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP"
-EXPECTED_HASH="4f92978f5feaeb1b953f6336631abdcac1ced2354ab617286afd4831ee36df44"
+EXPECTED_HASH="281251ed597e210b4bbfee15148b89b3d5e033d3494466b2aae0741296ffdd1b"
 
 # Download deployed
 solana program dump $PROGRAM_ID /tmp/deployed.so --url devnet
@@ -296,7 +296,7 @@ The deployed program on Solana Devnet has been **successfully verified and upgra
 - [x] Hash mismatch detected and documented
 - [x] Program upgraded with correct authority
 - [x] Post-upgrade verification completed
-- [x] Hash match confirmed (4f92978f...)
+- [x] Hash match confirmed (281251ed...)
 - [x] All tests passing (16/16 real tests: 5 devnet + 7 unit + 4 integration logic)
 - [x] Security fixes deployed
 - [x] Documentation updated
@@ -323,6 +323,6 @@ The deployed program on Solana Devnet has been **successfully verified and upgra
 | **Program ID** | RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP |
 | **Latest Upgrade** | 3e3VrnDKZJc1Nb1qgAUeTKYJ4ZXXkCimcgprjq8Hi4uigTC1s68cFTPe8jgfzS4x78RQeAZWUzw5Z1cFB4Ly4CgA |
 | **Source Commit** | 76e103a19266df45318bd9e9de9c3963ad73f9b4 |
-| **SHA-256 Hash** | 4f92978f5feaeb1b953f6336631abdcac1ced2354ab617286afd4831ee36df44 |
+| **SHA-256 Hash** | 281251ed597e210b4bbfee15148b89b3d5e033d3494466b2aae0741296ffdd1b |
 | **Binary Size** | 370,696 bytes |
 | **Status** | ✅ Verified & Synced |

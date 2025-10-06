@@ -129,7 +129,7 @@ Comprehensive automated testing of the Meteora DAMM V2 Fee Routing pitch website
 - ✅ **Error Codes Tab:**
   - All 7 error codes documented (6000-6006)
   - Each has description and solution
-  - Includes: InvalidQuoteMint, BaseFeesNotAllowed, DistributionTooEarly, InvalidPageIndex, DailyCapExceeded, InvalidStreamflowAccount, ArithmeticOverflow
+  - Includes: InvalidQuoteMint, BaseFeesDetected (6013), DistributionTooEarly, InvalidPageIndex, DailyCapExceeded, InvalidStreamflowAccount, ArithmeticOverflow
 - ✅ **Events Tab:**
   - All 4 program events documented
   - Struct definitions shown with copy buttons

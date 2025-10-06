@@ -75,7 +75,7 @@ Implement **dual-bundle verification**:
 
 **Integration Logic Tests** (4 tests in `tests/program-logic-tests.ts`):
 ```typescript
-✅ Should have BaseFeesNotAllowed error properly defined
+✅ Should have BaseFeesDetected error properly defined (code 6013)
 ✅ Should have DistributionWindowNotElapsed error defined
 ✅ Should have InvalidPageIndex error defined
 ✅ Should verify quote-only enforcement in source code
@@ -353,7 +353,7 @@ address = "strmRqUCoQUgGUan5YhzUZa6KqdzwX5L6FpUxfmKg5m"  # Streamflow
      - Verify position config (quote mint only)
    - Test: "Should reject pools with base token fees"
      - Attempt to create position with pool that has base fees
-     - Expect BaseFeesNotAllowed error
+     - Expect BaseFeesDetected error (code 6013)
 
 2. ✅ **Time Gate Test (1 test)** (30 min)
    - Test: "Should enforce 24-hour time gate"

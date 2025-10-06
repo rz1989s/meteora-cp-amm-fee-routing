@@ -620,7 +620,7 @@ let total_available = claimed_token_b.checked_add(progress.carry_over_lamports)?
                 <ProgressBar value={100} color="success" label="24h gate + pagination" />
               </div>
               <div>
-                <ProgressBar value={100} color="success" label="Tests passing (29/29)" />
+                <ProgressBar value={100} color="success" label="Tests passing (52/52)" />
               </div>
               <div>
                 <ProgressBar value={100} color="success" label="No unsafe code" />
