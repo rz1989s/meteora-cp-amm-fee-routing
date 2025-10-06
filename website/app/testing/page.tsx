@@ -1141,7 +1141,7 @@ Output: target/deploy/fee_routing.so (371KB)`}
           />
           <MetricCard
             title="Devnet + Unit"
-            value={`${devnetTests + unitTests}/12`}
+            value={`${devnetTests + unitTests}/${devnetTests + unitTests}`}
             description="Deployment + Math"
             icon={CheckCircle}
             color="primary"

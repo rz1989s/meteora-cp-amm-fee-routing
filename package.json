@@ -10,6 +10,8 @@
     "test:devnet": "ANCHOR_PROVIDER_URL=https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30 ANCHOR_WALLET=~/.config/solana/test-wallet.json yarn run ts-mocha -p ./tsconfig.json -t 1000000 'tests/devnet-bundle.ts'",
     "test:unit": "cd programs/fee-routing && cargo test --lib",
     "test:all": "npm run test:local && npm run test:e2e && npm run test:devnet && npm run test:unit",
+    "localnet": "./scripts/start-test-validator.sh",
+    "thanks": "./scripts/thanks.sh",
     "setup:local": "ts-node scripts/run-local-setup.ts",
     "setup:pool": "ts-node scripts/setup-test-pool.ts",
     "setup:streams": "ts-node scripts/setup-test-streams.ts",

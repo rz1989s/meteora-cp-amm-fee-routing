@@ -29,11 +29,20 @@ startup_wait = 10000
 shutdown_wait = 2000
 
 [test.validator]
-url = "https://api.devnet.solana.com"
+url = "https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30"
 
 # Clone external programs from devnet for local testing
+# Meteora CP-AMM (program + programData for upgradeable program)
 [[test.validator.clone]]
-address = "cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG"  # Meteora CP-AMM
+address = "cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG"  # CP-AMM Program
 
 [[test.validator.clone]]
-address = "strmRqUCoQUgGUan5YhzUZa6KqdzwX5L6FpUxfmKg5m"  # Streamflow
+address = "AUh8bm2XsMfex3KjYwnUkeoDjqi4QBbsYGa1v8tJL76ViX"  # CP-AMM ProgramData
+
+# Streamflow (program + programData for upgradeable program)
+[[test.validator.clone]]
+address = "strmRqUCoQUgGUan5YhzUZa6KqdzwX5L6FpUxfmKg5m"  # Streamflow Program
+
+[[test.validator.clone]]
+address = "796tZf2QrH1ebZTQC1mDHYP6weDqSKuqbeyaXd64Prs"  # Streamflow ProgramData
+
