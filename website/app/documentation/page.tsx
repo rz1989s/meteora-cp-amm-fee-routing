@@ -91,7 +91,7 @@ cargo test --manifest-path programs/fee-routing/Cargo.toml --lib
 anchor test --skip-build
 
 # Expected output:
-# ✓ 22 passing (29ms)
+# ✓ 58 passing (Triple-Bundle: 21 local + 13 E2E + 17 devnet + 7 unit)
 # ✓ 0 failing`}
               showLineNumbers={false}
             />
@@ -1040,7 +1040,7 @@ fee-routing
     ✔ Should handle overflow gracefully
     ✔ Should reject invalid page index
 
-22 passing (32ms)
+58 passing (Triple-Bundle Strategy)
 0 failing`}
               showLineNumbers={false}
             />
@@ -1168,7 +1168,7 @@ anchor test
                 <span>programs/fee-routing/src/lib.rs - Unit tests (7 tests)</span>
               </a>
               <a
-                href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/FINAL_STATUS.md"
+                href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/docs/reports/FINAL_STATUS.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-primary hover:text-secondary transition-colors"
@@ -1185,7 +1185,7 @@ anchor test
           <p className="text-slate-300">
             Every step in the integration guide has been tested in a real environment with Meteora CP-AMM
             and Streamflow program clones. You can verify this yourself in under 5 minutes by running
-            the test suite. <strong>All 22 anchor tests pass consistently.</strong>
+            the test suite. <strong>All 58 tests pass consistently (Triple-Bundle Strategy).</strong>
           </p>
         </div>
       </div>
@@ -1468,7 +1468,7 @@ anchor test
             <p>✅ All 58 tests passing post-verification</p>
           </div>
           <a
-            href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/dev/docs/deployment/PROGRAM_VERIFICATION.md"
+            href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/docs/deployment/PROGRAM_VERIFICATION.md"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center space-x-2 text-primary hover:text-secondary transition-colors mt-4"
@@ -1620,7 +1620,7 @@ anchor build`}
               account initialization, and crank configuration, see:
             </p>
             <a
-              href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/dev/DEPLOYMENT.md"
+              href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/docs/deployment/DEPLOYMENT.md"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center px-6 py-3 bg-secondary rounded-lg font-semibold hover:bg-secondary/80 transition-all"
@@ -1650,19 +1650,19 @@ anchor build`}
                 The program uses <strong>local validator testing</strong> with cloned programs from devnet for comprehensive validation:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
-                <li><strong>22 anchor tests + 7 unit tests</strong> with 100% pass rate</li>
+                <li><strong>58 total tests</strong> (21 local + 13 E2E + 17 devnet + 7 unit) with 100% pass rate</li>
                 <li><strong>Cloned Meteora CP-AMM</strong> program from devnet (real program logic)</li>
-                <li><strong>Cloned Streamflow</strong> program from devnet (real stream accounts)</li>
-                <li><strong>Zero cost</strong> - no SOL required, runs in ~2 seconds</li>
+                <li><strong>Mock Streamflow data</strong> strategy (SDK cluster limitation workaround)</li>
+                <li><strong>Fast execution</strong> - local &lt;30s, E2E &lt;1s, devnet 2s</li>
                 <li><strong>Full coverage</strong> - all edge cases, security checks, pagination, events</li>
               </ul>
               <div className="bg-slate-900 rounded p-4 mt-4">
                 <code className="text-success font-mono text-sm">
-                  anchor test
+                  npm run test:all
                   <br />
-                  # 22 passing (1s)
+                  # 58 passing (Triple-Bundle Strategy)
                   <br />
-                  # ✅ All tests pass with cloned production programs
+                  # ✅ All tests pass with comprehensive coverage
                 </code>
               </div>
             </div>
@@ -1788,7 +1788,7 @@ anchor build`}
                 </div>
 
                 <a
-                  href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/dev/docs/deployment/REAL_DEVNET_TESTING.md"
+                  href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/docs/deployment/REAL_DEVNET_TESTING.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center px-6 py-3 bg-secondary rounded-lg font-semibold hover:bg-secondary/80 transition-all shadow-lg hover:shadow-secondary/20 group"

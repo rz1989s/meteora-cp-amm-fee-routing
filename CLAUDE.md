@@ -385,8 +385,8 @@ npm run test:all          # Runs local + e2e + devnet + unit
 
 A professional Next.js pitch website has been created at `website/`:
 - **Technology**: Next.js 14.2.33, React, TypeScript, Tailwind CSS
-- **Pages**: 5 pages (Home, Technical, Testing, Documentation, Submission)
-- **Features**: Interactive fee calculator, code syntax highlighting, responsive design
+- **Pages**: 6 pages (Home, Technical, Testing, Documentation, Admin, Submission)
+- **Features**: Interactive fee calculator, live admin dashboard, code syntax highlighting, responsive design
 - **Status**: ✅ Tested and verified (see `docs/website/WEBSITE_TEST_REPORT.md`)
 - **Run locally**: `cd website && npm install && npm run dev`
 

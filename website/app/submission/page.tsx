@@ -282,11 +282,11 @@ export default function SubmissionPage() {
               <div className="text-sm text-slate-300">Instructions Complete</div>
             </div>
             <div className="bg-warning/20 border border-warning/50 rounded-lg p-4 text-center">
-              <div className="text-3xl font-bold text-warning mb-2">371 KB</div>
+              <div className="text-3xl font-bold text-warning mb-2">316 KB</div>
               <div className="text-sm text-slate-300">Optimized Binary</div>
             </div>
             <div className="bg-secondary/20 border border-secondary/50 rounded-lg p-4 text-center">
-              <div className="text-3xl font-bold text-secondary mb-2">22/22</div>
+              <div className="text-3xl font-bold text-secondary mb-2">58/58</div>
               <div className="text-sm text-slate-300">Tests Passing</div>
             </div>
           </div>

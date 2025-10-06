@@ -90,7 +90,7 @@ export default function Home() {
             />
             <MetricCard
               title="Build Size"
-              value="371 KB"
+              value="316 KB"
               description="Optimized binary"
               icon={Zap}
               color="warning"
