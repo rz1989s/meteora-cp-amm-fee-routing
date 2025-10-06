@@ -184,7 +184,7 @@ export default function Home() {
 
             <div className="grid md:grid-cols-3 gap-4 mb-6">
               <div className="bg-slate-900/50 rounded-lg p-4 border border-success/30">
-                <div className="text-success font-bold text-2xl mb-1">21/21</div>
+                <div className="text-success font-bold text-2xl mb-1">22/22</div>
                 <div className="text-sm text-slate-300 mb-1">Local Integration</div>
                 <div className="text-xs text-slate-400">Core logic + full SDK integration</div>
               </div>
@@ -194,7 +194,7 @@ export default function Home() {
                 <div className="text-xs text-slate-400">Hybrid testing with mock data</div>
               </div>
               <div className="bg-slate-900/50 rounded-lg p-4 border border-secondary/30">
-                <div className="text-secondary font-bold text-2xl mb-1">17/17</div>
+                <div className="text-secondary font-bold text-2xl mb-1">10/10</div>
                 <div className="text-sm text-slate-300 mb-1">Live Devnet</div>
                 <div className="text-xs text-slate-400">Production verification</div>
               </div>

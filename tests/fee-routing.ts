@@ -43,7 +43,7 @@ import {
 } from "@solana/spl-token";
 import { expect } from "chai";
 
-describe("fee-routing - Integration Tests (17 tests)", () => {
+describe("fee-routing - Integration Tests (22 tests)", () => {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
@@ -466,7 +466,7 @@ describe("fee-routing - Integration Tests (17 tests)", () => {
 
   after(async () => {
     console.log("\n\n📊 Integration Test Summary:");
-    console.log("  ✅ 17/17 tests implemented");
+    console.log("  ✅ 22/22 tests implemented");
     console.log("  ✅ All test scenarios documented");
     console.log("  ✅ Program logic verified");
     console.log("  ✅ External SDK integration patterns demonstrated");

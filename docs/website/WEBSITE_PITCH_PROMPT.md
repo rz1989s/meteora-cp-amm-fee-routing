@@ -957,7 +957,7 @@ Deployment: Vercel or Netlify
 - Wall of text (break into digestible chunks)
 
 **Embrace:**
-- Specificity (exact numbers: 17/17 tests, 1,063 lines)
+- Specificity (exact numbers: 10/10 tests, 1,063 lines)
 - Evidence (code snippets, test output)
 - Clarity (explain technical concepts simply)
 - Confidence (we met 100% of requirements - that's a fact)

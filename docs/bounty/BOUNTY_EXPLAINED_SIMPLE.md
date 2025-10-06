@@ -563,9 +563,9 @@ Our documentation isn't just "here's how to install it." It's a complete guide:
 4. ✅ **Build System** (ready to deploy)
    - Anchor 0.31.1 compatible
    - `anchor build` - SUCCESS
-   - `npm run test:local` - 21/21 passing
+   - `npm run test:local` - 22/22 passing
    - `npm run test:e2e` - 13/13 passing
-   - `npm run test:devnet` - 17/17 passing
+   - `npm run test:devnet` - 10/10 passing
    - `npm run test:unit` - 7/7 passing
    - Ready for mainnet deployment
 

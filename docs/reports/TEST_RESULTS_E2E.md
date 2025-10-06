@@ -11,7 +11,7 @@
 
 **Breakdown by Category:**
 - ✅ **E2E Integration Tests**: 13/13 passing (2 skipped - expected)
-- ✅ **Local Integration Tests**: 21/21 passing
+- ✅ **Local Integration Tests**: 22/22 passing
 - ✅ **Rust Unit Tests**: 7/7 passing (in program code)
 
 ---

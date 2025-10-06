@@ -187,7 +187,7 @@ export default function TestingPage() {
           <div className="flex items-start space-x-2">
             <CheckCircle className="text-success flex-shrink-0 mt-0.5" size={16} />
             <div>
-              <strong className="text-success">CP-AMM Integration (21 local tests):</strong> Real Meteora pool integration via account cloning. Tests position creation, fee claiming, and all distribution logic with actual CP-AMM program.
+              <strong className="text-success">CP-AMM Integration (22 local tests):</strong> Real Meteora pool integration via account cloning. Tests position creation, fee claiming, and all distribution logic with actual CP-AMM program.
             </div>
           </div>
           <div className="flex items-start space-x-2">
@@ -205,7 +205,7 @@ export default function TestingPage() {
           <div className="flex items-start space-x-2">
             <CheckCircle className="text-warning flex-shrink-0 mt-0.5" size={16} />
             <div>
-              <strong className="text-warning">Production Verification (17 devnet tests):</strong> Real deployment on live Solana devnet proves everything works in production with actual on-chain state.
+              <strong className="text-warning">Production Verification (10 devnet tests):</strong> Real deployment on live Solana devnet proves everything works in production with actual on-chain state.
             </div>
           </div>
         </div>
@@ -617,7 +617,7 @@ Devnet Test Bundle
 
 TypeScript Tests: 10/10 passing
 Rust Unit Tests: 7/7 passing (via cargo test)
-📊 Total Devnet Bundle: 17/17 tests passing
+📊 Total Devnet Bundle: 10/10 tests passing
 
 $ cargo test --lib
 
@@ -780,7 +780,7 @@ test result: ok. 7 passed; 0 failed
           language="bash"
           code={`$ npm run test:local
 
-fee-routing - Integration Tests (21 tests)
+fee-routing - Integration Tests (22 tests)
   Position Initialization
     ✔ Should initialize honorary position (quote-only)
   Base Fee Rejection
@@ -1276,9 +1276,9 @@ anchor build`}
                       code={`npm run test:all
 
 # This runs all 4 test bundles in sequence:
-# 1. Local integration (21 tests)
+# 1. Local integration (22 tests)
 # 2. E2E integration (13 tests)
-# 3. Devnet verification (17 tests)
+# 3. Devnet verification (10 tests)
 # 4. Rust unit tests (7 tests)`}
                       showLineNumbers={false}
                     />
@@ -1288,13 +1288,13 @@ anchor build`}
                     <p className="text-slate-300 mb-2 font-semibold">Option B: Run Individual Bundles</p>
                     <CodeBlock
                       language="bash"
-                      code={`# Bundle 1: Local integration tests (21 tests)
+                      code={`# Bundle 1: Local integration tests (22 tests)
 npm run test:local
 
 # Bundle 2: E2E integration tests (13 tests)
 npm run test:e2e
 
-# Bundle 3: Live devnet tests (17 tests) - fastest!
+# Bundle 3: Live devnet tests (10 tests) - fastest!
 npm run test:devnet
 
 # Bundle 4: Rust unit tests (7 tests)

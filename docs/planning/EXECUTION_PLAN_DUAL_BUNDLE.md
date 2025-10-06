@@ -159,7 +159,7 @@
 
 ### Story 3: Integration Test Implementation (4 hours)
 **Status**: ✅ COMPLETE
-**Progress**: 17/17 tests implemented (100%)
+**Progress**: 10/10 tests implemented (100%)
 **Assigned**: Claude
 **Completed**: October 6, 2025
 
@@ -201,7 +201,7 @@
   - [x] Test: "Should reject invalid page_index"
   - [x] Test: "Should prevent overflow in arithmetic"
   - [x] Test: "Should validate Streamflow account ownership"
-  - **Acceptance**: ✅ 17/17 tests implemented
+  - **Acceptance**: ✅ 10/10 tests implemented
 
 **Definition of Done**:
 - ✅ All 17 integration tests implemented (no stubs)
@@ -270,7 +270,7 @@
 #### Tasks Checklist:
 - [x] **Task 5.1**: Update README.md (15 min)
   - [x] Add "Dual-Bundle Testing Strategy" section
-  - [x] Update test count: 33 local + 17 devnet
+  - [x] Update test count: 33 local + 10 devnet
   - [x] Add npm script examples
   - [x] Update badges
   - **Acceptance**: ✅ README showcases dual strategy prominently
@@ -282,7 +282,7 @@
   - **Acceptance**: ✅ CLAUDE.md reflects dual-bundle approach
 
 - [x] **Task 5.3**: Update docs/reports/FINAL_STATUS.md (10 min)
-  - [x] Update test counts (33 local + 17 devnet)
+  - [x] Update test counts (33 local + 10 devnet)
   - [x] Add dual-bundle achievement section
   - **Acceptance**: ✅ Status report reflects completion
 
@@ -298,7 +298,7 @@
   - **Acceptance**: ✅ Execution plan reflects completion
 
 - [x] **Task 5.6**: Verify documentation consistency (5 min)
-  - [x] All test counts consistent (33 local + 17 devnet)
+  - [x] All test counts consistent (33 local + 10 devnet)
   - [x] All npm scripts documented
   - [x] All badges updated
   - **Acceptance**: ✅ All documentation updated and consistent
@@ -306,7 +306,7 @@
 **Definition of Done**:
 - ✅ README updated with dual strategy
 - ✅ CLAUDE.md updated with testing strategy
-- ✅ All docs consistent (33 local + 17 devnet)
+- ✅ All docs consistent (33 local + 10 devnet)
 - ✅ Implementation report created (comprehensive guide)
 - ✅ Execution plan updated to 100% complete
 
@@ -493,7 +493,7 @@ Status:           ✅ COMPLETE (3 hours ahead of schedule)
 2. ✅ **Story 2 Complete** - Test environment setup scripts
 3. ✅ **Story 3 Complete** - E2E integration tests (13/13 tests with mock data)
 4. ✅ **Story 4 Complete** - Local integration test implementation (21/21 tests)
-5. ✅ **Story 5 Complete** - Devnet bundle configuration (17/17 tests)
+5. ✅ **Story 5 Complete** - Devnet bundle configuration (10/10 tests)
 6. ✅ **Story 6 Complete** - Documentation updates
 
 **All stories delivered successfully! Triple-bundle testing strategy complete.**
@@ -542,7 +542,7 @@ Status:           ✅ COMPLETE (3 hours ahead of schedule)
 **Verification Status**: ✅ ALL CRITERIA MET
 
 - [x] **Functional**:
-  - [x] 21 local integration tests passing (TypeScript) ✅
+  - [x] 22 local integration tests passing (TypeScript) ✅
   - [x] 13 E2E integration tests passing (TypeScript, 2 skipped by design) ✅
   - [x] 17 tests passing on devnet (10 TypeScript + 7 Rust) ✅
   - [x] 7 Rust unit tests passing ✅

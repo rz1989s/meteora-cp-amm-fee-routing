@@ -10,7 +10,7 @@ Alhamdulillah! Professional multi-page Next.js 14 pitch website successfully cre
 
 1. **Home Page (`/`)**
    - Hero section with gradient text and animations
-   - Key metrics cards (17/17 tests, 1,063 lines docs, 100% build, 0 unsafe code)
+   - Key metrics cards (10/10 tests, 1,063 lines docs, 100% build, 0 unsafe code)
    - Problem/Solution breakdown
    - Interactive fee distribution calculator with real-time calculations
    - CTA sections with smooth scrolling

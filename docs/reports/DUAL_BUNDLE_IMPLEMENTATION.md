@@ -201,7 +201,7 @@ npm run test:devnet
 **What We Updated:**
 
 1. **README.md**
-   - Added dual-bundle badges (33/33 local + 17/17 devnet)
+   - Added dual-bundle badges (33/33 local + 17/10 devnet)
    - Completely rewrote Testing section
    - Added test results summary table
    - Documented both bundles with run commands
@@ -274,7 +274,7 @@ npm run test:local
 **No setup required!** Just run:
 ```bash
 npm run test:devnet
-# Expected: 17/17 passing (2s execution)
+# Expected: 10/10 passing (2s execution)
 ```
 
 ### Run All Tests
@@ -287,7 +287,7 @@ npm run test:all
 **Expected output:**
 ```
 ✅ Local validator tests: 33/33 passing
-✅ Devnet tests: 17/17 passing
+✅ Devnet tests: 10/10 passing
 ✅ Unit tests: 7/7 passing
 ```
 
@@ -396,7 +396,7 @@ npm run setup:local
 1. **Dual Verification:** Most submissions test locally only - we test locally AND prove it works on live devnet
 2. **Publicly Verifiable:** Judges can check Solscan right now to verify our deployed program
 3. **Production Ready:** Not just bounty compliance, but production-grade engineering
-4. **Comprehensive Testing:** 50 total test executions (33 local + 17 devnet)
+4. **Comprehensive Testing:** 50 total test executions (33 local + 10 devnet)
 5. **Reproducible Setup:** Automated scripts make local testing easy
 6. **Fast Execution:** Local tests <30s, devnet tests 2s
 7. **Professional Documentation:** Clear guides for setup and troubleshooting

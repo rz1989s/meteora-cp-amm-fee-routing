@@ -1156,7 +1156,7 @@ anchor test
                 className="flex items-center space-x-2 text-primary hover:text-secondary transition-colors"
               >
                 <FileCode size={16} />
-                <span>tests/fee-routing.ts - Integration tests (17 tests)</span>
+                <span>tests/fee-routing.ts - Integration tests (22 tests)</span>
               </a>
               <a
                 href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/programs/fee-routing/src/lib.rs"
