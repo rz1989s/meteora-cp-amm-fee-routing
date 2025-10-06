@@ -18,29 +18,30 @@ describe("Program Logic Integration Tests", () => {
   const program = anchor.workspace.FeeRouting as Program<FeeRouting>;
 
   describe("Error Definitions", () => {
-    it("Should have BaseFeesNotAllowed error properly defined", async () => {
-      console.log("\n🧪 Test 1: Verifying BaseFeesNotAllowed error exists...\n");
+    it("Should have BaseFeesDetected error properly defined", async () => {
+      console.log("\n🧪 Test 1: Verifying BaseFeesDetected error exists...\n");
 
       // Read the IDL from the JSON file directly
       const fs = require('fs');
-      const idlPath = '/Users/rz/local-dev/meteora-cp-amm-fee-routing/target/idl/fee_routing.json';
+      const path = require('path');
+      const idlPath = path.join(__dirname, '..', 'target', 'idl', 'fee_routing.json');
       const idlJson = JSON.parse(fs.readFileSync(idlPath, 'utf8'));
       const errors = idlJson.errors || [];
 
       const baseFeesError = errors.find(
-        (err: any) => err.name === "BaseFeesNotAllowed"
+        (err: any) => err.name === "BaseFeesDetected"
       );
 
       expect(baseFeesError).to.not.be.undefined;
-      expect(baseFeesError?.code).to.equal(6000);
+      expect(baseFeesError?.code).to.equal(6011);
 
-      console.log("✅ BaseFeesNotAllowed error found in program:");
+      console.log("✅ BaseFeesDetected error found in program:");
       console.log("   Code:", baseFeesError?.code);
       console.log("   Message:", baseFeesError?.msg);
       console.log("\n✅ Error triggers when:");
       console.log("   - page_index == 0 (first page of distribution)");
       console.log("   - claimed_token_a > 0 (any base token fees detected)");
-      console.log("   - Location: programs/fee-routing/src/instructions/distribute_fees.rs");
+      console.log("   - Location: programs/fee-routing/src/instructions/distribute_fees.rs:290");
       console.log("\n✅ Meets bounty requirement:");
       console.log("   'Base‑fee presence causes deterministic failure with no distribution'");
     });
@@ -49,7 +50,8 @@ describe("Program Logic Integration Tests", () => {
       console.log("\n🧪 Test 2: Verifying 24h time gate error exists...\n");
 
       const fs = require('fs');
-      const idlPath = '/Users/rz/local-dev/meteora-cp-amm-fee-routing/target/idl/fee_routing.json';
+      const path = require('path');
+      const idlPath = path.join(__dirname, '..', 'target', 'idl', 'fee_routing.json');
       const idlJson = JSON.parse(fs.readFileSync(idlPath, 'utf8'));
       const errors = idlJson.errors || [];
 
@@ -75,7 +77,8 @@ describe("Program Logic Integration Tests", () => {
       console.log("\n🧪 Test 3: Verifying page index validation error exists...\n");
 
       const fs = require('fs');
-      const idlPath = '/Users/rz/local-dev/meteora-cp-amm-fee-routing/target/idl/fee_routing.json';
+      const path = require('path');
+      const idlPath = path.join(__dirname, '..', 'target', 'idl', 'fee_routing.json');
       const idlJson = JSON.parse(fs.readFileSync(idlPath, 'utf8'));
       const errors = idlJson.errors || [];
 

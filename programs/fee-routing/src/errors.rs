@@ -2,9 +2,6 @@ use anchor_lang::prelude::*;
 
 #[error_code]
 pub enum FeeRoutingError {
-    #[msg("Position must accrue fees in quote mint only")]
-    BaseFeesNotAllowed,
-
     #[msg("Distribution can only be called once per 24 hour window")]
     DistributionWindowNotElapsed,
 
