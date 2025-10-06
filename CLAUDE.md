@@ -60,7 +60,10 @@ Permissionless fee routing Anchor program for Meteora DAMM v2 (Constant Product 
 ## Build & Test Commands
 
 ```bash
-# Build the program
+# Build the program (verifiable for reproducibility)
+anchor build --verifiable
+
+# Regular build (faster, but not reproducible across machines)
 anchor build
 
 # Run all tests (requires devnet validator with account clones)
@@ -69,6 +72,155 @@ anchor test
 # Test with specific Solana validator
 anchor test --provider.cluster devnet
 ```
+
+## Program Verification Workflow
+
+### Understanding Hash Differences
+
+When deploying Solana programs, you may notice hash differences between local builds and deployed programs. **This is NORMAL and EXPECTED behavior** due to BPF Loader transformations during deployment.
+
+**Key Facts:**
+- `anchor build --verifiable` produces **deterministic, reproducible builds** (same hash on any machine)
+- BPF Loader **adds metadata during deployment** (+12,288 bytes for our program)
+- Local `.so` file hash will **never match** deployed program hash (BPF transformation is unavoidable)
+- The `--verifiable` flag ensures **anyone can verify your source** by rebuilding and comparing hashes
+
+**Example:**
+```bash
+# Verifiable build produces reproducible hash (same on ANY machine)
+anchor build --verifiable
+shasum -a 256 target/verifiable/fee_routing.so
+# Result: f17b9a32... (368,640 bytes) - reproducible across machines
+
+# Deployed program has different hash (BPF processed)
+solana program dump RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP deployed.so --url devnet
+shasum -a 256 deployed.so
+# Result: 4f81eac6... (380,928 bytes) - includes +12,288 bytes BPF metadata
+```
+
+### Proper Verification Steps
+
+To verify a deployed program matches your source code:
+
+1. **Build with verifiable flag:**
+   ```bash
+   anchor build --verifiable
+   # This creates target/verifiable/fee_routing.so
+   # Hash is reproducible on ANY machine
+   ```
+
+2. **Verify build reproducibility (optional):**
+   ```bash
+   # Anyone can rebuild from your source and verify they get the same hash
+   shasum -a 256 target/verifiable/fee_routing.so
+   # Expected: f17b9a32057833a6187ab8001de933c145275216ad91989dc2352f807a825c4f
+   ```
+
+3. **Deploy to devnet:**
+   ```bash
+   # Copy verifiable build to deploy location
+   cp target/verifiable/fee_routing.so target/deploy/fee_routing.so
+
+   # Deploy
+   solana program deploy target/deploy/fee_routing.so \
+     --program-id target/deploy/fee_routing-keypair.json \
+     --keypair ~/.config/solana/REC-devnet.json \
+     --url devnet
+   ```
+
+4. **Download deployed binary:**
+   ```bash
+   solana program dump RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP \
+     devnet-program.so --url devnet
+   ```
+
+5. **Save as source of truth:**
+   ```bash
+   # Keep this file for future verifications
+   shasum -a 256 devnet-program.so
+   # Expected: 4f81eac65081f112ca419886c799992cf117f8bb725feb2009f3f6bbd7c71e46
+   ```
+
+5. **For future deployments:**
+   ```bash
+   # Build new version
+   anchor build
+
+   # Deploy
+   anchor upgrade target/deploy/fee_routing.so --program-id ... --provider.cluster devnet
+
+   # Verify by downloading and comparing against previous devnet-program.so
+   solana program dump RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP new-deploy.so --url devnet
+   shasum -a 256 new-deploy.so
+
+   # If hashes differ, source code has changed (expected for upgrades)
+   # If hashes match, no changes deployed (unexpected)
+   ```
+
+### DO NOT Do This ❌
+
+```bash
+# WRONG: Comparing local .so with deployed program
+shasum -a 256 target/deploy/fee_routing.so  # Local build
+shasum -a 256 deployed.so                    # Devnet dump
+# These will NEVER match due to BPF Loader transformation
+```
+
+### DO This ✅
+
+```bash
+# CORRECT: Compare devnet dumps from different times
+shasum -a 256 devnet-program-v1.so  # Previous deployment dump
+shasum -a 256 devnet-program-v2.so  # Current deployment dump
+# These WILL match if source code unchanged
+```
+
+### Verification Tools
+
+**Automated verification script:**
+```bash
+#!/bin/bash
+# verify-deployment.sh
+
+PROGRAM_ID="RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP"
+EXPECTED_DEPLOYED_HASH="4f81eac65081f112ca419886c799992cf117f8bb725feb2009f3f6bbd7c71e46"
+EXPECTED_VERIFIABLE_HASH="f17b9a32057833a6187ab8001de933c145275216ad91989dc2352f807a825c4f"
+
+# Download current deployment
+solana program dump $PROGRAM_ID /tmp/current-deploy.so --url devnet
+
+# Verify deployed hash
+ACTUAL_HASH=$(shasum -a 256 /tmp/current-deploy.so | awk '{print $1}')
+
+if [ "$ACTUAL_HASH" = "$EXPECTED_DEPLOYED_HASH" ]; then
+    echo "✅ Deployed hash verified: Program matches devnet-program.so"
+else
+    echo "❌ Deployed hash mismatch"
+    echo "Expected: $EXPECTED_DEPLOYED_HASH"
+    echo "Got:      $ACTUAL_HASH"
+    exit 1
+fi
+
+# Build verifiable and verify reproducibility
+anchor build --verifiable > /dev/null 2>&1
+VERIFIABLE_HASH=$(shasum -a 256 target/verifiable/fee_routing.so | awk '{print $1}')
+
+if [ "$VERIFIABLE_HASH" = "$EXPECTED_VERIFIABLE_HASH" ]; then
+    echo "✅ Verifiable build hash matches: Source code unchanged"
+    exit 0
+else
+    echo "⚠️  Verifiable build hash differs: Source code may have changed"
+    echo "Expected: $EXPECTED_VERIFIABLE_HASH"
+    echo "Got:      $VERIFIABLE_HASH"
+    exit 1
+fi
+```
+
+**Current Deployment Reference:**
+- **Verifiable Build Hash:** `f17b9a32057833a6187ab8001de933c145275216ad91989dc2352f807a825c4f` (368,640 bytes)
+- **Deployed Hash (BPF transformed):** `4f81eac65081f112ca419886c799992cf117f8bb725feb2009f3f6bbd7c71e46` (380,928 bytes)
+- **Saved Binary:** `devnet-program.so` (matches deployed hash)
+- **Build Method:** `anchor build --verifiable` (reproducible across machines)
 
 ## Test Infrastructure
 
@@ -87,7 +239,7 @@ anchor test --provider.cluster devnet
 ### Devnet Deployment
 - **Policy PDA**: `6YyC75eRsssSnHrRFYpRiyoohCQyLqiHDe6CRje69hzt`
 - **Progress PDA**: `9cumYPtnKQmKsVmTeKguv7h3YWspRoMUQeqgAHMFNXxv`
-- **Latest Deployment**: `3hDwVVPrz19ZmPV5DWTbeAncKfEFmyYMEyKXXtqEYpZ1Ma9jmGcxjGqxkHwyHmPVP8nZgfu1bK2idYctLfRc2iuf` (Oct 5, 2025 - New REC vanity address)
+- **Latest Deployment**: `3tVHXk9yaaDkWGGnHiGWr4QvJ3rojFpSSErujMmbMAQ4SjgFw37ExfUZTgPenxekPKrJo1HX9zugnvJkQMdi9hCW` (Oct 7, 2025 - Verifiable build)
 
 ## Core Architecture
 

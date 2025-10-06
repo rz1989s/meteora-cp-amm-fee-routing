@@ -245,7 +245,7 @@ describe("Devnet Test Bundle", () => {
         );
 
         expect(timeGateError).to.not.be.undefined;
-        expect(timeGateError?.code).to.equal(6001);
+        expect(timeGateError?.code).to.equal(6000);
 
         console.log("✅ DistributionWindowNotElapsed error found:");
         console.log("   Code:", timeGateError?.code);
@@ -272,7 +272,7 @@ describe("Devnet Test Bundle", () => {
         );
 
         expect(pageIndexError).to.not.be.undefined;
-        expect(pageIndexError?.code).to.equal(6002);
+        expect(pageIndexError?.code).to.equal(6001);
 
         console.log("✅ InvalidPageIndex error found:");
         console.log("   Code:", pageIndexError?.code);

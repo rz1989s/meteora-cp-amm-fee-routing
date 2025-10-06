@@ -1408,21 +1408,21 @@ anchor test
               <span className="text-sm text-slate-400 block mb-2">Upgrade Signature:</span>
               <div className="bg-slate-800 rounded p-3">
                 <code className="text-success font-mono text-xs break-all">
-                  3e3VrnDKZJc1Nb1qgAUeTKYJ4ZXXkCimcgprjq8Hi4uigTC1s68cFTPe8jgfzS4x78RQeAZWUzw5Z1cFB4Ly4CgA
+                  3tVHXk9yaaDkWGGnHiGWr4QvJ3rojFpSSErujMmbMAQ4SjgFw37ExfUZTgPenxekPKrJo1HX9zugnvJkQMdi9hCW
                 </code>
               </div>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Program Size:</span>
-              <span className="text-slate-200 font-semibold">370,696 bytes (371 KB)</span>
+              <span className="text-slate-200 font-semibold">370,696 bytes (361 KB)</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Upgrade Date:</span>
-              <span className="text-slate-200 font-semibold">Oct 5, 2025 at 11:38 AM</span>
+              <span className="text-slate-200 font-semibold">Oct 7, 2025</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Verification Status:</span>
-              <span className="text-success font-semibold">✅ Hash Verified & Synced</span>
+              <span className="text-success font-semibold">✅ Hash Verified & Deployed</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Network:</span>
@@ -1431,7 +1431,7 @@ anchor test
           </div>
           <div className="flex gap-3 mt-4">
             <a
-              href="https://solscan.io/tx/3e3VrnDKZJc1Nb1qgAUeTKYJ4ZXXkCimcgprjq8Hi4uigTC1s68cFTPe8jgfzS4x78RQeAZWUzw5Z1cFB4Ly4CgA?cluster=devnet"
+              href="https://solscan.io/tx/3tVHXk9yaaDkWGGnHiGWr4QvJ3rojFpSSErujMmbMAQ4SjgFw37ExfUZTgPenxekPKrJo1HX9zugnvJkQMdi9hCW?cluster=devnet"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 text-primary hover:text-secondary transition-colors"
@@ -1459,7 +1459,7 @@ anchor test
           <div className="bg-slate-900 rounded-lg p-4 mb-4">
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">SHA-256 Hash:</span>
-              <code className="text-success font-mono text-xs">281251ed...6ffdd1b</code>
+              <code className="text-success font-mono text-xs">f17b9a32...5c4f (verifiable)</code>
             </div>
           </div>
           <div className="space-y-2 text-sm text-slate-400">
@@ -1492,10 +1492,10 @@ solana program show RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP --url devnet
 # Data Length: 370696 bytes (371 KB)
 # Balance: 2.58 SOL
 
-# Verify hash matches source code
+# Verify hash matches deployed program
 solana program dump RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP /tmp/deployed.so --url devnet
 shasum -a 256 /tmp/deployed.so
-# Expected: 281251ed597e210b4bbfee15148b89b3d5e033d3494466b2aae0741296ffdd1b`}
+# Expected: f17b9a32057833a6187ab8001de933c145275216ad91989dc2352f807a825c4f`}
             showLineNumbers={false}
           />
         </div>

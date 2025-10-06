@@ -690,11 +690,11 @@ test result: ok. 7 passed; 0 failed
             <div className="p-3 bg-slate-800 rounded-lg">
               <div className="text-slate-400 mb-1">Latest Upgrade:</div>
               <div className="text-success break-all text-xs">
-                3hDwVVPrz19ZmPV5DWTbeAncKfEFmyYMEyKXXtqEYpZ1Ma9jmGcxjGqxkHwyHmPVP8nZgfu1bK2idYctLfRc2iuf
+                3tVHXk9yaaDkWGGnHiGWr4QvJ3rojFpSSErujMmbMAQ4SjgFw37ExfUZTgPenxekPKrJo1HX9zugnvJkQMdi9hCW
               </div>
-              <div className="text-slate-500 text-xs mb-1">Oct 5, 2025</div>
+              <div className="text-slate-500 text-xs mb-1">Oct 7, 2025</div>
               <a
-                href="https://solscan.io/tx/3hDwVVPrz19ZmPV5DWTbeAncKfEFmyYMEyKXXtqEYpZ1Ma9jmGcxjGqxkHwyHmPVP8nZgfu1bK2idYctLfRc2iuf?cluster=devnet"
+                href="https://solscan.io/tx/3tVHXk9yaaDkWGGnHiGWr4QvJ3rojFpSSErujMmbMAQ4SjgFw37ExfUZTgPenxekPKrJo1HX9zugnvJkQMdi9hCW?cluster=devnet"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-secondary hover:text-primary text-xs mt-1 inline-block"
