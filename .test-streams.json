@@ -1,0 +1,83 @@
+{
+  "network": "mock-localhost",
+  "rpc": "http://127.0.0.1:8899",
+  "tokenMint": "Gh7vFX4bSyxwAEYrZVLjwaGqCEfgQmPVAooAq4G7Z7km",
+  "decimals": 6,
+  "totalAllocation": 4000000,
+  "vestingSchedule": {
+    "cliffPercent": 40,
+    "vestingDuration": 31536000,
+    "startTime": 1728191676,
+    "endTime": 1759727676
+  },
+  "streams": [
+    {
+      "investor": "Investor 1",
+      "recipient": "3baDD2mAHKpmmJzFTeMScd1VZ8ywX4BCWYSvPrW3XwJe",
+      "recipientATA": "5sQfM3UznRGHvJGEhMZVshNrDvM7MCWy9zX9U3tWNzPq",
+      "metadataId": "Hx7tZfH3YYJZeJ6PHt6nE4P4qWw6uhLxpXvHx9xzWVKQ",
+      "transaction": "mock-tx-1",
+      "totalAmount": 1000000,
+      "cliffAmount": 400000,
+      "vestedAmount": 600000,
+      "startTime": 1728191676,
+      "endTime": 1759727676
+    },
+    {
+      "investor": "Investor 2",
+      "recipient": "5orzfEpSTm2sCNAPAgqQgbSUkxkwnv3mHbsN9q6wFyWs",
+      "recipientATA": "8JKV6fNdQpYVxU1qZnPcM3vP2SBpXwZHx1fBUGR2EWTH",
+      "metadataId": "2Wy6ZZ4jPbMfH3pQVeJ9DcR4mWx7uhLxpXvHx9xzWVKQ",
+      "transaction": "mock-tx-2",
+      "totalAmount": 800000,
+      "cliffAmount": 320000,
+      "vestedAmount": 480000,
+      "startTime": 1728191676,
+      "endTime": 1759727676
+    },
+    {
+      "investor": "Investor 3",
+      "recipient": "791xMKqBFDV6teqfBZwxdbLwob37p4YACcpFEVgPdQa2",
+      "recipientATA": "3DkN8MzVp2YQfN4HvP6nE4P4qWw6uhLxpXvHx9xzWVKQ",
+      "metadataId": "9FmX7JnQpBvZ2pDcR4mWx7uhLxpXvHx9xzWVKQ5hL8J",
+      "transaction": "mock-tx-3",
+      "totalAmount": 1200000,
+      "cliffAmount": 480000,
+      "vestedAmount": 720000,
+      "startTime": 1728191676,
+      "endTime": 1759727676
+    },
+    {
+      "investor": "Investor 4",
+      "recipient": "F2NbCSC35S2rsgv8gzvNYbGZeizN1MJbDL7cESaRCvze",
+      "recipientATA": "6HpW2BtZfH3YYJZeJ6PHt6nE4P4qWw6uhLxpXvHx9xz",
+      "metadataId": "5TpZ3XnQpBvZ2pDcR4mWx7uhLxpXvHx9xzWVKQ5hL8J",
+      "transaction": "mock-tx-4",
+      "totalAmount": 600000,
+      "cliffAmount": 240000,
+      "vestedAmount": 360000,
+      "startTime": 1728191676,
+      "endTime": 1759727676
+    },
+    {
+      "investor": "Investor 5",
+      "recipient": "22BSNXvj3PmcXRjVErcpksi73i3N7VWUVw7GwNVkn3tf",
+      "recipientATA": "9MfX2KpQpBvZ2pDcR4mWx7uhLxpXvHx9xzWVKQ5hL8J",
+      "metadataId": "8JnQ1VpZpBvZ2pDcR4mWx7uhLxpXvHx9xzWVKQ5hL8J",
+      "transaction": "mock-tx-5",
+      "totalAmount": 400000,
+      "cliffAmount": 160000,
+      "vestedAmount": 240000,
+      "startTime": 1728191676,
+      "endTime": 1759727676
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "successful": 5,
+    "failed": 0
+  },
+  "timestamp": "2025-10-06T03:55:10.045Z",
+  "status": "MOCK DATA - Streamflow SDK has configuration issues, using realistic mock for integration testing",
+  "note": "These stream IDs are mock PDAs for testing distribute_fees logic. Real Streamflow integration requires SDK fixes."
+}

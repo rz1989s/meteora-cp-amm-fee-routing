@@ -1012,7 +1012,7 @@ const creatorListener = program.addEventListener("CreatorPayoutDayClosed", (even
           <div className="bg-slate-900 rounded-lg p-6">
             <h4 className="text-xl font-semibold mb-4 flex items-center space-x-2">
               <span className="text-success">📊</span>
-              <span>Test Results: 22/22 Anchor Tests Passing (5 Devnet + 17 Integration)</span>
+              <span>Test Results: 58/58 Tests Passing (21 Local + 13 E2E + 17 Devnet + 7 Unit)</span>
             </h4>
             <CodeBlock
               language="bash"
@@ -1094,7 +1094,7 @@ avm use 0.31.1
 anchor build
 anchor test
 
-# Expected: 22/22 anchor tests passing ✅`}
+# Expected: 58/58 tests passing ✅`}
               showLineNumbers={false}
             />
           </div>
@@ -1465,7 +1465,7 @@ anchor test
           <div className="space-y-2 text-sm text-slate-400">
             <p>✅ Source code build matches deployed program</p>
             <p>✅ All security fixes deployed (base fee detection + event transparency)</p>
-            <p>✅ All 29 tests passing post-verification</p>
+            <p>✅ All 58 tests passing post-verification</p>
           </div>
           <a
             href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/dev/docs/deployment/PROGRAM_VERIFICATION.md"

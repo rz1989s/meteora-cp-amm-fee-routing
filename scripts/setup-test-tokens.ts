@@ -35,7 +35,7 @@ const OUTPUT_FILE = path.join(__dirname, "..", ".test-tokens.json");
 
 // Test configuration
 const TOKEN_A_SUPPLY = 1_000_000 * 1e9; // 1M tokens with 9 decimals
-const TOKEN_B_SUPPLY = 1_000_000 * 1e6; // 1M tokens with 6 decimals (like USDC)
+const TOKEN_B_SUPPLY = 3_000_000 * 1e6; // 3M tokens with 6 decimals (1M pool + 2.5M vesting)
 const NUM_TEST_WALLETS = 5;
 const FUNDING_AMOUNT = 10 * LAMPORTS_PER_SOL; // 10 SOL per wallet
 
