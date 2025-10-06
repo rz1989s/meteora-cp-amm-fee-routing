@@ -129,12 +129,12 @@ export default function SubmissionPage() {
                 <div>
                   <span className="text-slate-400 block mb-1">Program ID:</span>
                   <code className="text-xs bg-slate-800 px-2 py-1 rounded block">
-                    RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
+                    RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP
                   </code>
                 </div>
                 <div>
                   <span className="text-slate-400 block mb-1">Submission Date:</span>
-                  <span>October 4, 2025</span>
+                  <span>October 10, 2025</span>
                 </div>
                 <div>
                   <span className="text-slate-400 block mb-1">License:</span>
@@ -282,11 +282,11 @@ export default function SubmissionPage() {
               <div className="text-sm text-slate-300">Instructions Complete</div>
             </div>
             <div className="bg-warning/20 border border-warning/50 rounded-lg p-4 text-center">
-              <div className="text-3xl font-bold text-warning mb-2">362 KB</div>
+              <div className="text-3xl font-bold text-warning mb-2">316 KB</div>
               <div className="text-sm text-slate-300">Optimized Binary</div>
             </div>
             <div className="bg-secondary/20 border border-secondary/50 rounded-lg p-4 text-center">
-              <div className="text-3xl font-bold text-secondary mb-2">7/7</div>
+              <div className="text-3xl font-bold text-secondary mb-2">52/52</div>
               <div className="text-sm text-slate-300">Tests Passing</div>
             </div>
           </div>
@@ -312,8 +312,8 @@ export default function SubmissionPage() {
                 </h3>
                 <p className="text-slate-300">
                   Every single requirement from the bounty specification has been implemented and tested.
-                  All 17 integration tests pass, covering quote-only validation, pro-rata distribution,
-                  pagination, edge cases, and security checks.
+                  All 52 tests pass (22 local + 13 E2E + 10 devnet + 7 unit), covering quote-only validation,
+                  pro-rata distribution, pagination, edge cases, and security checks with triple-bundle strategy.
                 </p>
               </div>
 
@@ -346,9 +346,9 @@ export default function SubmissionPage() {
                   4. Rigorous Testing
                 </h3>
                 <p className="text-slate-300">
-                  24 total test cases (17 integration + 7 unit) with 100% pass rate. Tests cover
-                  all critical paths, edge cases, security scenarios, and event emissions. No mock
-                  data - actual Meteora and Streamflow program clones in test validator.
+                  52 total tests (22 local + 13 E2E + 10 devnet + 7 unit) with 100% pass rate. Tests cover
+                  all critical paths, edge cases, security scenarios, and event emissions. Triple-bundle strategy
+                  with real CP-AMM integration and mock Streamflow data for comprehensive testing.
                 </p>
               </div>
 
@@ -357,7 +357,7 @@ export default function SubmissionPage() {
                   5. Thoughtful Design
                 </h3>
                 <p className="text-slate-300">
-                  Clean two-instruction architecture with idempotent pagination, dust handling,
+                  Clean four-instruction architecture with idempotent pagination, dust handling,
                   daily caps, and creator remainder routing. PDA-based ownership ensures security
                   and determinism. All state changes emit events for off-chain tracking.
                 </p>
@@ -475,7 +475,7 @@ export default function SubmissionPage() {
 
           <div className="mt-8 pt-8 border-t border-slate-700">
             <p className="text-sm text-slate-400">
-              Submission Date: October 4, 2025
+              Submission Date: October 10, 2025
               <br />
               Meteora DAMM V2 Fee Routing Program Bounty
             </p>

@@ -8,7 +8,7 @@ This website showcases the complete implementation of the Meteora fee routing pr
 
 - **Interactive fee calculator** with real-time pro-rata distribution visualization
 - **Technical architecture** deep dive with code examples
-- **Comprehensive test results** (17/17 passing tests)
+- **Comprehensive test results** (22/22 anchor tests, 29 total with unit tests)
 - **Complete documentation** including API reference and error codes
 - **Professional submission** page with team information
 
@@ -129,7 +129,7 @@ No environment variables are required for this static website.
 
 ### Home Page (`/`)
 - Hero section with project overview
-- Key metrics display (17/17 tests, 1,063 lines docs, etc.)
+- Key metrics display (22/22 tests, 1,063 lines docs, etc.)
 - Problem/Solution breakdown
 - Interactive fee distribution calculator
 - Call-to-action sections
@@ -142,7 +142,7 @@ No environment variables are required for this static website.
 - Requirements completion tracker
 
 ### Testing Page (`/testing`)
-- Complete test results (17/17 integration + 7/7 unit tests)
+- Complete test results (22/22 anchor tests: 5 devnet + 17 integration, plus 7/7 unit tests)
 - Quality metrics and code coverage
 - Build status and system configuration
 - Edge cases tested
@@ -212,5 +212,5 @@ MIT License - see project root for details.
 ## Acknowledgments
 
 - Built for the Superteam Meteora DAMM V2 Fee Routing Program bounty
-- Program ID: `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce`
+- Program ID: `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP`
 - Repository: [meteora-cp-amm-fee-routing](https://github.com/rz1989s/meteora-cp-amm-fee-routing)

@@ -136,7 +136,7 @@ export default function Footer() {
             <div className="mt-4 text-sm text-slate-400">
               <p>Program ID:</p>
               <code className="text-xs bg-slate-800 px-2 py-1 rounded mt-1 inline-block break-all">
-                RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
+                RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP
               </code>
             </div>
           </div>

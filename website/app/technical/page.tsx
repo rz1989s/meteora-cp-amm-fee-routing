@@ -169,8 +169,8 @@ export default function TechnicalPage() {
               <h4 className="font-semibold mb-2 text-secondary">4. distribute_fees</h4>
               <p className="text-sm text-slate-300">
                 Permissionless 24h crank that claims fees and executes real SPL token transfers.
-                Distributes quote token (Token B) pro-rata to investors, routes Token A to treasury,
-                and sends remaining quote tokens to creator.
+                Distributes quote token (Token B) pro-rata to investors and sends remainder to creator.
+                FAILS deterministically if any Token A (base fees) are detected, ensuring quote-only compliance.
               </p>
               <div className="mt-3 text-xs text-slate-400">
                 <div className="flex justify-between py-1">
@@ -207,6 +207,8 @@ export default function TechnicalPage() {
                   <div>• min_payout_lamports</div>
                   <div>• quote_mint</div>
                   <div>• creator_wallet</div>
+                  <div>• authority</div>
+                  <div>• bump</div>
                 </div>
               </div>
             </div>
@@ -221,7 +223,12 @@ export default function TechnicalPage() {
                   <div>• daily_distributed_to_investors</div>
                   <div>• carry_over_lamports</div>
                   <div>• current_page</div>
+                  <div>• pages_processed_today</div>
+                  <div>• total_investors</div>
                   <div>• creator_payout_sent</div>
+                  <div>• has_base_fees</div>
+                  <div>• total_rounding_dust</div>
+                  <div>• bump</div>
                 </div>
               </div>
             </div>
@@ -426,12 +433,12 @@ let (claimed_token_a, claimed_token_b) = if page_index == 0 {
     meteora::claim_position_fee_cpi(&cpi_accounts, signer_seeds)?;
 
     emit!(QuoteFeesClaimed {
-        amount: claimed_b,
+        amount: claimed_token_b,
         timestamp: now,
         distribution_day: progress.current_day,
     });
 
-    (claimed_a, claimed_b)
+    (claimed_token_a, claimed_token_b)
 } else {
     (0, 0)
 };
@@ -441,6 +448,8 @@ let (claimed_token_a, claimed_token_b) = if page_index == 0 {
 if page_index == 0 && claimed_token_a > 0 {
     msg!("Base token fees detected: {} lamports", claimed_token_a);
     msg!("Position must be configured for quote-only accrual");
+    // Set flag BEFORE returning to block subsequent pages
+    progress.has_base_fees = true;
     return Err(FeeRoutingError::BaseFeesDetected.into());
 }
 
@@ -458,6 +467,7 @@ let total_available = claimed_token_b.checked_add(progress.carry_over_lamports)?
           code={`pub fn distribute_fees_handler(
     ctx: Context<DistributeFees>,
     page_index: u16,
+    is_final_page: bool,
 ) -> Result<()> {
     let progress = &mut ctx.accounts.progress;
     let now = Clock::get()?.unix_timestamp;
@@ -476,6 +486,7 @@ let total_available = claimed_token_b.checked_add(progress.carry_over_lamports)?
         progress.current_page = 0;
         progress.pages_processed_today = 0;
         progress.creator_payout_sent = false;
+        progress.has_base_fees = false;
     } else {
         // Subsequent pages must be same day & sequential
         require!(!is_new_day, FeeRoutingError::InvalidPageIndex);
@@ -485,9 +496,7 @@ let total_available = claimed_token_b.checked_add(progress.carry_over_lamports)?
     // ... distribute to investors (see above) ...
 
     // === CREATOR PAYOUT (FINAL PAGE ONLY) ===
-    let is_final_page = investor_count == 0 ||
-        (ctx.remaining_accounts.len() / 2 < 100);
-
+    // Use explicit is_final_page parameter from caller to prevent multiple payouts
     if is_final_page && !progress.creator_payout_sent {
         let remainder = total_available.checked_sub(investor_allocation)?;
 
@@ -504,7 +513,12 @@ let total_available = claimed_token_b.checked_add(progress.carry_over_lamports)?
 
             token::transfer(cpi_ctx, remainder)?;
 
-            emit!(CreatorPayoutDayClosed { remainder, day: progress.current_day });
+            emit!(CreatorPayoutDayClosed {
+                day: progress.current_day,
+                creator_amount: remainder,
+                total_distributed_to_investors: progress.daily_distributed_to_investors,
+                timestamp: now,
+            });
         }
         progress.creator_payout_sent = true;
     }
@@ -606,7 +620,7 @@ let total_available = claimed_token_b.checked_add(progress.carry_over_lamports)?
                 <ProgressBar value={100} color="success" label="24h gate + pagination" />
               </div>
               <div>
-                <ProgressBar value={100} color="success" label="Tests passing (17/17)" />
+                <ProgressBar value={100} color="success" label="Tests passing (52/52)" />
               </div>
               <div>
                 <ProgressBar value={100} color="success" label="No unsafe code" />
@@ -726,7 +740,7 @@ let total_available = claimed_token_b.checked_add(progress.carry_over_lamports)?
                 <div className="font-mono text-primary break-all">cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG</div>
               </div>
               <div>
-                <div className="text-slate-400 mb-1">Pool Authority:</div>
+                <div className="text-slate-400 mb-1">Meteora Pool Authority:</div>
                 <div className="font-mono text-primary break-all">HLnpSz9h2S4hiLQ43rnSD9XkcUThA7B8hQMKmDaiTLcC</div>
               </div>
               <div>

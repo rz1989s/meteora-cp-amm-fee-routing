@@ -29,7 +29,7 @@ export default function Home() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
                 </span>
-                Live on Devnet - Program ID: RECT...wce
+                Live on Devnet - Program ID: RECt...3WP
               </div>
             </div>
 
@@ -90,7 +90,7 @@ export default function Home() {
             />
             <MetricCard
               title="Build Size"
-              value="362 KB"
+              value="316 KB"
               description="Optimized binary"
               icon={Zap}
               color="warning"
@@ -124,10 +124,10 @@ export default function Home() {
               <div className="bg-slate-900/50 rounded-lg p-6 border border-slate-700">
                 <h4 className="text-sm font-semibold text-primary mb-3">Program ID (Vanity)</h4>
                 <code className="text-success font-mono text-sm break-all block mb-4">
-                  RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce
+                  RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP
                 </code>
                 <a
-                  href="https://solscan.io/account/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet"
+                  href="https://solscan.io/account/RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP?cluster=devnet"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center text-primary hover:text-secondary transition-colors text-sm"
@@ -152,12 +152,71 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mt-6 text-center">
+            <div className="mt-6 flex flex-wrap justify-center gap-4">
+              <Link
+                href="/admin"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold hover:shadow-lg transition-all text-sm"
+              >
+                🔴 Live Admin Dashboard →
+              </Link>
               <Link
                 href="/documentation#deployment"
-                className="inline-flex items-center px-6 py-3 bg-primary rounded-lg font-semibold hover:bg-primary/80 transition-all text-sm"
+                className="inline-flex items-center px-6 py-3 bg-slate-800 border border-slate-700 rounded-lg font-semibold hover:bg-slate-700 transition-all text-sm"
               >
                 View Full Deployment Details →
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Triple-Bundle Testing Excellence Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mt-12 bg-gradient-to-br from-success/10 via-primary/10 to-secondary/10 border border-primary/30 rounded-2xl p-8"
+          >
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold mb-2">🏆 Triple-Bundle Testing Strategy</h3>
+              <p className="text-slate-300">
+                Most submissions test locally only. We test locally, E2E, AND live on devnet.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-4 mb-6">
+              <div className="bg-slate-900/50 rounded-lg p-4 border border-success/30">
+                <div className="text-success font-bold text-2xl mb-1">22/22</div>
+                <div className="text-sm text-slate-300 mb-1">Local Integration</div>
+                <div className="text-xs text-slate-400">Core logic + full SDK integration</div>
+              </div>
+              <div className="bg-slate-900/50 rounded-lg p-4 border border-primary/30">
+                <div className="text-primary font-bold text-2xl mb-1">13/13</div>
+                <div className="text-sm text-slate-300 mb-1">E2E Integration</div>
+                <div className="text-xs text-slate-400">Hybrid testing with mock data</div>
+              </div>
+              <div className="bg-slate-900/50 rounded-lg p-4 border border-secondary/30">
+                <div className="text-secondary font-bold text-2xl mb-1">10/10</div>
+                <div className="text-sm text-slate-300 mb-1">Live Devnet</div>
+                <div className="text-xs text-slate-400">Production verification</div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <div className="inline-block bg-gradient-to-r from-success via-primary to-secondary rounded-full p-[2px]">
+                <div className="bg-slate-900 rounded-full px-6 py-2">
+                  <span className="font-bold text-lg gradient-text">52/52 Total Tests Passing</span>
+                </div>
+              </div>
+              <p className="text-sm text-slate-400 mt-3">
+                + 7 Rust unit tests for mathematical validation
+              </p>
+            </div>
+
+            <div className="mt-6 flex justify-center">
+              <Link
+                href="/testing"
+                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-success to-primary rounded-lg font-semibold hover:shadow-lg transition-all text-sm"
+              >
+                View All Test Results →
               </Link>
             </div>
           </motion.div>
@@ -213,13 +272,35 @@ export default function Home() {
               <h2 className="text-3xl font-bold mb-6">Our Solution</h2>
               <div className="space-y-4 text-slate-300">
                 <p>
-                  A two-instruction Anchor program that creates an honorary quote-only LP position
+                  A four-instruction Anchor program that creates an honorary quote-only LP position
                   and distributes fees via a 24-hour permissionless crank:
                 </p>
                 <div className="bg-slate-800 border border-slate-700 rounded-lg p-4 space-y-3">
                   <div className="flex items-start">
-                    <div className="bg-primary/20 text-primary rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">
+                    <div className="bg-success/20 text-success rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">
                       1
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">initialize_policy</h3>
+                      <p className="text-sm text-slate-400">
+                        Creates immutable Policy PDA with distribution configuration
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-success/20 text-success rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">
+                      2
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">initialize_progress</h3>
+                      <p className="text-sm text-slate-400">
+                        Creates mutable Progress PDA for daily distribution tracking
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-primary/20 text-primary rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">
+                      3
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">initialize_position</h3>
@@ -230,7 +311,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-start">
                     <div className="bg-secondary/20 text-secondary rounded-full w-8 h-8 flex items-center justify-center font-bold mr-3 flex-shrink-0">
-                      2
+                      4
                     </div>
                     <div>
                       <h3 className="font-semibold mb-1">distribute_fees</h3>

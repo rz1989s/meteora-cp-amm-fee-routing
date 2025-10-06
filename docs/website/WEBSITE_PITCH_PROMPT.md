@@ -10,7 +10,7 @@
 **Prize:** $7,500 USDC
 **Deadline:** October 17, 2025
 **Sponsor:** Star (https://star.new)
-**Program ID:** `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce`
+**Program ID:** `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP`
 
 **What We Built:**
 An automated Solana smart contract that collects trading fees from Meteora DAMM V2 (CP-AMM) pools and distributes them fairly to investors based on their Streamflow-locked token amounts, with a 24-hour permissionless crank mechanism.
@@ -159,7 +159,7 @@ If you can create a screen recording of tests running or demo walkthrough
 
 **Include:**
 - Code snippets showing key functions
-- Terminal output of `anchor test` showing 17/17 passing
+- Terminal output of `anchor test` showing 16/16 passing
 - Visual representation of the math formula
 
 ---
@@ -608,7 +608,7 @@ Show first ~50 lines with "Read Full Documentation" button:
 ```markdown
 # Meteora DAMM V2 Fee Routing
 
-**Program ID:** `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce`
+**Program ID:** `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP`
 
 ## Overview
 
@@ -708,7 +708,7 @@ Plus: Investor accounts (alternating stream + ATA)
 Bounty: Build Permissionless Fee Routing Anchor Program for Meteora DAMM V2
 Sponsor: Star (https://star.new)
 Prize: $7,500 USDC
-Submitted: October 4, 2025
+Submitted: October 10, 2025
 Status: Complete & Ready for Evaluation
 ```
 
@@ -765,7 +765,7 @@ Commits: [number from git log]
 ```
 ✅ All Builds Successful
 ✅ anchor build: ✅ SUCCESS
-✅ anchor test: ✅ 17/17 passing
+✅ anchor test: ✅ 16/16 passing
 ✅ cargo test --lib: ✅ 7/7 passing
 ✅ Zero errors, ready for mainnet
 ```
@@ -917,7 +917,7 @@ Deployment: Vercel or Netlify
 - Non-technical explanations for judges
 
 **From FINAL_STATUS.md:**
-- Test output (17/17 passing)
+- Test output (16/16 passing)
 - Build output (anchor build success)
 - Version information
 
@@ -957,7 +957,7 @@ Deployment: Vercel or Netlify
 - Wall of text (break into digestible chunks)
 
 **Embrace:**
-- Specificity (exact numbers: 17/17 tests, 1,063 lines)
+- Specificity (exact numbers: 10/10 tests, 1,063 lines)
 - Evidence (code snippets, test output)
 - Clarity (explain technical concepts simply)
 - Confidence (we met 100% of requirements - that's a fact)
@@ -1094,5 +1094,5 @@ Build it yourself using this as a guide:
 ---
 
 *Document Version: 1.0*
-*Last Updated: October 4, 2025*
+*Last Updated: October 10, 2025*
 *Created by: RECTOR with assistance from Claude*

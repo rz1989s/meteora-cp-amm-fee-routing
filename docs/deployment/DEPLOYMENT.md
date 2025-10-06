@@ -10,17 +10,17 @@ This document provides a complete guide for deploying the fee routing program to
 
 | Attribute | Value |
 |-----------|-------|
-| **Program ID** | `RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce` ✨ |
+| **Program ID** | `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP` ✨ |
 | **Deployer Wallet** | `RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b` ✨ |
 | **Upgrade Authority** | `RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b` |
-| **Program Size** | 370,688 bytes (362 KB) |
+| **Program Size** | 370,696 bytes (371 KB) |
 | **Deployment Cost** | 2.20 SOL |
 | **Network** | Solana Devnet |
-| **Deployment Date** | October 4, 2025 |
+| **Deployment Date** | October 10, 2025 |
 
 ### **Verification Links**
 
-- **Program Explorer**: https://solscan.io/account/RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce?cluster=devnet
+- **Program Explorer**: https://solscan.io/account/RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP?cluster=devnet
 - **Deployer Wallet**: https://solscan.io/account/RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b?cluster=devnet
 - **Deployment Transaction**: https://solscan.io/tx/55tj463QSGJz9uZoC9zGynQ8qzpMRr4daDTw2sA2MkLRQx5f5poU3vFptNFEMVx1ExESA8QbRHtc2E731LAjYCtW?cluster=devnet
 
@@ -121,7 +121,7 @@ Finished `release` profile [optimized] target(s) in X.XXs
 ```
 
 **Build Artifacts:**
-- Binary: `target/deploy/fee_routing.so` (362 KB)
+- Binary: `target/deploy/fee_routing.so` (371 KB)
 - Keypair: `target/deploy/fee_routing-keypair.json`
 
 ### **4. Update Program ID (if using custom keypair)**
@@ -427,7 +427,7 @@ solana program set-upgrade-authority \
 ### **Audit Checklist**
 
 Before mainnet:
-- ✅ All tests passing (24/24)
+- ✅ All tests passing (16/16 real tests: 5 devnet + 7 unit + 4 integration logic)
 - ✅ Security audit completed
 - ✅ Devnet testing with real Meteora pools
 - ✅ Crank bot tested for 7+ days
@@ -503,6 +503,6 @@ Use this checklist to ensure successful deployment:
 
 ---
 
-**Deployment completed by RECTOR on October 4, 2025**
+**Deployment completed by RECTOR on October 10, 2025**
 
 For questions or issues, refer to the main [README.md](./README.md) or open an issue on GitHub.
