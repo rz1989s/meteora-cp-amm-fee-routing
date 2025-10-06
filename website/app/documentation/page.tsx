@@ -1012,7 +1012,7 @@ const creatorListener = program.addEventListener("CreatorPayoutDayClosed", (even
           <div className="bg-slate-900 rounded-lg p-6">
             <h4 className="text-xl font-semibold mb-4 flex items-center space-x-2">
               <span className="text-success">📊</span>
-              <span>Test Results: 52/52 Tests Passing (21 Local + 13 E2E + 17 Devnet + 7 Unit)</span>
+              <span>Test Results: 52/52 Tests Passing (22 Local + 13 E2E + 10 Devnet + 7 Unit)</span>
             </h4>
             <CodeBlock
               language="bash"

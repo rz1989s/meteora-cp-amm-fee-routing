@@ -24,7 +24,7 @@ export default function TestingPage() {
   // All tests now implemented! No more stubbed tests.
   const localIntegrationTests = [
     {
-      category: 'Local Integration Tests (21 tests)',
+      category: 'Local Integration Tests (22 tests)',
       tests: [
         { name: 'Position initialization with quote-only enforcement', passed: true },
         { name: 'Base fee rejection (Token A fees detected → fail)', passed: true },
@@ -59,12 +59,12 @@ export default function TestingPage() {
     },
   ];
 
-  const localTests = 21; // Local integration tests
+  const localTests = 22; // Local integration tests
   const e2eTests = 13; // E2E integration tests
-  const devnetTests = 17; // Devnet tests (10 TypeScript + 7 Rust unit)
+  const devnetTests = 10; // Devnet tests (TypeScript only)
   const unitTests = 7; // Rust unit tests
   const integrationLogicTests = 4; // Integration logic tests
-  const totalTests = localTests + e2eTests + devnetTests + unitTests; // 58 total
+  const totalTests = localTests + e2eTests + devnetTests + unitTests; // 52 total
   const passedTests = totalTests; // All tests passing!
 
   const integrationLogicResults = [
@@ -215,7 +215,7 @@ export default function TestingPage() {
           </p>
         </div>
         <p className="text-xs text-slate-400 italic mt-3">
-          Test files: <code className="bg-slate-800 px-2 py-1 rounded">tests/fee-routing.ts</code> (21 tests), <code className="bg-slate-800 px-2 py-1 rounded">tests/e2e-integration.ts</code> (13 tests), <code className="bg-slate-800 px-2 py-1 rounded">tests/devnet-deployment-test.ts</code> (17 tests)
+          Test files: <code className="bg-slate-800 px-2 py-1 rounded">tests/fee-routing.ts</code> (22 tests), <code className="bg-slate-800 px-2 py-1 rounded">tests/e2e-integration.ts</code> (13 tests), <code className="bg-slate-800 px-2 py-1 rounded">tests/devnet-deployment-test.ts</code> (10 tests)
         </p>
       </div>
 
@@ -298,7 +298,7 @@ test pagination::tests::test_page_index_validation ... ok
 
 test result: ok. 7 passed; 0 failed
 
-Status: ✅ 58 TESTS PASSING (22 local + 13 E2E + 10 devnet + 7 unit)`}
+Status: ✅ 52 TESTS PASSING (22 local + 13 E2E + 10 devnet + 7 unit)`}
           showLineNumbers={false}
         />
       </div>
@@ -369,11 +369,11 @@ Status: ✅ ALL PASSING`}
           <div className="space-y-3 text-sm">
             <div className="flex justify-between p-3 bg-slate-800 rounded-lg">
               <span className="text-slate-300">Total Tests Passing:</span>
-              <span className="font-bold text-success">58</span>
+              <span className="font-bold text-success">52</span>
             </div>
             <div className="flex justify-between p-3 bg-slate-800 rounded-lg">
               <span className="text-slate-300">Local Integration:</span>
-              <span className="font-bold text-success">21</span>
+              <span className="font-bold text-success">22</span>
             </div>
             <div className="flex justify-between p-3 bg-slate-800 rounded-lg">
               <span className="text-slate-300">E2E Integration:</span>
@@ -381,7 +381,7 @@ Status: ✅ ALL PASSING`}
             </div>
             <div className="flex justify-between p-3 bg-slate-800 rounded-lg">
               <span className="text-slate-300">Devnet Tests:</span>
-              <span className="font-bold text-success">17</span>
+              <span className="font-bold text-success">10</span>
             </div>
             <div className="flex justify-between p-3 bg-slate-800 rounded-lg">
               <span className="text-slate-300">Rust Unit Tests:</span>
@@ -632,7 +632,7 @@ test test_id ... ok
 
 test result: ok. 7 passed; 0 failed
 
-✅ Status: 58 TESTS PASSING (22 local + 13 E2E + 10 devnet + 7 unit)
+✅ Status: 52 TESTS PASSING (22 local + 13 E2E + 10 devnet + 7 unit)
 ✅ Devnet Deployment: VERIFIED
 ✅ Smart Contract: 316KB DEPLOYED
 ✅ Build Warnings: ZERO
@@ -770,11 +770,11 @@ test result: ok. 7 passed; 0 failed
         </div>
       </div>
 
-      {/* Bundle 1: Local Integration Tests (21) */}
+      {/* Bundle 1: Local Integration Tests (22) */}
       <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
         <h4 className="text-xl font-bold mb-4 text-primary flex items-center gap-2">
           <span className="bg-primary/20 text-primary px-3 py-1 rounded text-sm">Bundle 1</span>
-          Local Integration Tests (21)
+          Local Integration Tests (22)
         </h4>
         <CodeBlock
           language="bash"
@@ -812,7 +812,7 @@ fee-routing - Integration Tests (21 tests)
     ✔ Should validate account types
     ✔ Should validate Streamflow stream accounts
 
-21 passing (2s)`}
+22 passing (1s)`}
           showLineNumbers={false}
         />
       </div>
@@ -926,11 +926,11 @@ test result: ok. 7 passed; 0 failed`}
           <div className="space-y-2">
             <div className="flex justify-between p-3 bg-slate-800 rounded">
               <span className="text-slate-300">Total Tests:</span>
-              <span className="font-bold text-success">58</span>
+              <span className="font-bold text-success">52</span>
             </div>
             <div className="flex justify-between p-3 bg-slate-800 rounded">
               <span className="text-slate-300">Passing:</span>
-              <span className="font-bold text-success">58</span>
+              <span className="font-bold text-success">52</span>
             </div>
             <div className="flex justify-between p-3 bg-slate-800 rounded">
               <span className="text-slate-300">Failing:</span>
@@ -1306,9 +1306,9 @@ npm run test:unit`}
                   <div className="bg-success/10 border border-success/30 rounded-lg p-4 mt-4">
                     <p className="text-sm font-bold text-success mb-2">✅ Expected Results:</p>
                     <div className="space-y-1 text-sm text-slate-300 font-mono">
-                      <div>• Local integration: 21 passing</div>
+                      <div>• Local integration: 22 passing</div>
                       <div>• E2E integration: 13 passing (2 skipped by design)</div>
-                      <div>• Devnet: 17 passing (~2 seconds)</div>
+                      <div>• Devnet: 10 passing (~2 seconds)</div>
                       <div>• Unit tests: 7 passing</div>
                       <div className="font-bold text-success mt-2">• Total: 52/52 tests passing ✅</div>
                     </div>
