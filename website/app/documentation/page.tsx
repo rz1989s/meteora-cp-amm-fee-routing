@@ -549,10 +549,10 @@ await program.methods
               solution: 'Verify that the pool uses the correct quote token specified in the policy',
             },
             {
-              code: '6001',
-              name: 'BaseFeesNotAllowed',
-              description: 'Pool configuration would generate base token fees (not quote-only)',
-              solution: 'Choose a different pool or adjust position parameters to ensure quote-only fees',
+              code: '6013',
+              name: 'BaseFeesDetected',
+              description: 'Base token fees detected - position must be quote-only (bounty requirement)',
+              solution: 'Pool configuration must guarantee quote-only fee accrual. Validate during initialize_position.',
             },
             {
               code: '6002',
@@ -1221,9 +1221,9 @@ anchor test
             {
               num: 3,
               title: "Base Fees Detected",
-              error: "BaseFeesNotAllowed",
+              error: "BaseFeesDetected (code 6013)",
               scenario: "Honorary position accrues fees in base token (token A).",
-              resolution: "Position configuration must guarantee quote-only accrual. This should be caught during initialize_position validation.",
+              resolution: "Position configuration must guarantee quote-only accrual. Error thrown during distribute_fees when base fees detected (bounty requirement line 101).",
               example: "Prevention: Validate pool tick range and token order before initialization."
             },
             {

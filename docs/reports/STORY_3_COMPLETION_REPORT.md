@@ -292,7 +292,7 @@ const { txId, metadataId } = await streamClient.create({
    - Progress state validation
 
 3. **Integration Logic Tests**: 4/4 passing ✅
-   - BaseFeesNotAllowed error
+   - BaseFeesDetected error (code 6013)
    - DistributionWindowNotElapsed error
    - InvalidPageIndex error
    - Quote-only enforcement

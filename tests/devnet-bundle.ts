@@ -218,7 +218,7 @@ describe("Devnet Test Bundle", () => {
         );
 
         expect(baseFeesError).to.not.be.undefined;
-        expect(baseFeesError?.code).to.equal(6011);
+        expect(baseFeesError?.code).to.equal(6013);
 
         console.log("✅ BaseFeesDetected error found in program:");
         console.log("   Code:", baseFeesError?.code);

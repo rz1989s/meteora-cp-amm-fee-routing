@@ -737,23 +737,22 @@ Day 1, T=0+5min (retry):
 
 | Code | Name | Description |
 |------|------|-------------|
-| 6000 | `BaseFeesNotAllowed` | Position must accrue fees in quote mint only. Triggered if base fees detected. |
-| 6001 | `DistributionWindowNotElapsed` | Distribution can only be called once per 24 hour window (for page 0). |
-| 6002 | `InvalidPageIndex` | Invalid page index for current distribution day. Must match `current_page`. |
-| 6003 | `PayoutBelowMinimum` | Investor payout below minimum threshold (internal, informational). |
-| 6004 | `DailyCapExceeded` | Daily distribution cap exceeded. Remaining amount carries to next day. |
-| 6005 | `ArithmeticOverflow` | Arithmetic overflow in fee calculation. All math uses checked operations. |
-| 6006 | `InvalidQuoteMint` | Invalid quote mint provided. Must match pool configuration. |
-| 6007 | `LockedExceedsTotal` | Total locked amount exceeds Y0. Data integrity issue with Streamflow. |
-| 6008 | `AllPagesProcessed` | All pages for current day already processed. Wait for next 24h window. |
-| 6009 | `CreatorPayoutAlreadySent` | Creator payout already sent for this day. Prevents double-payment. |
-| 6010 | `InvalidStreamflowAccount` | Invalid Streamflow account provided. Must be owned by Streamflow program. |
-| 6011 | `InvalidPoolAuthority` | Invalid pool authority provided. Must match expected authority. |
-| 6012 | `InvalidProgram` | Invalid program ID provided. Must match expected program. |
-| 6013 | `InvalidTreasuryAuthority` | Invalid treasury authority. Must be derived PDA with correct seeds. |
-| 6014 | `BaseFeesDetected` | Base token fees detected - position must be quote-only. |
-| 6015 | `InvalidAccountOwnership` | Invalid account ownership - account owner mismatch. |
-| 6016 | `TooManyInvestors` | Too many investors in single page - exceeds maximum. |
+| 6000 | `DistributionWindowNotElapsed` | Distribution can only be called once per 24 hour window (for page 0). |
+| 6001 | `InvalidPageIndex` | Invalid page index for current distribution day. Must match `current_page`. |
+| 6002 | `PayoutBelowMinimum` | Investor payout below minimum threshold (internal, informational). |
+| 6003 | `DailyCapExceeded` | Daily distribution cap exceeded. Remaining amount carries to next day. |
+| 6004 | `ArithmeticOverflow` | Arithmetic overflow in fee calculation. All math uses checked operations. |
+| 6005 | `InvalidQuoteMint` | Invalid quote mint provided. Must match pool configuration. |
+| 6006 | `LockedExceedsTotal` | Total locked amount exceeds Y0. Data integrity issue with Streamflow. |
+| 6007 | `AllPagesProcessed` | All pages for current day already processed. Wait for next 24h window. |
+| 6008 | `CreatorPayoutAlreadySent` | Creator payout already sent for this day. Prevents double-payment. |
+| 6009 | `InvalidStreamflowAccount` | Invalid Streamflow account provided. Must be owned by Streamflow program. |
+| 6010 | `InvalidPoolAuthority` | Invalid pool authority provided. Must match expected authority. |
+| 6011 | `InvalidProgram` | Invalid program ID provided. Must match expected program. |
+| 6012 | `InvalidTreasuryAuthority` | Invalid treasury authority. Must be derived PDA with correct seeds. |
+| 6013 | `BaseFeesDetected` | Base token fees detected - position must be quote-only. Enforces bounty requirement (line 101). |
+| 6014 | `InvalidAccountOwnership` | Invalid account ownership - account owner mismatch. |
+| 6015 | `TooManyInvestors` | Too many investors in single page - exceeds maximum. |
 
 ---
 
@@ -1231,9 +1230,9 @@ Attempting at Day 2, 11:00 AM → FAILS
 
 **Scenario:** Honorary position accrues fees in base token (token A).
 
-**Error:** `BaseFeesNotAllowed`
+**Error:** `BaseFeesDetected` (code 6013)
 
-**Resolution:** Position configuration must guarantee quote-only accrual. This should be caught during `initialize_position` validation.
+**Resolution:** Position configuration must guarantee quote-only accrual. This error is thrown during `distribute_fees` when base token fees are detected (bounty requirement line 101).
 
 **Prevention:** Validate pool tick range and token order before initialization.
 

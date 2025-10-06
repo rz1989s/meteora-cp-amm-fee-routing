@@ -71,7 +71,7 @@ export default function TestingPage() {
     {
       category: 'integration_logic',
       tests: [
-        { name: 'BaseFeesNotAllowed error definition - Verifies error exists in IDL (code 6000)', passed: true },
+        { name: 'BaseFeesDetected error definition - Verifies error exists in IDL (code 6013)', passed: true },
         { name: 'DistributionWindowNotElapsed error - Verifies 24h time gate error (code 6001)', passed: true },
         { name: 'InvalidPageIndex error - Verifies pagination validation (code 6002)', passed: true },
         { name: 'Quote-only enforcement - Verifies source code implementation', passed: true },
