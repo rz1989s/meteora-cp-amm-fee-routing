@@ -6,7 +6,7 @@
 
 [![Anchor](https://img.shields.io/badge/Anchor-0.31.1-blueviolet?logo=anchor)](https://www.anchor-lang.com/)
 [![Tests Local](https://img.shields.io/badge/tests%20(local)-22%2F22%20passing-success?logo=github-actions)](https://github.com/rz1989s/meteora-cp-amm-fee-routing/actions)
-[![Tests E2E](https://img.shields.io/badge/tests%20(e2e)-13%2F13%20passing-success?logo=github-actions)](https://github.com/rz1989s/meteora-cp-amm-fee-routing/actions)
+[![Tests E2E](https://img.shields.io/badge/tests%20(e2e)-15%2F15%20passing-success?logo=github-actions)](https://github.com/rz1989s/meteora-cp-amm-fee-routing/actions)
 [![Tests Devnet](https://img.shields.io/badge/tests%20(devnet)-10%2F10%20passing-success?logo=solana)](https://github.com/rz1989s/meteora-cp-amm-fee-routing/actions)
 [![Build](https://img.shields.io/badge/build-passing%20(371KB)-success?logo=rust)](https://github.com/rz1989s/meteora-cp-amm-fee-routing)
 [![License](https://img.shields.io/badge/license-MIT-green?logo=opensourceinitiative)](LICENSE)
@@ -26,7 +26,7 @@
 
 **Build & Quality**
 - 🏗️ **Build Size:** 371 KB (370,696 bytes, 0 errors, 0 warnings)
-- ✅ **Test Coverage:** 🏆 **Triple-Bundle Strategy** - 22/22 local + 13/13 E2E + 10/10 devnet + 7/7 unit = 52 tests passing
+- ✅ **Test Coverage:** 🏆 **Triple-Bundle Strategy** - 22/22 local + 15/15 E2E + 10/10 devnet + 7/7 unit = 54 tests passing
 - 📝 **Documentation:** Comprehensive (README + CLAUDE.md + pitch website)
 - 🔒 **Security:** 0 unsafe blocks
 - 💰 **Token Transfers:** Real SPL transfers implemented
@@ -1014,10 +1014,10 @@ const creatorListener = program.addEventListener("CreatorPayoutDayClosed", (even
 | Bundle | Tests | Status | Purpose |
 |--------|-------|--------|---------|
 | **Local Integration** | 22/22 passing | ✅ | Core program logic testing |
-| **E2E Integration** | 13/13 passing | ✅ | SDK integration with mock data |
+| **E2E Integration** | 15/15 passing | ✅ | SDK integration with mock data |
 | **Live Devnet** | 10/10 passing | ✅ | Real-world production verification |
 | **Rust Unit** | 7/7 passing | ✅ | Math & validation functions |
-| **Total** | 52 tests | ✅ | Comprehensive coverage |
+| **Total** | 54 tests | ✅ | Comprehensive coverage |
 
 ---
 
@@ -1055,7 +1055,7 @@ npm run test:local        # Run all local integration tests
 
 ---
 
-### Bundle 2: E2E Integration Tests (13/13 passing)
+### Bundle 2: E2E Integration Tests (15/15 passing)
 
 **Purpose:** End-to-end integration with external SDKs
 
@@ -1066,9 +1066,9 @@ npm run setup:local       # Setup environment first
 ```
 
 **Test Breakdown:**
-- ✅ **13 E2E integration tests** (e2e-integration.ts):
+- ✅ **15 E2E integration tests** (e2e-integration.ts):
   - Program initialization (Policy + Progress PDAs)
-  - Pool/position verification (2 skipped - requires setup)
+  - Pool/position verification (verifies configuration even without on-chain accounts)
   - Pro-rata distribution with mock Streamflow data
   - Quote-only enforcement
   - Edge cases (daily cap, dust, all locked/unlocked)
@@ -1162,10 +1162,10 @@ npm run test:all          # Runs local + e2e + devnet + unit
 **Expected output:**
 ```
 ✅ Local integration tests: 22/22 passing
-✅ E2E integration tests: 13/13 passing (2 skipped by design)
+✅ E2E integration tests: 15/15 passing
 ✅ Devnet tests: 10/10 passing
 ✅ Unit tests: 7/7 passing
-✅ Total: 52 tests passing
+✅ Total: 54 tests passing
 ```
 
 ---

@@ -67,7 +67,7 @@
 | Local E2E | Localhost | Real | Mock | 13 | ✅ Pass |
 | Devnet Bundle | Devnet | N/A | N/A | 10 | ✅ Pass |
 
-**Total:** 52 tests, all passing
+**Total:** 54 tests, all passing
 **Issue:** No tests with real Streamflow
 
 ### After Implementation (Target)
@@ -321,7 +321,7 @@ Local Integration Tests
   22 passing
 
 Local E2E Tests
-  13 passing
+  15 passing
 
 Devnet E2E Tests (Real Integration)
   20 passing

@@ -61,7 +61,7 @@ This document tracks all upgrades to the fee-routing program on devnet.
 - ✅ Binary size: 370,696 bytes (361 KB)
 - ✅ SHA-256 Hash: e6548dc59ff5aa09459ae1c5e949cef3a8e9b151440612ad7d884601fff52d64
 - ✅ Cargo build: 0 errors, 0 warnings
-- ✅ All tests passing: 52/52 (22 local + 13 E2E + 10 devnet + 7 unit)
+- ✅ All tests passing: 54/54 (22 local + 15 E2E + 10 devnet + 7 unit)
 - ✅ Program deployed and hash verified on devnet
 
 ---

@@ -14,10 +14,10 @@
 |--------|--------|---------|--------|
 | **Stories Completed** | 6/6 | 6/6 | 🟢 100% |
 | **Local Integration Tests** | 22/22 | 22/22 | 🟢 100% |
-| **E2E Integration Tests** | 13/13 | 13/13 | 🟢 100% |
+| **E2E Integration Tests** | 15/15 | 15/15 | 🟢 100% |
 | **Devnet Tests Passing** | 10/10 | 10/10 | 🟢 100% |
 | **Rust Unit Tests** | 7/7 | 7/7 | 🟢 100% |
-| **Total Tests** | 52/52 | 52/52 | 🟢 100% |
+| **Total Tests** | 54/54 | 54/54 | 🟢 100% |
 | **Setup Scripts Created** | 4/4 | 4/4 | 🟢 100% |
 | **Documentation Updated** | 6/6 | 6/6 | 🟢 100% |
 
@@ -491,7 +491,7 @@ Status:           ✅ COMPLETE (3 hours ahead of schedule)
 
 1. ✅ **Story 1 Complete** - Local validator configuration
 2. ✅ **Story 2 Complete** - Test environment setup scripts
-3. ✅ **Story 3 Complete** - E2E integration tests (13/13 tests with mock data)
+3. ✅ **Story 3 Complete** - E2E integration tests (15/15 tests with mock data)
 4. ✅ **Story 4 Complete** - Local integration test implementation (22/22 tests)
 5. ✅ **Story 5 Complete** - Devnet bundle configuration (10/10 tests)
 6. ✅ **Story 6 Complete** - Documentation updates
@@ -543,7 +543,7 @@ Status:           ✅ COMPLETE (3 hours ahead of schedule)
 
 - [x] **Functional**:
   - [x] 22 local integration tests passing (TypeScript) ✅
-  - [x] 13 E2E integration tests passing (TypeScript, 2 skipped by design) ✅
+  - [x] 15 E2E integration tests passing (TypeScript) ✅
   - [x] 17 tests passing on devnet (10 TypeScript + 7 Rust) ✅
   - [x] 7 Rust unit tests passing ✅
   - [x] All 17 integration tests implemented (verified in fee-routing.ts) ✅
@@ -559,7 +559,7 @@ Status:           ✅ COMPLETE (3 hours ahead of schedule)
 - [x] **Documentation**:
   - [x] README updated (comprehensive triple-bundle section added) ✅
   - [x] CLAUDE.md updated (testing strategy section rewritten) ✅
-  - [x] All docs consistent (22/22 + 13/13 + 10/10 + 7/7 = 52 tests verified across files) ✅
+  - [x] All docs consistent (22/22 + 15/15 + 10/10 + 7/7 = 54 tests verified across files) ✅
   - [x] Implementation reports created (DUAL_BUNDLE_IMPLEMENTATION.md + TEST_RESULTS_E2E.md) ✅
 
 - [x] **Quality**:

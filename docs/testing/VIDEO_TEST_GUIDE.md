@@ -174,12 +174,12 @@ npm run test:e2e
 # ... (13 total tests)
 #
 # ══════════════════════════════════════════════════
-# 📈 RESULTS: 13 passing
+# 📈 RESULTS: 15 passing
 # ══════════════════════════════════════════════════
 ```
 
 **Tests:**
-- 13 E2E integration tests with mock Streamflow data
+- 15 E2E integration tests with mock Streamflow data
 - Demonstrates full distribution flow end-to-end
 
 ---
@@ -254,7 +254,7 @@ npm run test:all
 #   ✅ 22/22 passing
 #
 # Running E2E tests...
-#   ✅ 13/13 passing
+#   ✅ 15/15 passing
 #
 # Running devnet tests...
 #   ✅ 10/10 passing
@@ -265,7 +265,7 @@ npm run test:all
 # ══════════════════════════════════════════════════
 # 🎉 ALL TESTS PASSING
 # ══════════════════════════════════════════════════
-# Total: 52 tests across 4 bundles
+# Total: 54 tests across 4 bundles
 # ══════════════════════════════════════════════════
 ```
 
@@ -297,7 +297,7 @@ solana account 9cumYPtnKQmKsVmTeKguv7h3YWspRoMUQeqgAHMFNXxv --url devnet
 
 1. **Introduction (15 seconds)**
    - "Demonstrating Meteora CP-AMM Fee Routing Program"
-   - "100% passing tests: 52 tests across 4 bundles"
+   - "100% passing tests: 54 tests across 4 bundles"
 
 2. **Setup (45 seconds)**
    - Show validator starting
@@ -332,7 +332,7 @@ solana account 9cumYPtnKQmKsVmTeKguv7h3YWspRoMUQeqgAHMFNXxv --url devnet
 
 ✅ **Build Success:** 371KB binary, 0 errors, 0 warnings
 ✅ **Setup Success:** All 3 environment steps pass (tokens, pool, streams)
-✅ **Test Coverage:** 52 tests across 4 bundles
+✅ **Test Coverage:** 54 tests across 4 bundles
 ✅ **Live Deployment:** Verified on Solscan devnet
 ✅ **Bounty Compliance:** All test cases from bounty requirements covered
 
@@ -373,10 +373,10 @@ solana airdrop 10 3DvLMt6coQVFUjXfocxPTJg6wdHgNoJiVYUB3vFVSY3h --url http://127.
 | Bundle | Command | Tests | Duration | Status |
 |--------|---------|-------|----------|--------|
 | **Local Integration** | `npm run test:local` | 22/22 | ~20s | ✅ |
-| **E2E Integration** | `npm run test:e2e` | 13/13 | ~5s | ✅ |
+| **E2E Integration** | `npm run test:e2e` | 15/15 | ~5s | ✅ |
 | **Live Devnet** | `npm run test:devnet` | 10/10 | ~2s | ✅ |
 | **Rust Unit** | `npm run test:unit` | 7/7 | ~1s | ✅ |
-| **All Tests** | `npm run test:all` | **52/52** | ~35s | ✅ |
+| **All Tests** | `npm run test:all` | **54/54** | ~35s | ✅ |
 
 ---
 
@@ -400,9 +400,9 @@ solana airdrop 10 3DvLMt6coQVFUjXfocxPTJg6wdHgNoJiVYUB3vFVSY3h --url http://127.
 ✅ Deployment succeeds to localhost
 ✅ Setup creates all 3 configuration files (.test-tokens.json, .test-pool.json, .test-streams.json)
 ✅ Local tests: 22/22 passing
-✅ E2E tests: 13/13 passing
+✅ E2E tests: 15/15 passing
 ✅ Devnet tests: 10/10 passing
 ✅ Unit tests: 7/7 passing
-✅ **Total: 52/52 tests passing**
+✅ **Total: 54/54 tests passing**
 
 **This demonstrates 100% bounty compliance with comprehensive testing.**

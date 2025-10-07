@@ -418,10 +418,10 @@ All state changes must emit events for off-chain tracking:
 
 **Test Results Summary:**
 - ✅ **Local Integration Bundle:** 22/22 passing (TypeScript)
-- ✅ **E2E Integration Bundle:** 13/13 passing (TypeScript, 2 skipped by design)
+- ✅ **E2E Integration Bundle:** 15/15 passing (TypeScript)
 - ✅ **Devnet Bundle:** 10/10 passing (TypeScript)
 - ✅ **Rust Unit Tests:** 7/7 passing
-- ✅ **Total:** 52 unique tests across all bundles
+- ✅ **Total:** 54 unique tests across all bundles
 
 ---
 
@@ -461,7 +461,7 @@ npm run test:local        # All local integration tests
 
 ---
 
-### Bundle 2: E2E Integration Tests (13/13 passing)
+### Bundle 2: E2E Integration Tests (15/15 passing)
 
 **Purpose:** End-to-end integration with external SDKs
 
@@ -472,9 +472,9 @@ npm run setup:local       # Setup environment first
 ```
 
 **Test Breakdown:**
-- **13 E2E integration tests** (e2e-integration.ts):
+- **15 E2E integration tests** (e2e-integration.ts):
   - Program initialization (Policy + Progress PDAs)
-  - Pool/position verification (2 skipped - requires setup)
+  - Pool/position verification (verifies configuration even without on-chain accounts)
   - Pro-rata distribution with mock Streamflow data
   - Quote-only enforcement
   - Edge cases (daily cap, dust, all locked/unlocked)
@@ -547,10 +547,10 @@ npm run test:all          # Runs local + e2e + devnet + unit
 **Expected output:**
 ```
 ✅ Local integration tests: 22/22 passing
-✅ E2E integration tests: 13/13 passing (2 skipped by design)
+✅ E2E integration tests: 15/15 passing
 ✅ Devnet tests: 10/10 passing
 ✅ Unit tests: 7/7 passing
-✅ Total: 52 tests passing
+✅ Total: 54 tests passing
 ```
 
 ---

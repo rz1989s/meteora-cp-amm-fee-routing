@@ -420,7 +420,7 @@ Before declaring success, verify:
 
 ```bash
 # Full test suite
-npm run test:all           # 52 tests (current)
+npm run test:all           # 54 tests (current)
 npm run test:devnet:e2e    # 20 tests (new)
 
 # Expected Total: 72/72 passing ✅
