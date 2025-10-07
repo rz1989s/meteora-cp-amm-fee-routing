@@ -487,7 +487,7 @@ $ anchor build
 Status: ✅ SUCCESS
 Warnings: 16 (minor cfg warnings only)
 Errors: 0
-Output: target/deploy/fee_routing.so (316KB)
+Output: target/deploy/fee_routing.so (371KB)
 ```
 
 ---

@@ -72,7 +72,7 @@ cargo build-sbf
 # Expected output:
 # ✓ Compiling fee-routing v0.1.0
 # ✓ Finished release profile [optimized]
-# ✓ Binary: target/deploy/fee_routing.so (316KB)`}
+# ✓ Binary: target/deploy/fee_routing.so (371KB)`}
               showLineNumbers={false}
             />
           </div>
@@ -1062,7 +1062,7 @@ Finished \`release\` profile [optimized] target(s)
 ✅ Status: SUCCESS
 ✅ Warnings: 16 (minor cfg warnings only)
 ✅ Errors: 0
-✅ Output: target/deploy/fee_routing.so (316KB)`}
+✅ Output: target/deploy/fee_routing.so (371KB)`}
               showLineNumbers={false}
             />
           </div>

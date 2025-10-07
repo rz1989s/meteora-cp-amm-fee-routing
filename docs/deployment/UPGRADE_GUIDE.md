@@ -4,7 +4,7 @@
 
 **Deployed Program (OLD)**:
 - Program ID: `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP`
-- Size: 316 KB
+- Size: 371 KB (previous version)
 - Instructions: 2 (incomplete - with TODOs)
 - Status: ❌ Outdated
 

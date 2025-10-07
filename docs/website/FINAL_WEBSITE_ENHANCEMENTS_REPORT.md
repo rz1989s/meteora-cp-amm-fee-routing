@@ -89,7 +89,7 @@ All website enhancements have been successfully implemented and verified. The pi
 - 5 professional shields.io badges:
   - Anchor version (0.31.1)
   - Test status (16/16 passing)
-  - Build status (passing, 316KB)
+  - Build status (passing, 371KB)
   - License (MIT)
   - Solana compatibility
 - Quick navigation links to key sections

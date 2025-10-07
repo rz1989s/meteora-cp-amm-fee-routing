@@ -78,7 +78,7 @@ $HOME/.avm/bin/anchor build
 **Compilation Time:** ~2 seconds (release profile)
 
 **Output Artifacts:**
-- `target/deploy/fee_routing.so` - 316 KB (ELF 64-bit Solana BPF binary)
+- `target/deploy/fee_routing.so` - 371 KB (ELF 64-bit Solana BPF binary)
 - `target/deploy/fee_routing-keypair.json` - 224 bytes
 - `target/idl/fee_routing.json` - 17 KB (Interface Definition Language)
 
@@ -193,7 +193,7 @@ All website claims verified against actual project state:
 | Unsafe Code | 0 blocks | 0 blocks (verified via grep) | ✅ |
 | Anchor Version | 0.31.1 | 0.31.1 (via AVM) | ✅ |
 | Terminology | DAMM V2 / CP-AMM | DAMM V2 / CP-AMM | ✅ |
-| Binary Size | Not specified | 316 KB | ✅ |
+| Binary Size | Not specified | 371 KB | ✅ |
 
 ---
 
@@ -240,7 +240,7 @@ These warnings are **expected and normal** for Anchor 0.31.1 projects. They appe
 | Component | Status | Details |
 |-----------|--------|---------|
 | **Website Calculator** | ✅ 100% Working | Real-time updates confirmed |
-| **Anchor Build** | ✅ Success | 316KB binary generated |
+| **Anchor Build** | ✅ Success | 371KB binary generated |
 | **Test Suite** | ✅ 10/10 Passing | 0 failures, 42ms execution |
 | **Build Artifacts** | ✅ Complete | .so + IDL + keypair |
 | **Content Claims** | ✅ Accurate | All metrics verified |
@@ -260,7 +260,7 @@ These warnings are **expected and normal** for Anchor 0.31.1 projects. They appe
 ```bash
 ✓ Compiling fee-routing v0.2.0
 ✓ Finished release profile [optimized] target(s) in ~2s
-✓ Binary: target/deploy/fee_routing.so (316KB)
+✓ Binary: target/deploy/fee_routing.so (371KB)
 ⚠ 16 warnings (Anchor framework internals - see above)
 ❌ 0 errors
 ```

@@ -634,7 +634,7 @@ test result: ok. 7 passed; 0 failed
 
 ✅ Status: 54 TESTS PASSING (22 local + 15 E2E + 10 devnet + 7 unit)
 ✅ Devnet Deployment: VERIFIED
-✅ Smart Contract: 316KB DEPLOYED
+✅ Smart Contract: 371KB DEPLOYED
 ✅ Build Warnings: ZERO
 ✅ All Tests Passing: 100%`}
           showLineNumbers={false}
