@@ -45,7 +45,7 @@ export default function TestingPage() {
 
   const e2eIntegrationTests = [
     {
-      category: 'E2E Integration Tests (13 tests)',
+      category: 'E2E Integration Tests (15 tests)',
       tests: [
         { name: 'Program initialization (Policy + Progress PDAs)', passed: true },
         { name: 'Pool/position verification (2 skipped - requires setup)', passed: true },
@@ -60,11 +60,11 @@ export default function TestingPage() {
   ];
 
   const localTests = 22; // Local integration tests
-  const e2eTests = 13; // E2E integration tests
+  const e2eTests = 15; // E2E integration tests
   const devnetTests = 10; // Devnet tests (TypeScript only)
   const unitTests = 7; // Rust unit tests
   const integrationLogicTests = 4; // Integration logic tests
-  const totalTests = localTests + e2eTests + devnetTests + unitTests; // 52 total
+  const totalTests = localTests + e2eTests + devnetTests + unitTests; // 54 total
   const passedTests = totalTests; // All tests passing!
 
   const integrationLogicResults = [
@@ -193,7 +193,7 @@ export default function TestingPage() {
           <div className="flex items-start space-x-2">
             <CheckCircle className="text-primary flex-shrink-0 mt-0.5" size={16} />
             <div>
-              <strong className="text-primary">Streamflow Mock Data (13 E2E tests):</strong> Realistic mock vesting data in `.test-streams.json` allows full distribution testing without SDK cluster limitations. Faster, deterministic, and comprehensive.
+              <strong className="text-primary">Streamflow Mock Data (15 E2E tests):</strong> Realistic mock vesting data in `.test-streams.json` allows full distribution testing without SDK cluster limitations. Faster, deterministic, and comprehensive.
             </div>
           </div>
           <div className="flex items-start space-x-2">
@@ -215,7 +215,7 @@ export default function TestingPage() {
           </p>
         </div>
         <p className="text-xs text-slate-400 italic mt-3">
-          Test files: <code className="bg-slate-800 px-2 py-1 rounded">tests/fee-routing.ts</code> (22 tests), <code className="bg-slate-800 px-2 py-1 rounded">tests/e2e-integration.ts</code> (13 tests), <code className="bg-slate-800 px-2 py-1 rounded">tests/devnet-deployment-test.ts</code> (10 tests)
+          Test files: <code className="bg-slate-800 px-2 py-1 rounded">tests/fee-routing.ts</code> (22 tests), <code className="bg-slate-800 px-2 py-1 rounded">tests/e2e-integration.ts</code> (15 tests), <code className="bg-slate-800 px-2 py-1 rounded">tests/devnet-deployment-test.ts</code> (10 tests)
         </p>
       </div>
 
@@ -298,7 +298,7 @@ test pagination::tests::test_page_index_validation ... ok
 
 test result: ok. 7 passed; 0 failed
 
-Status: ✅ 52 TESTS PASSING (22 local + 15 E2E + 10 devnet + 7 unit)`}
+Status: ✅ 54 TESTS PASSING (22 local + 15 E2E + 10 devnet + 7 unit)`}
           showLineNumbers={false}
         />
       </div>
@@ -369,7 +369,7 @@ Status: ✅ ALL PASSING`}
           <div className="space-y-3 text-sm">
             <div className="flex justify-between p-3 bg-slate-800 rounded-lg">
               <span className="text-slate-300">Total Tests Passing:</span>
-              <span className="font-bold text-success">52</span>
+              <span className="font-bold text-success">54</span>
             </div>
             <div className="flex justify-between p-3 bg-slate-800 rounded-lg">
               <span className="text-slate-300">Local Integration:</span>
@@ -377,7 +377,7 @@ Status: ✅ ALL PASSING`}
             </div>
             <div className="flex justify-between p-3 bg-slate-800 rounded-lg">
               <span className="text-slate-300">E2E Integration:</span>
-              <span className="font-bold text-success">13 (2 skipped)</span>
+              <span className="font-bold text-success">15</span>
             </div>
             <div className="flex justify-between p-3 bg-slate-800 rounded-lg">
               <span className="text-slate-300">Devnet Tests:</span>
@@ -589,10 +589,10 @@ fn test_minimum_threshold() {
       <div className="bg-gradient-to-br from-success/20 to-success/5 border border-success/30 rounded-xl p-6">
         <h3 className="text-2xl font-bold mb-4 text-success flex items-center gap-2">
           <Award className="text-success" size={28} />
-          Test Suite Success - 52 Tests Passing (Triple-Bundle Strategy)
+          Test Suite Success - 54 Tests Passing (Triple-Bundle Strategy)
         </h3>
         <p className="text-slate-300 mb-4">
-          22 local + 15 E2E + 10 devnet + 7 unit = 52 total passing tests.
+          22 local + 15 E2E + 10 devnet + 7 unit = 54 total passing tests.
           All tests fully implemented and passing with mock Streamflow data strategy.
         </p>
         <CodeBlock
@@ -632,7 +632,7 @@ test test_id ... ok
 
 test result: ok. 7 passed; 0 failed
 
-✅ Status: 52 TESTS PASSING (22 local + 15 E2E + 10 devnet + 7 unit)
+✅ Status: 54 TESTS PASSING (22 local + 15 E2E + 10 devnet + 7 unit)
 ✅ Devnet Deployment: VERIFIED
 ✅ Smart Contract: 316KB DEPLOYED
 ✅ Build Warnings: ZERO
@@ -745,7 +745,7 @@ test result: ok. 7 passed; 0 failed
       <div className="bg-gradient-to-br from-success/20 to-success/5 border-2 border-success/50 rounded-xl p-6 mb-6">
         <h3 className="text-2xl font-bold mb-3 text-success flex items-center gap-2">
           <Award className="text-success" size={28} />
-          Complete Test Suite: 52 Tests Passing
+          Complete Test Suite: 54 Tests Passing
         </h3>
         <p className="text-slate-300 mb-4">
           Comprehensive breakdown of all test bundles demonstrating 100% coverage with Triple-Bundle Strategy.
@@ -756,7 +756,7 @@ test result: ok. 7 passed; 0 failed
             <div className="text-xs text-slate-400">Local Integration</div>
           </div>
           <div className="bg-slate-800 rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-secondary mb-1">13</div>
+            <div className="text-3xl font-bold text-secondary mb-1">15</div>
             <div className="text-xs text-slate-400">E2E Integration</div>
           </div>
           <div className="bg-slate-800 rounded-lg p-4 text-center">
@@ -817,11 +817,11 @@ fee-routing - Integration Tests (22 tests)
         />
       </div>
 
-      {/* Bundle 2: E2E Integration Tests (13) */}
+      {/* Bundle 2: E2E Integration Tests (15) */}
       <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
         <h4 className="text-xl font-bold mb-4 text-secondary flex items-center gap-2">
           <span className="bg-secondary/20 text-secondary px-3 py-1 rounded text-sm">Bundle 2</span>
-          E2E Integration Tests (13)
+          E2E Integration Tests (15)
         </h4>
         <CodeBlock
           language="bash"
@@ -1178,7 +1178,7 @@ Output: target/deploy/fee_routing.so (371KB)`}
         >
           <TabGroup
             tabs={[
-              { id: 'all-tests', label: '🏆 All 52 Tests', content: allTestsTab },
+              { id: 'all-tests', label: '🏆 All 54 Tests', content: allTestsTab },
               { id: 'devnet', label: 'Devnet Achievement', content: devnetTab },
               { id: 'results', label: 'Test Results', content: resultsTab },
               { id: 'examples', label: 'Test Examples', content: testExamplesTab },
@@ -1350,7 +1350,7 @@ npm run setup:local
 
 # This runs all 4 test bundles in sequence:
 # 1. Local integration (22 tests)
-# 2. E2E integration (13 tests)
+# 2. E2E integration (15 tests)
 # 3. Devnet verification (10 tests)
 # 4. Rust unit tests (7 tests)`}
                       showLineNumbers={false}
@@ -1364,7 +1364,7 @@ npm run setup:local
                       code={`# Bundle 1: Local integration tests (22 tests)
 npm run test:local
 
-# Bundle 2: E2E integration tests (13 tests)
+# Bundle 2: E2E integration tests (15 tests)
 npm run test:e2e
 
 # Bundle 3: Live devnet tests (10 tests) - fastest!
