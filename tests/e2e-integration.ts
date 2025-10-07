@@ -243,8 +243,8 @@ describe("E2E Integration Tests", () => {
       }
 
       // Calculate total currently locked
-      // In our mock data, we use cliffAmount to simulate "unlocked" and vestedAmount as "locked"
-      const totalLocked = streams.reduce((sum: number, s: any) => sum + s.vestedAmount, 0);
+      // Use currentStatus.lockedAmount from mock stream data
+      const totalLocked = streams.reduce((sum: number, s: any) => sum + (s.currentStatus?.lockedAmount || 0), 0);
       const totalAllocation = streamConfig.totalAllocation;
 
       console.log(`   Total allocation (Y0): ${totalAllocation.toLocaleString()}`);
@@ -275,12 +275,13 @@ describe("E2E Integration Tests", () => {
       let totalDistributed = 0;
 
       for (const stream of streams) {
-        const weight = stream.vestedAmount / totalLocked;
+        const lockedAmount = stream.currentStatus?.lockedAmount || 0;
+        const weight = lockedAmount / totalLocked;
         const payout = Math.floor(investorAllocation * weight);
         totalDistributed += payout;
 
         console.log(`   ${stream.investor}:`);
-        console.log(`      Locked: ${stream.vestedAmount.toLocaleString()}`);
+        console.log(`      Locked: ${lockedAmount.toLocaleString()}`);
         console.log(`      Weight: ${(weight * 100).toFixed(2)}%`);
         console.log(`      Payout: ${(payout / 1_000_000).toFixed(6)} tokens`);
       }
