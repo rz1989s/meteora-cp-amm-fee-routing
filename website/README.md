@@ -211,6 +211,7 @@ MIT License - see project root for details.
 
 ## Acknowledgments
 
+- Sponsored by: [Star](https://star.fun) - Solana fundraising platform with live token sales
 - Built for the Superteam Meteora DAMM V2 Fee Routing Program bounty
 - Program ID: `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP`
 - Repository: [meteora-cp-amm-fee-routing](https://github.com/rz1989s/meteora-cp-amm-fee-routing)
