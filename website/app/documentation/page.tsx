@@ -1459,7 +1459,7 @@ anchor test
           <div className="bg-slate-900 rounded-lg p-4 mb-4">
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">SHA-256 Hash:</span>
-              <code className="text-success font-mono text-xs">f17b9a32...5c4f (verifiable)</code>
+              <code className="text-success font-mono text-xs">4f81eac6...c71e46 (deployed)</code>
             </div>
           </div>
           <div className="space-y-2 text-sm text-slate-400">
@@ -1495,7 +1495,7 @@ solana program show RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP --url devnet
 # Verify hash matches deployed program
 solana program dump RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP /tmp/deployed.so --url devnet
 shasum -a 256 /tmp/deployed.so
-# Expected: f17b9a32057833a6187ab8001de933c145275216ad91989dc2352f807a825c4f`}
+# Expected: 4f81eac65081f112ca419886c799992cf117f8bb725feb2009f3f6bbd7c71e46`}
             showLineNumbers={false}
           />
         </div>
