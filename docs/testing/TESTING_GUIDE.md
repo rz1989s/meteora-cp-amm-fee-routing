@@ -69,7 +69,9 @@ npm install
 **Primary RPC**: Helius Devnet
 - URL: `https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30`
 - Benefits: Faster, more reliable than public Solana devnet RPC
-- Configured in: `Anchor.toml` ([test.validator] section)
+- Configured in: `Anchor.toml` ([test.validator] section), `package.json`, test files, scripts
+
+**⚠️ Security Notice:** This API key is temporary and will be rotated immediately after bounty submission judgment. Public RPC was tested but failed due to rate limits during program cloning. See `CLAUDE.md` and `.env.example` for full security plan and rotation details.
 
 ---
 

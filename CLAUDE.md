@@ -227,8 +227,33 @@ fi
 ### RPC Configuration
 - **Primary RPC**: Helius devnet RPC (authenticated with API key)
 - **URL**: `https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30`
-- **Configured in**: `Anchor.toml` ([test.validator] section)
+- **Configured in**: `Anchor.toml` ([test.validator] section), `package.json`, test files, scripts
 - **Benefits**: Faster, more reliable than public Solana devnet RPC
+
+**⚠️ Security Notice - API Key Rotation Plan:**
+
+The Helius API key is currently hardcoded in multiple files for development convenience and judge accessibility. This is a **temporary measure** with a clear security plan:
+
+**Why Hardcoded:**
+- ✅ Public Solana RPC **tested and failed** (rate limits during program cloning)
+- ✅ Anchor.toml **does not support** environment variables (verified via research)
+- ✅ CP-AMM program cloning requires ~2.6MB bandwidth (public RPC insufficient)
+- ✅ Enables judges/reviewers to test immediately without additional setup
+
+**Security Plan:**
+- 🔐 Key will be **ROTATED IMMEDIATELY** after bounty submission judgment
+- 🔐 Rotation at: https://www.helius.dev/
+- 🔐 New key will be stored in `.env` (gitignored) for future development
+- 🔐 This is a **devnet-only key** with no mainnet access or financial risk
+
+**Files Containing Key:**
+- `Anchor.toml` (line 32)
+- `package.json` (lines 10, 21, 22)
+- `scripts/*.ts` (setup and utility scripts)
+- `tests/devnet-*.ts` (devnet test files)
+- `website/app/admin/page.tsx` (admin dashboard)
+
+See `.env.example` for detailed rotation plan and post-submission setup instructions.
 
 ### Wallet Configuration
 
