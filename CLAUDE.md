@@ -627,6 +627,34 @@ A professional Next.js pitch website has been created at `website/`:
 - **Status**: ✅ Tested and verified (see `docs/website/WEBSITE_TEST_REPORT.md`)
 - **Run locally**: `cd website && npm install && npm run dev`
 
+### Link Checking
+
+**Status**: ✅ All 29 links verified working (internal and external)
+
+**Quick check:**
+```bash
+cd website
+npm run check-links  # Automated check with linkinator
+```
+
+**Manual verification:**
+```bash
+# Extract all links
+grep -r "href=" app/ components/ --include="*.tsx" -h | grep -o 'href="[^"]*"' | sort -u
+
+# Test external link
+curl -I -L https://example.com
+```
+
+**Link inventory:**
+- **Internal links (7)**: All Next.js routes validated
+- **External docs (3)**: Anchor, Meteora, Streamflow docs
+- **GitHub (8)**: Repository, README, source code, documentation
+- **Solscan (7)**: Program, PDAs, wallets, transactions (all devnet)
+- **Social (2)**: Telegram, Twitter/X
+
+**Report**: See `website/LINK_CHECK_REPORT.md` for detailed verification results
+
 ## Repository Structure
 
 ```
