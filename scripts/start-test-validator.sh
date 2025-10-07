@@ -32,7 +32,7 @@ HELIUS_RPC="https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df
 
 # CP-AMM (Meteora Constant Product AMM)
 CP_AMM_PROGRAM="cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG"
-CP_AMM_PROGRAM_DATA="AUh8bm2XsMfex3KjYwnUkeoDjqi4QBbsYGa1v8tJL76ViX"
+CP_AMM_PROGRAM_DATA="AUh8bm2XsMfex3KjYGcM3G4uBqUNSDw6HEhWaWMYnyPH"
 CP_AMM_CONFIG="8CNy9goNQNLM4wtgRw528tUQGMKD3vSuFRZY2gLGLLvF"  # Config account (index 0)
 
 # Streamflow

@@ -37,7 +37,7 @@ url = "https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b
 address = "cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG"  # CP-AMM Program
 
 [[test.validator.clone]]
-address = "AUh8bm2XsMfex3KjYwnUkeoDjqi4QBbsYGa1v8tJL76ViX"  # CP-AMM ProgramData
+address = "AUh8bm2XsMfex3KjYGcM3G4uBqUNSDw6HEhWaWMYnyPH"  # CP-AMM ProgramData
 
 [[test.validator.clone]]
 address = "8CNy9goNQNLM4wtgRw528tUQGMKD3vSuFRZY2gLGLLvF"  # CP-AMM Config (index 0)
