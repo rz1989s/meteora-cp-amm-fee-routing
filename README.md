@@ -5,9 +5,9 @@
 **Permissionless fee distribution for Meteora CP-AMM pools**
 
 [![Anchor](https://img.shields.io/badge/Anchor-0.31.1-blueviolet?logo=anchor)](https://www.anchor-lang.com/)
-[![Tests Local](https://img.shields.io/badge/tests%20(local)-21%2F21%20passing-success?logo=github-actions)](https://github.com/rz1989s/meteora-cp-amm-fee-routing/actions)
+[![Tests Local](https://img.shields.io/badge/tests%20(local)-22%2F22%20passing-success?logo=github-actions)](https://github.com/rz1989s/meteora-cp-amm-fee-routing/actions)
 [![Tests E2E](https://img.shields.io/badge/tests%20(e2e)-13%2F13%20passing-success?logo=github-actions)](https://github.com/rz1989s/meteora-cp-amm-fee-routing/actions)
-[![Tests Devnet](https://img.shields.io/badge/tests%20(devnet)-17%2F17%20passing-success?logo=solana)](https://github.com/rz1989s/meteora-cp-amm-fee-routing/actions)
+[![Tests Devnet](https://img.shields.io/badge/tests%20(devnet)-10%2F10%20passing-success?logo=solana)](https://github.com/rz1989s/meteora-cp-amm-fee-routing/actions)
 [![Build](https://img.shields.io/badge/build-passing%20(371KB)-success?logo=rust)](https://github.com/rz1989s/meteora-cp-amm-fee-routing)
 [![License](https://img.shields.io/badge/license-MIT-green?logo=opensourceinitiative)](LICENSE)
 [![Solana](https://img.shields.io/badge/Solana-compatible-9945FF?logo=solana)](https://solana.com)

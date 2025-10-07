@@ -230,13 +230,71 @@ fi
 - **Configured in**: `Anchor.toml` ([test.validator] section)
 - **Benefits**: Faster, more reliable than public Solana devnet RPC
 
-### Test Wallet
+### Wallet Configuration
+
+**Two wallets are used in this project with distinct purposes:**
+
+#### 1. Test Wallet (User Operations)
+- **Keypair Path**: `~/.config/solana/test-wallet.json`
 - **Address**: `3DvLMt6coQVFUjXfocxPTJg6wdHgNoJiVYUB3vFVSY3h`
-- **Funded**: 2 SOL on devnet (1.9969624 SOL remaining after tests)
-- **Keypair**: `~/.config/solana/test-wallet.json`
-- **Usage**: All devnet tests use this dedicated wallet
+- **Balance**: ~11 SOL on devnet (funded from deployer wallet)
+- **Purpose**: Regular user operations, testing, and development
+
+**When to use `test-wallet.json`:**
+- ✅ Running tests (`npm run test:*`)
+- ✅ Creating test tokens/pools/streams
+- ✅ Interacting with the program as a regular user
+- ✅ Setup scripts (`npm run setup:*`)
+- ✅ Fee distribution operations
+- ✅ Any non-administrative program interactions
+
+**Example usage:**
+```bash
+# Running tests
+ANCHOR_WALLET=~/.config/solana/test-wallet.json npm run test:devnet
+
+# Creating test resources
+ts-node scripts/setup-test-streams.ts  # Uses test-wallet.json internally
+```
+
+#### 2. Deployer Wallet (Administrative Operations)
+- **Keypair Path**: `~/.config/solana/REC-devnet.json`
+- **Address**: `RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b`
+- **Balance**: ~118 SOL on devnet
+- **Purpose**: Program deployment, upgrades, and administrative operations
+
+**When to use `REC-devnet.json`:**
+- ✅ Deploying the program (`anchor deploy`)
+- ✅ Upgrading the program (`anchor upgrade`)
+- ✅ Setting program upgrade authority
+- ✅ Funding the test wallet
+- ✅ Administrative operations requiring program authority
+
+**Example usage:**
+```bash
+# Deploy program to devnet
+ANCHOR_WALLET=~/.config/solana/REC-devnet.json anchor deploy --provider.cluster devnet
+
+# Upgrade program
+ANCHOR_WALLET=~/.config/solana/REC-devnet.json anchor upgrade \
+  --program-id RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP \
+  target/deploy/fee_routing.so \
+  --provider.cluster devnet
+
+# Fund test wallet
+solana transfer --from ~/.config/solana/REC-devnet.json \
+  3DvLMt6coQVFUjXfocxPTJg6wdHgNoJiVYUB3vFVSY3h \
+  10 --url devnet
+```
+
+**Security Best Practice:**
+- Keep `REC-devnet.json` secure (program upgrade authority)
+- Use `test-wallet.json` for day-to-day development
+- Never commit keypair files to git (already in .gitignore)
 
 ### Devnet Deployment
+- **Program ID**: `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP`
+- **Upgrade Authority**: `RECdpxmc8SbnwEbf8iET5Jve6JEfkqMWdrEpkms3P1b` (deployer wallet)
 - **Policy PDA**: `6YyC75eRsssSnHrRFYpRiyoohCQyLqiHDe6CRje69hzt`
 - **Progress PDA**: `9cumYPtnKQmKsVmTeKguv7h3YWspRoMUQeqgAHMFNXxv`
 - **Latest Deployment**: `3tVHXk9yaaDkWGGnHiGWr4QvJ3rojFpSSErujMmbMAQ4SjgFw37ExfUZTgPenxekPKrJo1HX9zugnvJkQMdi9hCW` (Oct 7, 2025 - Verifiable build)

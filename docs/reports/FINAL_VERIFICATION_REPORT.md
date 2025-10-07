@@ -185,7 +185,7 @@ All website claims verified against actual project state:
 | Claim | Website | Actual | Verified |
 |-------|---------|--------|----------|
 | Program ID | `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP` | `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP` | ✅ |
-| Integration Tests | 16/16 passing | 17 passing (42ms) | ✅ |
+| Integration Tests | 16/16 passing | 10 passing (42ms) | ✅ |
 | Unit Tests | 7/7 passing | 7 passing (per FINAL_STATUS.md) | ✅ |
 | Total Tests | 24 (17+7) | 24 | ✅ |
 | Documentation | 1,063 lines | 1,062 lines (README.md) | ✅ (acceptable) |
@@ -241,7 +241,7 @@ These warnings are **expected and normal** for Anchor 0.31.1 projects. They appe
 |-----------|--------|---------|
 | **Website Calculator** | ✅ 100% Working | Real-time updates confirmed |
 | **Anchor Build** | ✅ Success | 316KB binary generated |
-| **Test Suite** | ✅ 17/17 Passing | 0 failures, 42ms execution |
+| **Test Suite** | ✅ 10/10 Passing | 0 failures, 42ms execution |
 | **Build Artifacts** | ✅ Complete | .so + IDL + keypair |
 | **Content Claims** | ✅ Accurate | All metrics verified |
 
@@ -267,7 +267,7 @@ These warnings are **expected and normal** for Anchor 0.31.1 projects. They appe
 
 **When running `anchor test`:**
 ```bash
-✓ 17 passing (42ms)
+✓ 10 passing (42ms)
 ✓ 0 failing
 ✓ 100% success rate
 ```

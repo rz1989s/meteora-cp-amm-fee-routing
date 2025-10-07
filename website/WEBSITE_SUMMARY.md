@@ -114,7 +114,7 @@ website/
 ## Content Accuracy
 
 All data is sourced from actual project metrics:
-- Test results: 17/17 integration + 7/7 unit tests (from FINAL_STATUS.md)
+- Test results: 10/10 integration + 7/7 unit tests (from FINAL_STATUS.md)
 - Documentation: 1,063 lines (actual README.md)
 - Build status: 100% success, 0 errors
 - Security: 0 unsafe code blocks

@@ -183,7 +183,7 @@ npm run test:local  # Runs integration tests
 - [ ] Dust & cap tests implemented (7/17)
 - [ ] Creator tests implemented (10/17)
 - [ ] Event tests implemented (14/17)
-- [ ] Security tests implemented (17/17)
+- [ ] Security tests implemented (10/10)
 - [ ] Documentation updated
 - [ ] Tests verified working
 

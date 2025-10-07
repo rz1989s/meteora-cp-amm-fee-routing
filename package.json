@@ -14,7 +14,9 @@
     "thanks": "./scripts/thanks.sh",
     "setup:local": "ts-node scripts/run-local-setup.ts",
     "setup:pool": "ts-node scripts/setup-test-pool.ts",
-    "setup:streams": "ts-node scripts/setup-test-streams.ts",
+    "setup:streams": "ts-node scripts/setup-test-streams-localhost.ts",
+    "setup:streams:devnet": "ts-node scripts/setup-test-streams.ts",
+    "setup:tokens": "ts-node scripts/setup-test-tokens.ts",
     "build": "anchor build",
     "deploy:devnet": "ANCHOR_WALLET=$HOME/.config/solana/REC-devnet.json anchor deploy --provider.cluster https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30",
     "upgrade:devnet": "ANCHOR_WALLET=$HOME/.config/solana/REC-devnet.json anchor upgrade --program-id RECTGNmLAQ3jBmp4NV2c3RFuKjfJn2SQTnqrWka4wce --provider.cluster https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30 target/deploy/fee_routing.so"
@@ -26,7 +28,7 @@
   },
   "devDependencies": {
     "@meteora-ag/cp-amm-sdk": "^1.1.5",
-    "@streamflow/stream": "^9.0.2",
+    "@streamflow/stream": "^8.9.0",
     "@types/chai": "^4.3.0",
     "@types/mocha": "^10.0.0",
     "chai": "^4.3.0",

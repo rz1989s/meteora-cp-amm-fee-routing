@@ -752,7 +752,7 @@ test result: ok. 7 passed; 0 failed
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
           <div className="bg-slate-800 rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-primary mb-1">21</div>
+            <div className="text-3xl font-bold text-primary mb-1">22</div>
             <div className="text-xs text-slate-400">Local Integration</div>
           </div>
           <div className="bg-slate-800 rounded-lg p-4 text-center">
@@ -760,7 +760,7 @@ test result: ok. 7 passed; 0 failed
             <div className="text-xs text-slate-400">E2E Integration</div>
           </div>
           <div className="bg-slate-800 rounded-lg p-4 text-center">
-            <div className="text-3xl font-bold text-warning mb-1">17</div>
+            <div className="text-3xl font-bold text-warning mb-1">10</div>
             <div className="text-xs text-slate-400">Devnet Tests</div>
           </div>
           <div className="bg-slate-800 rounded-lg p-4 text-center">
@@ -859,15 +859,15 @@ E2E Integration Tests
         </p>
       </div>
 
-      {/* Bundle 3: Devnet Tests (17 = 10 TypeScript + 7 Rust) */}
+      {/* Bundle 3: Devnet Tests (10 TypeScript) */}
       <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
         <h4 className="text-xl font-bold mb-4 text-warning flex items-center gap-2">
           <span className="bg-warning/20 text-warning px-3 py-1 rounded text-sm">Bundle 3</span>
-          Devnet Tests (17 total: 10 TypeScript + 7 Rust)
+          Devnet Tests (10)
         </h4>
         <div className="space-y-4">
           <div>
-            <h5 className="font-semibold mb-2 text-slate-200">TypeScript Devnet Tests (10)</h5>
+            <h5 className="font-semibold mb-2 text-slate-200">Devnet Deployment Verification (10 tests)</h5>
             <CodeBlock
               language="bash"
               code={`$ npm run test:devnet
@@ -890,11 +890,25 @@ Devnet Test Bundle
               showLineNumbers={false}
             />
           </div>
-          <div>
-            <h5 className="font-semibold mb-2 text-slate-200">Rust Unit Tests (7)</h5>
-            <CodeBlock
-              language="bash"
-              code={`$ cargo test --lib
+        </div>
+        <div className="mt-4 p-4 bg-success/10 border border-success/30 rounded-lg">
+          <p className="text-sm text-success flex items-center gap-2">
+            <CheckCircle size={16} />
+            <span className="font-semibold">Live on Devnet:</span>
+            Program <code className="bg-slate-800 px-2 py-0.5 rounded text-xs">RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP</code> verified on Solscan
+          </p>
+        </div>
+      </div>
+
+      {/* Bundle 4: Rust Unit Tests (7) */}
+      <div className="bg-slate-900 border border-slate-700 rounded-xl p-6">
+        <h4 className="text-xl font-bold mb-4 text-success flex items-center gap-2">
+          <span className="bg-success/20 text-success px-3 py-1 rounded text-sm">Bundle 4</span>
+          Rust Unit Tests (7)
+        </h4>
+        <CodeBlock
+          language="bash"
+          code={`$ npm run test:unit
 
 running 7 tests
 test math::tests::test_locked_fraction_calculation ... ok
@@ -906,15 +920,11 @@ test math::tests::test_minimum_threshold ... ok
 test test_id ... ok
 
 test result: ok. 7 passed; 0 failed`}
-              showLineNumbers={false}
-            />
-          </div>
-        </div>
-        <div className="mt-4 p-4 bg-success/10 border border-success/30 rounded-lg">
-          <p className="text-sm text-success flex items-center gap-2">
-            <CheckCircle size={16} />
-            <span className="font-semibold">Live on Devnet:</span>
-            Program <code className="bg-slate-800 px-2 py-0.5 rounded text-xs">RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP</code> verified on Solscan
+          showLineNumbers={false}
+        />
+        <div className="mt-4 p-4 bg-primary/10 border border-primary/30 rounded-lg">
+          <p className="text-sm text-slate-300">
+            <strong className="text-primary">Core Math Validation:</strong> All distribution calculations, caps, thresholds, and edge cases verified at the unit level
           </p>
         </div>
       </div>
@@ -1302,14 +1312,18 @@ solana airdrop 10 $(solana address -k ~/.config/solana/test-wallet.json)
 # Step 4: Deploy to local validator
 anchor deploy --provider.cluster localnet
 
-# Step 5: Run setup scripts (creates Policy, Progress PDAs)
-npm run setup:local`}
+# Step 5: Run setup scripts (creates tokens, pool, mock vesting data)
+npm run setup:local
+# This creates:
+#   ✅ .test-tokens.json (Token A, Token B, 5 funded investor wallets)
+#   ✅ .test-pool.json (Real CP-AMM pool with 100k Token A + 100k Token B)
+#   ✅ .test-streams.json (Mock Streamflow vesting data, 5 investors)`}
                     showLineNumbers={false}
                   />
                   <div className="bg-success/10 border border-success/30 rounded-lg p-3 mt-3">
                     <p className="text-sm text-success flex items-start gap-2">
                       <CheckCircle className="flex-shrink-0 mt-0.5" size={16} />
-                      <span>Expected: Deploy succeeds, setup creates Policy & Progress PDAs on localnet</span>
+                      <span>Expected: All 3 setup steps pass - tokens, pool, and mock vesting streams created</span>
                     </p>
                   </div>
                   <div className="bg-warning/10 border border-warning/30 rounded-lg p-3 mt-2">
