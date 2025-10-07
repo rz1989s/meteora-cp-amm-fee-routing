@@ -854,7 +854,7 @@ E2E Integration Tests
           showLineNumbers={false}
         />
         <p className="text-sm text-slate-400 mt-3 italic">
-          * All tests passing with mock Streamflow data strategy. Tests verify position configuration even when on-chain account doesn't exist.
+          * All tests passing with mock Streamflow data strategy. Tests verify position configuration even when on-chain account doesn&apos;t exist.
         </p>
       </div>
 
@@ -1427,19 +1427,19 @@ npm run test:unit`}
                 <h3 className="text-lg font-bold text-warning mb-3">⚠️ Troubleshooting</h3>
                 <div className="space-y-3 text-sm text-slate-300">
                   <div>
-                    <p className="font-semibold text-warning">Issue: "anchor: command not found"</p>
-                    <p className="ml-4 mt-1">Solution: Run <code className="bg-slate-800 px-2 py-1 rounded">export PATH="$HOME/.avm/bin:$PATH"</code> and retry</p>
+                    <p className="font-semibold text-warning">Issue: &quot;anchor: command not found&quot;</p>
+                    <p className="ml-4 mt-1">Solution: Run <code className="bg-slate-800 px-2 py-1 rounded">export PATH=&quot;$HOME/.avm/bin:$PATH&quot;</code> and retry</p>
                   </div>
                   <div>
                     <p className="font-semibold text-warning">Issue: Tests fail with version mismatch</p>
                     <p className="ml-4 mt-1">Solution: Ensure Anchor 0.31.1 is active with <code className="bg-slate-800 px-2 py-1 rounded">avm use 0.31.1</code></p>
                   </div>
                   <div>
-                    <p className="font-semibold text-warning">Issue: "test-wallet.json: No such file or directory"</p>
+                    <p className="font-semibold text-warning">Issue: &quot;test-wallet.json: No such file or directory&quot;</p>
                     <p className="ml-4 mt-1">Solution: Create the wallet first with <code className="bg-slate-800 px-2 py-1 rounded">solana-keygen new --outfile ~/.config/solana/test-wallet.json</code> or use your own burner wallet path</p>
                   </div>
                   <div>
-                    <p className="font-semibold text-warning">Issue: E2E tests show "pool doesn't exist"</p>
+                    <p className="font-semibold text-warning">Issue: E2E tests show &quot;pool doesn&apos;t exist&quot;</p>
                     <p className="ml-4 mt-1">Solution: This is expected! Tests verify configuration even without on-chain accounts. Still shows 15/15 passing.</p>
                   </div>
                 </div>
