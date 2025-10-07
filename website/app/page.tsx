@@ -223,6 +223,163 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Video Demo Section */}
+      <section className="relative py-20 px-4 overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-slate-900/50 to-background" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+
+        <div className="relative max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-sm font-medium text-primary mb-6">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              Live Test Demo
+            </div>
+
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              Watch All <span className="gradient-text">54 Tests Pass</span>
+            </h2>
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+              Complete walkthrough showing build, deployment, and all test bundles passing in under 3 minutes
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative pt-12 pb-12"
+          >
+            {/* Video Container with Animated Border */}
+            <div className="relative group">
+              {/* Animated gradient border */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-success via-primary to-secondary rounded-2xl opacity-75 group-hover:opacity-100 blur transition-all duration-500 animate-pulse"></div>
+
+              {/* Inner glow effect */}
+              <div className="absolute -inset-2 bg-gradient-to-r from-success/50 via-primary/50 to-secondary/50 rounded-2xl opacity-0 group-hover:opacity-30 blur-xl transition-all duration-500"></div>
+
+              {/* Video wrapper */}
+              <div className="relative bg-slate-950 rounded-2xl overflow-hidden shadow-2xl border border-slate-800">
+                <div className="aspect-video">
+                  <iframe
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/Rh4KqHPAK08?rel=0&modestbranding=1"
+                    title="Meteora CP-AMM Fee Routing - Complete Test Demo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Stats Cards Below Video */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8"
+            >
+              <div className="bg-slate-900/95 backdrop-blur-xl border border-success/50 rounded-xl p-4 shadow-xl hover:scale-105 transition-transform">
+                <div className="flex items-center gap-3">
+                  <div className="bg-success/20 p-2 rounded-lg">
+                    <CheckCircle className="text-success" size={24} />
+                  </div>
+                  <div>
+                    <div className="text-success font-bold text-2xl">371 KB</div>
+                    <div className="text-xs text-slate-300">Optimized Binary</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-slate-900/95 backdrop-blur-xl border border-primary/50 rounded-xl p-4 shadow-xl hover:scale-105 transition-transform">
+                <div className="flex items-center gap-3">
+                  <div className="bg-primary/20 p-2 rounded-lg">
+                    <Zap className="text-primary" size={24} />
+                  </div>
+                  <div>
+                    <div className="text-primary font-bold text-2xl">~3 min</div>
+                    <div className="text-xs text-slate-300">Full Test Suite</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-slate-900/95 backdrop-blur-xl border border-secondary/50 rounded-xl p-4 shadow-xl hover:scale-105 transition-transform">
+                <div className="flex items-center gap-3">
+                  <div className="bg-secondary/20 p-2 rounded-lg">
+                    <Shield className="text-secondary" size={24} />
+                  </div>
+                  <div>
+                    <div className="text-secondary font-bold text-2xl">0 Warnings</div>
+                    <div className="text-xs text-slate-300">Clean Build</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Test Breakdown Grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="grid md:grid-cols-4 gap-4 mt-16"
+            >
+              <div className="bg-slate-900/50 backdrop-blur-sm border border-success/30 rounded-xl p-5 hover:scale-105 transition-transform">
+                <div className="text-success text-3xl font-bold mb-2">22</div>
+                <div className="text-sm font-semibold mb-1">Local Integration</div>
+                <div className="text-xs text-slate-400">Core distribution logic + SDK integration</div>
+              </div>
+
+              <div className="bg-slate-900/50 backdrop-blur-sm border border-primary/30 rounded-xl p-5 hover:scale-105 transition-transform">
+                <div className="text-primary text-3xl font-bold mb-2">15</div>
+                <div className="text-sm font-semibold mb-1">E2E Integration</div>
+                <div className="text-xs text-slate-400">End-to-end with mock Streamflow</div>
+              </div>
+
+              <div className="bg-slate-900/50 backdrop-blur-sm border border-secondary/30 rounded-xl p-5 hover:scale-105 transition-transform">
+                <div className="text-secondary text-3xl font-bold mb-2">10</div>
+                <div className="text-sm font-semibold mb-1">Live Devnet</div>
+                <div className="text-xs text-slate-400">Production deployment verification</div>
+              </div>
+
+              <div className="bg-slate-900/50 backdrop-blur-sm border border-warning/30 rounded-xl p-5 hover:scale-105 transition-transform">
+                <div className="text-warning text-3xl font-bold mb-2">7</div>
+                <div className="text-sm font-semibold mb-1">Rust Unit Tests</div>
+                <div className="text-xs text-slate-400">Mathematical validation</div>
+              </div>
+            </motion.div>
+
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className="text-center mt-12"
+            >
+              <Link
+                href="/testing"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-success via-primary to-secondary rounded-xl font-bold text-lg hover:shadow-2xl hover:shadow-primary/50 transition-all hover:scale-105"
+              >
+                Explore Detailed Test Results
+                <ArrowRight className="ml-2" size={24} />
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Problem/Solution Section */}
       <section className="py-20 px-4 bg-slate-900">
         <div className="max-w-7xl mx-auto">

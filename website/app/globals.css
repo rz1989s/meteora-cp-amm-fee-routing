@@ -8,6 +8,17 @@
   box-sizing: border-box;
 }
 
+/* Remove default focus outline (we'll add custom ones) */
+*:focus {
+  outline: none;
+}
+
+/* Custom focus ring for accessibility (keyboard navigation) */
+*:focus-visible {
+  outline: 2px solid #6366F1;
+  outline-offset: 2px;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   background: #0F172A;

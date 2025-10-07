@@ -72,7 +72,7 @@ export default function TabGroup({ tabs, defaultTab }: TabGroupProps) {
         {showLeftArrow && (
           <button
             onClick={scrollLeft}
-            className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#0F172A] to-transparent z-20 flex items-center justify-center hover:from-slate-800 transition-colors"
+            className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#0F172A] to-transparent z-20 flex items-center justify-center hover:from-slate-800 transition-colors focus:outline-none"
             aria-label="Scroll left"
           >
             <ChevronLeft className="text-primary" size={20} />
@@ -83,7 +83,7 @@ export default function TabGroup({ tabs, defaultTab }: TabGroupProps) {
         {showRightArrow && (
           <button
             onClick={scrollRight}
-            className="absolute right-0 top-0 bottom-0 w-12 md:w-16 bg-gradient-to-l from-[#0F172A] via-[#0F172A]/90 to-transparent z-20 flex items-center justify-center hover:from-slate-800 transition-colors"
+            className="absolute right-0 top-0 bottom-0 w-12 md:w-16 bg-gradient-to-l from-[#0F172A] via-[#0F172A]/90 to-transparent z-20 flex items-center justify-center hover:from-slate-800 transition-colors focus:outline-none"
             aria-label="Scroll right"
           >
             <ChevronRight className="text-primary" size={20} />
@@ -100,7 +100,7 @@ export default function TabGroup({ tabs, defaultTab }: TabGroupProps) {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative px-6 py-3 font-medium transition-colors whitespace-nowrap ${
+                className={`relative px-6 py-3 font-medium transition-colors whitespace-nowrap focus:outline-none ${
                   activeTab === tab.id
                     ? 'text-white'
                     : 'text-slate-400 hover:text-slate-200'
