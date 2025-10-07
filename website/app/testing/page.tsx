@@ -1260,11 +1260,71 @@ anchor build`}
                 </div>
               </div>
 
-              {/* Step 3: Run Tests */}
+              {/* Step 3: Start Local Validator & Deploy */}
               <div className="bg-slate-900/50 rounded-xl p-6 border border-slate-700">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="bg-success/20 text-success rounded-full w-8 h-8 flex items-center justify-center font-bold">
                     3
+                  </div>
+                  <h3 className="text-xl font-bold">Start Local Validator & Deploy Program</h3>
+                </div>
+                <div className="ml-11 space-y-3">
+                  <p className="text-slate-300 mb-3">Set up the local test environment:</p>
+
+                  <div className="bg-primary/10 border border-primary/30 rounded-lg p-4 mb-3">
+                    <p className="text-sm font-semibold text-primary mb-2">📝 Test Wallet Setup</p>
+                    <p className="text-sm text-slate-300 mb-2">
+                      You need a test wallet for local testing. Choose one option:
+                    </p>
+                    <CodeBlock
+                      language="bash"
+                      code={`# Option A: Create a new test wallet (recommended)
+solana-keygen new --outfile ~/.config/solana/test-wallet.json
+
+# Option B: Use your existing burner/test wallet
+# Just make sure it's at ~/.config/solana/test-wallet.json
+# OR update the path in the airdrop command below`}
+                      showLineNumbers={false}
+                    />
+                  </div>
+
+                  <CodeBlock
+                    language="bash"
+                    code={`# Step 1: Start local validator (in a separate terminal)
+npm run localnet
+
+# Step 2: Build and verify binary size
+anchor build && ls -lh target/deploy/fee_routing.so
+
+# Step 3: Fund the test wallet with SOL
+solana airdrop 10 $(solana address -k ~/.config/solana/test-wallet.json)
+
+# Step 4: Deploy to local validator
+anchor deploy --provider.cluster localnet
+
+# Step 5: Run setup scripts (creates Policy, Progress PDAs)
+npm run setup:local`}
+                    showLineNumbers={false}
+                  />
+                  <div className="bg-success/10 border border-success/30 rounded-lg p-3 mt-3">
+                    <p className="text-sm text-success flex items-start gap-2">
+                      <CheckCircle className="flex-shrink-0 mt-0.5" size={16} />
+                      <span>Expected: Deploy succeeds, setup creates Policy & Progress PDAs on localnet</span>
+                    </p>
+                  </div>
+                  <div className="bg-warning/10 border border-warning/30 rounded-lg p-3 mt-2">
+                    <p className="text-sm text-warning">
+                      <strong>Note:</strong> Keep the localnet terminal running while executing tests in Step 4
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Step 4: Run Tests */}
+              <div className="bg-slate-900/50 rounded-xl p-6 border border-slate-700">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="bg-warning/20 text-warning rounded-full w-8 h-8 flex items-center justify-center font-bold">
+                    4
                   </div>
                   <h3 className="text-xl font-bold">Run All Test Bundles</h3>
                 </div>
@@ -1316,11 +1376,11 @@ npm run test:unit`}
                 </div>
               </div>
 
-              {/* Step 4: Verify Devnet Deployment */}
+              {/* Step 5: Verify Devnet Deployment */}
               <div className="bg-slate-900/50 rounded-xl p-6 border border-slate-700">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="bg-warning/20 text-warning rounded-full w-8 h-8 flex items-center justify-center font-bold">
-                    4
+                  <div className="bg-purple-500/20 text-purple-400 rounded-full w-8 h-8 flex items-center justify-center font-bold">
+                    5
                   </div>
                   <h3 className="text-xl font-bold">Verify Live Devnet Deployment (Optional)</h3>
                 </div>
@@ -1360,6 +1420,10 @@ npm run test:unit`}
                   <div>
                     <p className="font-semibold text-warning">Issue: Tests fail with version mismatch</p>
                     <p className="ml-4 mt-1">Solution: Ensure Anchor 0.31.1 is active with <code className="bg-slate-800 px-2 py-1 rounded">avm use 0.31.1</code></p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-warning">Issue: "test-wallet.json: No such file or directory"</p>
+                    <p className="ml-4 mt-1">Solution: Create the wallet first with <code className="bg-slate-800 px-2 py-1 rounded">solana-keygen new --outfile ~/.config/solana/test-wallet.json</code> or use your own burner wallet path</p>
                   </div>
                   <div>
                     <p className="font-semibold text-warning">Issue: E2E tests show "pool doesn't exist"</p>
