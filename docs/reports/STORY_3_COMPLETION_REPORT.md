@@ -297,7 +297,7 @@ const { txId, metadataId } = await streamClient.create({
    - InvalidPageIndex error
    - Quote-only enforcement
 
-4. **Integration Tests**: 17/17 implemented ✅
+4. **Integration Tests**: 10/10 implemented ✅
    - Position initialization (2)
    - Time gate enforcement (1)
    - Distribution logic (2)
@@ -313,7 +313,7 @@ const { txId, metadataId } = await streamClient.create({
 - Program builds: ✅ (371KB binary, 0 warnings)
 - Unit tests pass: ✅ (7/7)
 - Devnet tests pass: ✅ (5/5)
-- Integration tests: ✅ (17/17 implemented)
+- Integration tests: ✅ (10/10 implemented)
 
 ---
 

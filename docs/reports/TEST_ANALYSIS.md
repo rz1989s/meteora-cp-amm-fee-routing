@@ -32,7 +32,7 @@
 
 ### 📊 Test Coverage Summary
 
-**Total Tests**: 17/17 implemented ✅
+**Total Tests**: 10/10 implemented ✅
 - Position initialization: 2 tests
 - Time gate & distribution: 4 tests
 - Dust & caps: 2 tests
@@ -54,7 +54,7 @@
 
 **Current Implementation:**
 - ✅ Program logic: 100% complete
-- ✅ Test scenarios: 17/17 covered
+- ✅ Test scenarios: 10/10 covered
 - ✅ Math verification: 7 unit tests passing
 - ⚠️ **SDK Integration: Stubbed (not executed)**
 

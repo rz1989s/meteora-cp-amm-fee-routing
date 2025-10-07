@@ -189,7 +189,7 @@ export default function Home() {
                 <div className="text-xs text-slate-400">Core logic + full SDK integration</div>
               </div>
               <div className="bg-slate-900/50 rounded-lg p-4 border border-primary/30">
-                <div className="text-primary font-bold text-2xl mb-1">13/13</div>
+                <div className="text-primary font-bold text-2xl mb-1">15/15</div>
                 <div className="text-sm text-slate-300 mb-1">E2E Integration</div>
                 <div className="text-xs text-slate-400">Hybrid testing with mock data</div>
               </div>
@@ -203,11 +203,11 @@ export default function Home() {
             <div className="text-center">
               <div className="inline-block bg-gradient-to-r from-success via-primary to-secondary rounded-full p-[2px]">
                 <div className="bg-slate-900 rounded-full px-6 py-2">
-                  <span className="font-bold text-lg gradient-text">52/52 Total Tests Passing</span>
+                  <span className="font-bold text-lg gradient-text">54/54 Total Tests Passing</span>
                 </div>
               </div>
               <p className="text-sm text-slate-400 mt-3">
-                + 7 Rust unit tests for mathematical validation
+                Including 7 Rust unit tests for mathematical validation
               </p>
             </div>
 

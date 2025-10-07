@@ -587,7 +587,7 @@ export default function AdminDashboard() {
                 </div>
               </div>
               <p className="text-xs text-slate-500 mt-2">
-                Latest upgrade: Oct 5, 2025 (11:38 AM) - Hash verified ✅
+                Latest upgrade: Oct 7, 2025 - Verifiable build ✅
               </p>
               <p className="text-xs text-slate-500">
                 Source code and deployed program are in perfect sync

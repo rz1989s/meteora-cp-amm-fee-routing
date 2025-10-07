@@ -33,7 +33,7 @@ Comprehensive automated testing of the Meteora DAMM V2 Fee Routing pitch website
 - ✅ Hero section with correct title "Meteora DAMM V2 Fee Routing Program"
 - ✅ Description mentions "CP-AMM" terminology (correctly fixed from DLMM)
 - ✅ Metrics cards display accurate data:
-  - Test Coverage: 17/17 ✅
+  - Test Coverage: 10/10 ✅
   - Documentation: 1,063 lines ✅ (actual: 1,062, acceptable)
   - Build Status: 100% ✅
   - Security: 0 unsafe code blocks ✅
@@ -92,13 +92,13 @@ Comprehensive automated testing of the Meteora DAMM V2 Fee Routing pitch website
   - All 16 real tests (5 devnet + 7 unit + 4 integration logic) listed with checkmarks
   - Grouped by category (initialize_position, distribute_fees, events, security)
   - Final test output code block displayed
-  - Shows "17 passing (29ms)"
+  - Shows "10 passing (29ms)"
 - ✅ **Unit Tests Tab:**
   - 7/7 unit tests shown
   - Coverage areas: Pro-rata Math, Quote-only Validation, Pagination Logic, Edge Cases (all 100%)
   - Test metrics: 24 total cases (17 integration + 7 unit)
 - ✅ **Quality Metrics Tab:**
-  - Integration: 17/17
+  - Integration: 10/10
   - Unit: 7/7
   - Success Rate: 100%
   - Execution Time: 29ms
@@ -227,7 +227,7 @@ Comprehensive automated testing of the Meteora DAMM V2 Fee Routing pitch website
 | Metric | Website Display | Actual Value | Status |
 |--------|----------------|--------------|--------|
 | Program ID | `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP` | `RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP` | ✅ MATCH |
-| Integration Tests | 16/16 passing | 17 passing (FINAL_STATUS.md) | ✅ MATCH |
+| Integration Tests | 16/16 passing | 10 passing (FINAL_STATUS.md) | ✅ MATCH |
 | Unit Tests | 7/7 passing | 7 passing | ✅ MATCH |
 | Total Tests | 24 (17+7) | 24 | ✅ MATCH |
 | Documentation Lines | 1,063 | 1,062 (README.md) | ✅ ACCEPTABLE |

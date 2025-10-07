@@ -39,6 +39,9 @@ address = "cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG"  # CP-AMM Program
 [[test.validator.clone]]
 address = "AUh8bm2XsMfex3KjYwnUkeoDjqi4QBbsYGa1v8tJL76ViX"  # CP-AMM ProgramData
 
+[[test.validator.clone]]
+address = "8CNy9goNQNLM4wtgRw528tUQGMKD3vSuFRZY2gLGLLvF"  # CP-AMM Config (index 0)
+
 # Streamflow (program + programData for upgradeable program)
 [[test.validator.clone]]
 address = "strmRqUCoQUgGUan5YhzUZa6KqdzwX5L6FpUxfmKg5m"  # Streamflow Program

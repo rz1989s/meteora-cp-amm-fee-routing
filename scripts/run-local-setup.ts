@@ -57,9 +57,9 @@ const SETUP_STEPS: SetupStep[] = [
   },
   {
     name: "Streams Setup",
-    script: "setup-test-streams.ts",
+    script: "setup-test-streams-localhost.ts",
     required: false,
-    description: "Create Streamflow vesting contracts (requires Streamflow SDK)",
+    description: "Create mock vesting data for localhost testing",
   },
 ];
 

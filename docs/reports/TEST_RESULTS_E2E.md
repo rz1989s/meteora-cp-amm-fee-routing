@@ -10,7 +10,7 @@
 ### Total Test Coverage: 34 Tests
 
 **Breakdown by Category:**
-- ✅ **E2E Integration Tests**: 13/13 passing (2 skipped - expected)
+- ✅ **E2E Integration Tests**: 15/15 passing (2 skipped - expected)
 - ✅ **Local Integration Tests**: 22/22 passing
 - ✅ **Rust Unit Tests**: 7/7 passing (in program code)
 
@@ -20,7 +20,7 @@
 
 **File**: `tests/e2e-integration.ts`  
 **Execution Time**: 60ms  
-**Status**: 13 passing, 2 pending (skipped as designed)
+**Status**: 15 passing, 2 pending (skipped as designed)
 
 ### Test 1: Program Initialization ✅
 - Policy PDA creation and configuration

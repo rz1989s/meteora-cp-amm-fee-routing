@@ -2126,10 +2126,10 @@
     rpc-websockets "^9.0.2"
     superstruct "^2.0.2"
 
-"@streamflow/common@9.0.2":
-  version "9.0.2"
-  resolved "https://registry.npmjs.org/@streamflow/common/-/common-9.0.2.tgz"
-  integrity sha512-2seG2r+286ZA8BTSX0WE3NdTgx6vYqlJmKTpZSWIGMLD1QRYwqPxBAtXNleJO6i8wQZFrWAguJJWG8KbIftU3Q==
+"@streamflow/common@8.9.0":
+  version "8.9.0"
+  resolved "https://registry.npmjs.org/@streamflow/common/-/common-8.9.0.tgz"
+  integrity sha512-U4Pjhd3AEIYnqNS7b43lvLXyo/WDUQC02ij86aAvluEi3AJVkK7RSnAvfrVxsfgIxIqalQDugLQBshDvSa2TIA==
   dependencies:
     "@coral-xyz/borsh" "0.31.1"
     "@solana/buffer-layout" "4.0.1"
@@ -2142,10 +2142,10 @@
     bs58 "5.0.0"
     p-queue "^8.0.1"
 
-"@streamflow/stream@^9.0.2":
-  version "9.0.2"
-  resolved "https://registry.npmjs.org/@streamflow/stream/-/stream-9.0.2.tgz"
-  integrity sha512-Yf7/lZrRxrQsEyRqRJgo6QoUJW8TBJMbTAIqB44CgKH1zpjSfE6/pxAnUU6EZ4pycPZ2hQOcvNy3ZW44ayE+Og==
+"@streamflow/stream@^8.9.0":
+  version "8.9.0"
+  resolved "https://registry.npmjs.org/@streamflow/stream/-/stream-8.9.0.tgz"
+  integrity sha512-odDo0SEVAaJ+xLhbc/map8JsWGCBub32yMJF9O/0ZUz/RSXAR+cCG7M3AJ1dK6rWAT/1j3jw49BMH5Sy0fIM+w==
   dependencies:
     "@coral-xyz/anchor" "^0.31.1"
     "@coral-xyz/borsh" "0.31.1"
@@ -2155,7 +2155,7 @@
     "@solana/spl-token" "0.4.9"
     "@solana/wallet-adapter-base" "0.9.19"
     "@solana/web3.js" "1.95.4"
-    "@streamflow/common" "9.0.2"
+    "@streamflow/common" "8.9.0"
     "@suiet/wallet-kit" "^0.3.3"
     aptos "1.21.0"
     bn.js "5.2.1"

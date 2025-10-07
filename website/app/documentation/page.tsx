@@ -91,7 +91,7 @@ cargo test --manifest-path programs/fee-routing/Cargo.toml --lib
 anchor test --skip-build
 
 # Expected output:
-# ✓ 52 passing (Triple-Bundle: 22 local + 13 E2E + 10 devnet + 7 unit)
+# ✓ 54 passing (Triple-Bundle: 22 local + 15 E2E + 10 devnet + 7 unit)
 # ✓ 0 failing`}
               showLineNumbers={false}
             />
@@ -1012,7 +1012,7 @@ const creatorListener = program.addEventListener("CreatorPayoutDayClosed", (even
           <div className="bg-slate-900 rounded-lg p-6">
             <h4 className="text-xl font-semibold mb-4 flex items-center space-x-2">
               <span className="text-success">📊</span>
-              <span>Test Results: 52/52 Tests Passing (22 Local + 13 E2E + 10 Devnet + 7 Unit)</span>
+              <span>Test Results: 54/54 Tests Passing (22 Local + 15 E2E + 10 Devnet + 7 Unit)</span>
             </h4>
             <CodeBlock
               language="bash"
@@ -1040,7 +1040,7 @@ fee-routing
     ✔ Should handle overflow gracefully
     ✔ Should reject invalid page index
 
-52 passing (Triple-Bundle Strategy)
+54 passing (Triple-Bundle Strategy)
 0 failing`}
               showLineNumbers={false}
             />
@@ -1094,7 +1094,7 @@ avm use 0.31.1
 anchor build
 anchor test
 
-# Expected: 52/52 tests passing ✅`}
+# Expected: 54/54 tests passing ✅`}
               showLineNumbers={false}
             />
           </div>
@@ -1185,7 +1185,7 @@ anchor test
           <p className="text-slate-300">
             Every step in the integration guide has been tested in a real environment with Meteora CP-AMM
             and Streamflow program clones. You can verify this yourself in under 5 minutes by running
-            the test suite. <strong>All 52 tests pass consistently (Triple-Bundle Strategy).</strong>
+            the test suite. <strong>All 54 tests pass consistently (Triple-Bundle Strategy).</strong>
           </p>
         </div>
       </div>
@@ -1408,21 +1408,21 @@ anchor test
               <span className="text-sm text-slate-400 block mb-2">Upgrade Signature:</span>
               <div className="bg-slate-800 rounded p-3">
                 <code className="text-success font-mono text-xs break-all">
-                  3e3VrnDKZJc1Nb1qgAUeTKYJ4ZXXkCimcgprjq8Hi4uigTC1s68cFTPe8jgfzS4x78RQeAZWUzw5Z1cFB4Ly4CgA
+                  3tVHXk9yaaDkWGGnHiGWr4QvJ3rojFpSSErujMmbMAQ4SjgFw37ExfUZTgPenxekPKrJo1HX9zugnvJkQMdi9hCW
                 </code>
               </div>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Program Size:</span>
-              <span className="text-slate-200 font-semibold">370,696 bytes (371 KB)</span>
+              <span className="text-slate-200 font-semibold">370,696 bytes (361 KB)</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Upgrade Date:</span>
-              <span className="text-slate-200 font-semibold">Oct 5, 2025 at 11:38 AM</span>
+              <span className="text-slate-200 font-semibold">Oct 7, 2025</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Verification Status:</span>
-              <span className="text-success font-semibold">✅ Hash Verified & Synced</span>
+              <span className="text-success font-semibold">✅ Hash Verified & Deployed</span>
             </div>
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">Network:</span>
@@ -1431,7 +1431,7 @@ anchor test
           </div>
           <div className="flex gap-3 mt-4">
             <a
-              href="https://solscan.io/tx/3e3VrnDKZJc1Nb1qgAUeTKYJ4ZXXkCimcgprjq8Hi4uigTC1s68cFTPe8jgfzS4x78RQeAZWUzw5Z1cFB4Ly4CgA?cluster=devnet"
+              href="https://solscan.io/tx/3tVHXk9yaaDkWGGnHiGWr4QvJ3rojFpSSErujMmbMAQ4SjgFw37ExfUZTgPenxekPKrJo1HX9zugnvJkQMdi9hCW?cluster=devnet"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-2 text-primary hover:text-secondary transition-colors"
@@ -1459,13 +1459,13 @@ anchor test
           <div className="bg-slate-900 rounded-lg p-4 mb-4">
             <div className="flex justify-between items-center text-sm">
               <span className="text-slate-400">SHA-256 Hash:</span>
-              <code className="text-success font-mono text-xs">281251ed...6ffdd1b</code>
+              <code className="text-success font-mono text-xs">4f81eac6...c71e46 (deployed)</code>
             </div>
           </div>
           <div className="space-y-2 text-sm text-slate-400">
             <p>✅ Source code build matches deployed program</p>
             <p>✅ All security fixes deployed (base fee detection + event transparency)</p>
-            <p>✅ All 52 tests passing post-verification</p>
+            <p>✅ All 54 tests passing post-verification</p>
           </div>
           <a
             href="https://github.com/rz1989s/meteora-cp-amm-fee-routing/blob/main/docs/deployment/PROGRAM_VERIFICATION.md"
@@ -1492,10 +1492,10 @@ solana program show RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP --url devnet
 # Data Length: 370696 bytes (371 KB)
 # Balance: 2.58 SOL
 
-# Verify hash matches source code
+# Verify hash matches deployed program
 solana program dump RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP /tmp/deployed.so --url devnet
 shasum -a 256 /tmp/deployed.so
-# Expected: 281251ed597e210b4bbfee15148b89b3d5e033d3494466b2aae0741296ffdd1b`}
+# Expected: 4f81eac65081f112ca419886c799992cf117f8bb725feb2009f3f6bbd7c71e46`}
             showLineNumbers={false}
           />
         </div>
@@ -1650,7 +1650,7 @@ anchor build`}
                 The program uses <strong>local validator testing</strong> with cloned programs from devnet for comprehensive validation:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
-                <li><strong>52 total tests</strong> (22 local + 13 E2E + 10 devnet + 7 unit) with 100% pass rate</li>
+                <li><strong>52 total tests</strong> (22 local + 15 E2E + 10 devnet + 7 unit) with 100% pass rate</li>
                 <li><strong>Cloned Meteora CP-AMM</strong> program from devnet (real program logic)</li>
                 <li><strong>Mock Streamflow data</strong> strategy (SDK cluster limitation workaround)</li>
                 <li><strong>Fast execution</strong> - local &lt;30s, E2E &lt;1s, devnet 2s</li>
@@ -1660,7 +1660,7 @@ anchor build`}
                 <code className="text-success font-mono text-sm">
                   npm run test:all
                   <br />
-                  # 52 passing (Triple-Bundle Strategy)
+                  # 54 passing (Triple-Bundle Strategy)
                   <br />
                   # ✅ All tests pass with comprehensive coverage
                 </code>

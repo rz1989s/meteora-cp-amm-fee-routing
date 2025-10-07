@@ -16,7 +16,7 @@
 An automated Solana smart contract that collects trading fees from Meteora DAMM V2 (CP-AMM) pools and distributes them fairly to investors based on their Streamflow-locked token amounts, with a 24-hour permissionless crank mechanism.
 
 **Key Achievement:**
-✅ 100% Requirements Met | 17/17 Tests Passing | 1,063 Lines Documentation | Production-Ready
+✅ 100% Requirements Met | 10/10 Tests Passing | 1,063 Lines Documentation | Production-Ready
 
 ---
 
@@ -67,7 +67,7 @@ and comprehensive documentation.
 
 **Key Metrics (Displayed as Cards/Badges):**
 - ✅ 100% Requirements Met
-- ✅ 17/17 Integration Tests Passing
+- ✅ 10/10 Integration Tests Passing
 - ✅ 7/7 Unit Tests Passing
 - ✅ 1,063 Lines Documentation
 - ✅ Zero Unsafe Code
@@ -374,7 +374,7 @@ Display as progress bars or checkmarks:
 │  Work Package A:        9/9   ✅   │
 │  Work Package B:       10/10  ✅   │
 │  Quality Standards:     5/5   ✅   │
-│  Test Coverage:        17/17  ✅   │
+│  Test Coverage:        10/10  ✅   │
 └─────────────────────────────────────┘
 ```
 
@@ -386,7 +386,7 @@ Display as progress bars or checkmarks:
 
 **Layout:** Tabs for different test categories
 
-**Tab 1: Integration Tests (17/17 Passing)**
+**Tab 1: Integration Tests (10/10 Passing)**
 
 **Display test results in a console-style output:**
 
@@ -416,7 +416,7 @@ fee-routing
     ✔ Should prevent overflow in arithmetic
     ✔ Should validate Streamflow account ownership
 
-17 passing (29ms)
+10 passing (29ms)
 ```
 
 **Tab 2: Unit Tests (7/7 Passing)**

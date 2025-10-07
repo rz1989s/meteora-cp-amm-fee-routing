@@ -1,32 +1,26 @@
 /**
- * Setup CP-AMM Pool for Local Validator Testing - REAL IMPLEMENTATION
+ * Setup CP-AMM Pool on Devnet - REAL IMPLEMENTATION
  *
  * Creates:
- * - Meteora CP-AMM pool with Token A (base) + Token B (quote)
+ * - Meteora CP-AMM pool with Token A (base) + Token B (quote) on DEVNET
  * - Adds liquidity: 100,000 Token A + 100,000 Token B
- * - Creates honorary NFT position owned by investor_fee_pos_owner PDA
+ * - Generates honorary NFT position keypair for program PDA
  *
  * Prerequisites:
- * - Local validator running
- * - setup-test-tokens.ts completed (.test-tokens.json exists)
- * - Meteora CP-AMM program cloned/deployed on local validator
+ * - Devnet wallet with sufficient SOL (~5 SOL recommended)
+ * - setup-devnet-tokens.ts completed (or provide existing token mints)
  *
- * Run: ts-node scripts/setup-test-pool.ts
+ * Run: ts-node scripts/setup-devnet-pool.ts
  */
 
 import {
   Connection,
   PublicKey,
   Keypair,
-  Transaction,
   sendAndConfirmTransaction,
-  SystemProgram,
-  LAMPORTS_PER_SOL,
 } from "@solana/web3.js";
 import {
   TOKEN_PROGRAM_ID,
-  getAssociatedTokenAddress,
-  createMint,
 } from "@solana/spl-token";
 import { BN } from "@coral-xyz/anchor";
 import {
@@ -40,15 +34,15 @@ import * as fs from "fs";
 import * as path from "path";
 
 // Configuration
-const LOCALHOST_RPC = "http://127.0.0.1:8899";
+const DEVNET_RPC = "https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30";
 const WALLET_PATH = path.join(process.env.HOME!, ".config/solana/test-wallet.json");
-const TOKENS_CONFIG_FILE = path.join(__dirname, "..", ".test-tokens.json");
-const OUTPUT_FILE = path.join(__dirname, "..", ".test-pool.json");
+const OUTPUT_FILE = path.join(__dirname, "..", ".test-pool-devnet.json");
+const NFT_KEYPAIR_FILE = path.join(__dirname, "..", ".test-position-nft-devnet.json");
 
-// Meteora CP-AMM Program ID (from Anchor.toml)
+// Meteora CP-AMM Program ID (devnet)
 const CP_AMM_PROGRAM_ID = new PublicKey("cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG");
 
-// Our fee-routing program ID
+// Our fee-routing program ID (devnet)
 const FEE_ROUTING_PROGRAM_ID = new PublicKey("RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP");
 
 // Pool configuration
@@ -78,17 +72,7 @@ function section(title: string) {
 }
 
 async function main() {
-  section("🏊 CP-AMM Pool Setup - REAL IMPLEMENTATION");
-
-  // Load token configuration
-  if (!fs.existsSync(TOKENS_CONFIG_FILE)) {
-    console.error(`\n${colors.red}❌ Error: Token configuration not found!${colors.reset}`);
-    console.error(`   Run: ts-node scripts/setup-test-tokens.ts first\n`);
-    process.exit(1);
-  }
-
-  const tokensConfig = JSON.parse(fs.readFileSync(TOKENS_CONFIG_FILE, "utf-8"));
-  log("✅", `Loaded token configuration from ${TOKENS_CONFIG_FILE}`);
+  section("🏊 CP-AMM Pool Setup - DEVNET");
 
   // Load payer wallet
   const payerKeypair = Keypair.fromSecretKey(
@@ -96,47 +80,76 @@ async function main() {
   );
   log("👛", `Payer wallet: ${payerKeypair.publicKey.toBase58()}`);
 
-  // Connect to local validator
-  const connection = new Connection(LOCALHOST_RPC, "confirmed");
+  // Connect to devnet
+  const connection = new Connection(DEVNET_RPC, "confirmed");
 
   try {
     const version = await connection.getVersion();
-    log("✅", `Connected to local validator (version: ${version["solana-core"]})`);
+    log("✅", `Connected to devnet (version: ${version["solana-core"]})`);
   } catch (err) {
-    console.error(`\n${colors.red}❌ Cannot connect to local validator${colors.reset}`);
-    console.error("   Make sure it's running: solana-test-validator\n");
+    console.error(`\n${colors.red}❌ Cannot connect to devnet${colors.reset}`);
+    console.error("   Check your RPC URL and internet connection\n");
     process.exit(1);
+  }
+
+  // Check balance
+  const balance = await connection.getBalance(payerKeypair.publicKey);
+  const balanceSOL = balance / 1_000_000_000;
+  log("💰", `Payer balance: ${balanceSOL.toFixed(4)} SOL`);
+
+  if (balanceSOL < 5.0) {
+    console.warn(`\n${colors.yellow}⚠️  Warning: Low balance${colors.reset}`);
+    console.warn(`   Current: ${balanceSOL.toFixed(4)} SOL`);
+    console.warn(`   Recommended: >= 5 SOL for pool creation + liquidity\n`);
   }
 
   // Check CP-AMM program exists
   const cpAmmInfo = await connection.getAccountInfo(CP_AMM_PROGRAM_ID);
   if (!cpAmmInfo) {
-    console.error(`\n${colors.red}❌ Meteora CP-AMM program not found on local validator!${colors.reset}`);
-    console.error("   The program must be cloned or deployed to localhost.");
-    console.error("   Run: solana-test-validator --clone cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG --url devnet\n");
+    console.error(`\n${colors.red}❌ Meteora CP-AMM program not found on devnet!${colors.reset}`);
+    console.error(`   Program ID: ${CP_AMM_PROGRAM_ID.toBase58()}`);
+    console.error(`   This should not happen on devnet - program may be moved.\n`);
     process.exit(1);
   }
   log("✅", `CP-AMM program found (${cpAmmInfo.data.length} bytes)`);
 
-  section("🔧 Initializing CP-AMM SDK");
+  section("🔧 Loading Token Configuration");
 
-  const tokenAMint = new PublicKey(tokensConfig.tokens.tokenA.mint);
-  const tokenBMint = new PublicKey(tokensConfig.tokens.tokenB.mint);
+  // For now, prompt user to provide token mints
+  // In production, this would load from .test-tokens-devnet.json
+  console.log(`${colors.yellow}⚠️  This script requires token mints to be provided${colors.reset}`);
+  console.log(`   Please run setup-devnet-tokens.ts first, or provide manual inputs\n`);
+
+  // TODO: Load from config file or accept as command line args
+  // For now, using placeholder values - user must update these
+  const tokenAMintAddress = process.env.TOKEN_A_MINT || "";
+  const tokenBMintAddress = process.env.TOKEN_B_MINT || "";
+
+  if (!tokenAMintAddress || !tokenBMintAddress) {
+    console.error(`${colors.red}❌ Token mints not provided!${colors.reset}`);
+    console.error(`\nUsage:\n`);
+    console.error(`  TOKEN_A_MINT=<address> TOKEN_B_MINT=<address> npm run setup:devnet:pool\n`);
+    console.error(`Or create setup-devnet-tokens.ts first to auto-generate tokens.\n`);
+    process.exit(1);
+  }
+
+  const tokenAMint = new PublicKey(tokenAMintAddress);
+  const tokenBMint = new PublicKey(tokenBMintAddress);
 
   log("🪙", `Token A (base): ${tokenAMint.toBase58()}`);
   log("🪙", `Token B (quote): ${tokenBMint.toBase58()}`);
+
+  section("📊 Initializing CP-AMM SDK");
 
   // Initialize CP-AMM SDK
   const cpAmm = new CpAmm(connection);
   log("✅", "CP-AMM SDK initialized");
 
-  section("📊 Deriving Config Address");
-
   // Derive config address (index 0 for permissionless pools)
   const configAddress = deriveConfigAddress(new BN(0));
   log("🔑", `Config address: ${configAddress.toBase58()}`);
 
-  // Try to fetch config state (optional - for logging only)
+  // Try to fetch config state
   let configState;
   try {
     configState = await cpAmm.fetchConfigState(configAddress);
@@ -144,8 +157,6 @@ async function main() {
     log("📝", `  Trade fee BPS: ${configState.tradeFeeNumerator.toNumber()}`);
   } catch (err: any) {
     log("⚠️", `Config fetch failed (continuing anyway)`);
-    log("ℹ️", `  Will use default pool parameters`);
-    // Don't exit - we can create pool without fetching config
   }
 
   section("💰 Calculating Pool Parameters");
@@ -158,7 +169,7 @@ async function main() {
   );
   log("📈", `Initial sqrt price (1:1 ratio): ${initSqrtPrice.toString()}`);
 
-  // Prepare pool creation params (calculates liquidityDelta)
+  // Prepare pool creation params
   const tokenAAmount = new BN(INITIAL_LIQUIDITY_TOKEN_A);
   const tokenBAmount = new BN(INITIAL_LIQUIDITY_TOKEN_B);
 
@@ -213,6 +224,7 @@ async function main() {
         { skipPreflight: false }
       );
       log("✅", `Pool created! Transaction: ${txId}`);
+      log("🔗", `View on Solscan: https://solscan.io/tx/${txId}?cluster=devnet`);
     } catch (err: any) {
       console.error(`\n${colors.red}❌ Failed to create pool${colors.reset}`);
       console.error(`   Error: ${err.message}`);
@@ -238,15 +250,14 @@ async function main() {
   log("🔑", `Investor Fee Position Owner PDA: ${investorFeePosOwner.toBase58()}`);
   log("🔑", `Bump: ${posOwnerBump}`);
 
-  // Generate NFT mint address for the honorary position (to be created by program)
+  // Generate NFT mint address for the honorary position
   const honoraryPositionNftMint = Keypair.generate();
   log("🎫", `Honorary Position NFT mint (for program): ${honoraryPositionNftMint.publicKey.toBase58()}`);
   log("💾", `Saving keypair for later use by initialize_position instruction`);
 
   // Save the NFT keypair for later use
-  const nftKeypairPath = path.join(__dirname, "..", ".test-position-nft.json");
   fs.writeFileSync(
-    nftKeypairPath,
+    NFT_KEYPAIR_FILE,
     JSON.stringify(Array.from(honoraryPositionNftMint.secretKey))
   );
 
@@ -270,16 +281,22 @@ async function main() {
 
   // Save complete configuration
   const config = {
-    network: "localhost",
-    rpc: LOCALHOST_RPC,
+    network: "devnet",
+    rpc: DEVNET_RPC,
     cpAmmProgramId: CP_AMM_PROGRAM_ID.toBase58(),
     feeRoutingProgramId: FEE_ROUTING_PROGRAM_ID.toBase58(),
     config: {
       address: configAddress.toBase58(),
     },
     tokens: {
-      tokenA: tokensConfig.tokens.tokenA,
-      tokenB: tokensConfig.tokens.tokenB,
+      tokenA: {
+        mint: tokenAMint.toBase58(),
+        decimals: 9,
+      },
+      tokenB: {
+        mint: tokenBMint.toBase58(),
+        decimals: 6,
+      },
     },
     pool: {
       address: poolAddress.toBase58(),
@@ -293,7 +310,7 @@ async function main() {
       owner: investorFeePosOwner.toBase58(),
       ownerBump: posOwnerBump,
       nftMint: honoraryPositionNftMint.publicKey.toBase58(),
-      nftKeypairFile: ".test-position-nft.json",
+      nftKeypairFile: NFT_KEYPAIR_FILE,
       address: honoraryPositionAddress.toBase58(),
       status: "NFT keypair saved - use initialize_position instruction to create",
     },
@@ -302,7 +319,7 @@ async function main() {
       tokenB: INITIAL_LIQUIDITY_TOKEN_B,
       priceRatio: PRICE_RATIO,
     },
-    status: "COMPLETE - Pool created, position NFT ready",
+    status: "COMPLETE - Pool created on devnet, position NFT ready",
     timestamp: new Date().toISOString(),
   };
 
@@ -314,6 +331,7 @@ async function main() {
   console.log(`
 ${colors.bright}Pool Details:${colors.reset}
   Address:    ${poolAddress.toBase58()}
+  Network:    Devnet
   Token A:    ${tokenAMint.toBase58()}
   Token B:    ${tokenBMint.toBase58()}
   Liquidity:  ${INITIAL_LIQUIDITY_TOKEN_A / 1e9} Token A + ${INITIAL_LIQUIDITY_TOKEN_B / 1e6} Token B
@@ -322,12 +340,16 @@ ${colors.bright}Pool Details:${colors.reset}
 ${colors.bright}Honorary Position (Ready for Creation):${colors.reset}
   Owner PDA:     ${investorFeePosOwner.toBase58()}
   NFT Mint:      ${honoraryPositionNftMint.publicKey.toBase58()}
-  NFT Keypair:   .test-position-nft.json ${colors.dim}(saved)${colors.reset}
+  NFT Keypair:   ${NFT_KEYPAIR_FILE} ${colors.dim}(saved)${colors.reset}
   Position Addr: ${honoraryPositionAddress.toBase58()} ${colors.dim}(derived)${colors.reset}
 
-${colors.green}✅ Pool setup complete!${colors.reset}
+${colors.bright}Verification:${colors.reset}
+  View pool:     https://solscan.io/account/${poolAddress.toBase58()}?cluster=devnet
+  View config:   .test-pool-devnet.json
+
+${colors.green}✅ Devnet pool setup complete!${colors.reset}
 ${colors.yellow}📝 Next: Use fee-routing program's initialize_position to create PDA-owned position${colors.reset}
-${colors.cyan}📝 Then: Run setup-test-streams-localhost.ts to create mock vesting data${colors.reset}
+${colors.cyan}📝 Then: Run setup:streams:devnet to create real vesting contracts${colors.reset}
   `);
 }
 
