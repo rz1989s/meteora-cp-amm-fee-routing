@@ -6,8 +6,8 @@ const __dirname = path.dirname(__filename);
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Silence workspace root inference warning in monorepo
-  outputFileTracingRoot: path.join(__dirname, '../../'),
+  // Point to monorepo root for proper file tracing
+  outputFileTracingRoot: path.join(__dirname, '../'),
 };
 
 export default nextConfig;
