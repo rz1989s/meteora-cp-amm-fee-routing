@@ -16,3 +16,5 @@ keys/
 .playwright-mcp/
 .test-streams.json
 .test-tokens.json
+.test-pool.json
+.test-position-nft.json
