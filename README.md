@@ -18,6 +18,16 @@
 
 </div>
 
+## Bounty Outcome
+
+> **Note:** This project was submitted for the [Superteam Bounty](https://earn.superteam.fun/listing/build-permissionless-fee-routing-anchor-program-for-meteora-dlmm-v2) ($7,500 USDC) but did not win. The winner was [L0STE/star-bounty](https://github.com/L0STE/star-bounty).
+>
+> **Key difference:** The winning solution creates the Meteora pool with `collect_fee_mode: OnlyB` at initialization, providing quote-only enforcement at the protocol level. Our approach integrates with existing pools and validates their configuration. Both are valid approaches, but the winning solution was more self-contained.
+>
+> This codebase remains a production-ready implementation with comprehensive testing, documentation, and a deployed devnet program.
+
+---
+
 ## 📊 Project Stats
 
 <table>
