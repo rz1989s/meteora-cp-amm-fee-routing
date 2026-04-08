@@ -9,7 +9,7 @@ const PROGRESS_SEED = "progress";
 async function main() {
   // Configure provider with Helius RPC
   const connection = new anchor.web3.Connection(
-    "https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30",
+    `https://devnet.helius-rpc.com/?api-key=${process.env.HELIUS_API_KEY}`,
     "confirmed"
   );
 

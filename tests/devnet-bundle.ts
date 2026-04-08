@@ -19,7 +19,7 @@ import { FeeRouting } from "../target/types/fee_routing";
 
 describe("Devnet Test Bundle", () => {
   // Connect to devnet
-  const connection = new Connection("https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30", "confirmed");
+  const connection = new Connection(`https://devnet.helius-rpc.com/?api-key=${process.env.HELIUS_API_KEY}`, "confirmed");
 
   const programId = new PublicKey("RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP");
   const deployerWallet = anchor.AnchorProvider.env().wallet;

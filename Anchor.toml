@@ -29,7 +29,7 @@ startup_wait = 10000
 shutdown_wait = 2000
 
 [test.validator]
-url = "https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30"
+url = "https://devnet.helius-rpc.com/?api-key=<HELIUS_API_KEY>"
 
 # Clone external programs from devnet for local testing
 # Meteora CP-AMM (program + programData for upgradeable program)

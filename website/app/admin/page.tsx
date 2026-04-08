@@ -7,7 +7,7 @@ import { Activity, Database, Clock, TrendingUp, AlertCircle, CheckCircle2, Exter
 
 // Program constants
 const PROGRAM_ID = new PublicKey('RECtHTwPBpZpFWUS4Cv7xt2qkzarmKP939MSrGdB3WP');
-const DEVNET_RPC = 'https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30';
+const DEVNET_RPC = `https://devnet.helius-rpc.com/?api-key=${process.env.HELIUS_API_KEY}`;
 
 // PDA addresses from devnet deployment
 const POLICY_PDA = new PublicKey('6YyC75eRsssSnHrRFYpRiyoohCQyLqiHDe6CRje69hzt');

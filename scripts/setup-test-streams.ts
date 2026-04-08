@@ -22,7 +22,7 @@ import * as path from "path";
 import { BN } from "@coral-xyz/anchor";
 
 // Configuration
-const DEVNET_RPC = "https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30";
+const DEVNET_RPC = `https://devnet.helius-rpc.com/?api-key=${process.env.HELIUS_API_KEY}`;
 const WALLET_PATH = path.join(process.env.HOME!, ".config/solana/test-wallet.json");
 const OUTPUT_FILE = path.join(__dirname, "..", ".test-streams.json");
 

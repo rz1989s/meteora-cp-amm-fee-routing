@@ -228,7 +228,7 @@ fi
 
 ### RPC Configuration
 - **Primary RPC**: Helius devnet RPC (authenticated with API key)
-- **URL**: `https://devnet.helius-rpc.com/?api-key=142fb48a-aa24-4083-99c8-249df5400b30`
+- **URL**: `https://devnet.helius-rpc.com/?api-key=<your-helius-api-key>`
 - **Configured in**: `Anchor.toml` ([test.validator] section), `package.json`, test files, scripts
 - **Benefits**: Faster, more reliable than public Solana devnet RPC
 
